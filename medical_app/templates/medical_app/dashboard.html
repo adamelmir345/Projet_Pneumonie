@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedAI - Plateforme Pneumonie</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --primary-gradient: linear-gradient(135deg, #0d6efd 0%, #00d2ff 100%);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(210, 100%, 93%, 1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(190, 100%, 93%, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(220, 100%, 93%, 1) 0, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .table-custom {
+            margin-bottom: 0;
+        }
+
+        .table-custom th {
+            background: transparent;
+            border-bottom: 2px solid #e2e8f0;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            padding: 1.2rem 1rem;
+        }
+
+        .table-custom td {
+            vertical-align: middle;
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .table-custom tbody tr {
+            transition: all 0.2s ease;
+        }
+        
+        .table-custom tbody tr:hover {
+            background-color: rgba(248, 250, 252, 0.8);
+            transform: scale(1.005);
+        }
+
+        .radio-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .radio-img:hover {
+            transform: scale(2);
+            z-index: 10;
+            position: relative;
+        }
+
+        .btn-gradient {
+            background: var(--primary-gradient);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
+            color: white;
+        }
+
+        .badge-pneumonie {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 0.5em 1em;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-normal {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 0.5em 1em;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .confidence-bar {
+            height: 6px;
+            border-radius: 10px;
+            background: #e2e8f0;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light pt-4 pb-4">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'dashboard' %}">
+                <i class="bi bi-lungs-fill me-2 fs-2 text-primary"></i>
+                MedAI PneumoScanner
+            </a>
+            <div class="d-flex gap-3">
+                <a href="{% url 'ajouter_patient' %}" class="btn btn-outline-primary d-flex align-items-center gap-2" style="border-radius: 50px; font-weight: 600; padding: 0.6rem 1.5rem; border-width: 2px;">
+                    <i class="bi bi-person-plus-fill"></i> Ajouter un patient
+                </a>
+                <a href="{% url 'upload_radiographie' %}" class="btn btn-gradient d-flex align-items-center gap-2">
+                    <i class="bi bi-cloud-arrow-up-fill"></i> Analyser une radio
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4 mb-5">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">Tableau de bord</h2>
+                <p class="text-muted mb-0">Historique des analyses et diagnostics IA</p>
+            </div>
+        </div>
+
+        <div class="glass-card overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-custom">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Radiographie</th>
+                            <th>Date d'analyse</th>
+                            <th>Diagnostic IA</th>
+                            <th>Indice de confiance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for radio in radiographies %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; font-weight: bold;">
+                                        {{ radio.patient.nom|first|upper }}
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">{{ radio.patient.nom }} {{ radio.patient.prenom }}</div>
+                                        <small class="text-muted">ID: #{{ radio.patient.id }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {% if radio.image %}
+                                    <img src="{{ radio.image.url }}" alt="Radio" class="radio-img">
+                                {% else %}
+                                    <div class="text-muted fst-italic">Aucune image</div>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="fw-semibold">{{ radio.date_upload|date:"d M Y" }}</div>
+                                <small class="text-muted">{{ radio.date_upload|date:"H:i" }}</small>
+                            </td>
+                            <td>
+                                {% if radio.classe_predite == 'Pneumonie' %}
+                                    <span class="badge-pneumonie"><i class="bi bi-exclamation-circle-fill me-1"></i> Pneumonie</span>
+                                {% else %}
+                                    <span class="badge-normal"><i class="bi bi-check-circle-fill me-1"></i> Normal</span>
+                                {% endif %}
+                            </td>
+                            <td style="min-width: 150px;">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fw-bold">{{ radio.pourcentage_confiance|floatformat:1 }}%</span>
+                                </div>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill {% if radio.classe_predite == 'Pneumonie' %}bg-danger{% else %}bg-success{% endif %}" style="width: {{ radio.pourcentage_confiance }}%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                <div class="text-muted mb-3"><i class="bi bi-inbox fs-1" style="opacity: 0.5;"></i></div>
+                                <h5>Aucune radiographie analysée</h5>
+                                <p class="text-muted">Commencez par ajouter une nouvelle radiographie pour voir les résultats ici.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
