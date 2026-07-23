@@ -1,362 +1,373 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedAI - Plateforme Pneumonie</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <style>
-        :root {
-            --primary-color: #00a1d6;
-            --primary-gradient: linear-gradient(135deg, #005b8f 0%, #00a1d6 100%);
-            --background: #ffffff;
-            --card: #ffffff;
-            --border: #e2e8f0;
-            --primary: #0f172a;
-            --muted: #64748b;
-            --ring: #94a3b8;
-        }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fafafa;
-            color: var(--primary);
-            min-height: 100vh;
-        }
-
-        .navbar {
-            background-color: white;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 2rem;
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary) !important;
-            font-size: 1.25rem;
-            letter-spacing: -0.025em;
-        }
-
-        .btn-shadcn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            height: 2.25rem;
-            padding: 0 1rem;
-            transition: all 0.2s;
-            border: 1px solid var(--border);
-            background-color: white;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .btn-shadcn:hover {
-            background-color: #f1f5f9;
-            color: var(--primary);
-        }
-        
-        .btn-shadcn-primary {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-        }
-        
-        .btn-shadcn-primary:hover {
-            background-color: #334155;
-            color: white;
-        }
-
-        .shadcn-table-wrapper {
-            border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            background-color: white;
-            overflow: hidden;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .table-custom {
-            margin-bottom: 0;
-            width: 100%;
-        }
-
-        .table-custom th {
-            background-color: white;
-            color: var(--muted);
-            font-weight: 500;
-            font-size: 0.875rem;
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .table-custom td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: middle;
-            font-size: 0.875rem;
-            color: var(--primary);
-        }
-
-        .table-custom tr:last-child td {
-            border-bottom: none;
-        }
-
-        .table-custom tbody tr:hover {
-            background-color: #f8fafc;
-        }
-
-        /* Toolbar styles */
-        .shadcn-toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            gap: 1rem;
-        }
-
-        .shadcn-input {
-            height: 2.25rem;
-            border-radius: 0.375rem;
-            border: 1px solid var(--border);
-            padding: 0.5rem 0.75rem;
-            font-size: 0.875rem;
-            width: 300px;
-            transition: all 0.2s;
-        }
-
-        .shadcn-input:focus {
-            outline: none;
-            border-color: var(--ring);
-            box-shadow: 0 0 0 2px white, 0 0 0 4px var(--ring);
-        }
-
-        /* Images and badges */
-        .radio-img {
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            border-radius: 0.375rem;
-            border: 1px solid var(--border);
-            transition: transform 0.2s ease;
-        }
-
-        .radio-img:hover {
-            transform: scale(3);
-            z-index: 50;
-            position: relative;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .badge-status {
-            display: inline-flex;
-            align-items: center;
-            border-radius: 9999px;
-            padding: 0.125rem 0.625rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .badge-status.pneumonie {
-            background-color: #fef2f2;
-            color: #ef4444;
-            border: 1px solid #fca5a5;
-        }
-
-        .badge-status.normal {
-            background-color: #f0fdf4;
-            color: #22c55e;
-            border: 1px solid #86efac;
-        }
-
-        .no-results-row td {
-            text-align: center;
-            color: var(--muted);
-            padding: 2rem !important;
-        }
-
-        .action-select {
-            font-size: 0.8rem;
-            padding: 0.25rem 1.5rem 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            border: 1px solid var(--border);
-        }
-    </style>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'dashboard' %}">
-                <i class="bi bi-lungs-fill me-2 text-primary"></i>
-                MedAI
-            </a>
-            <div class="d-flex gap-2">
-                <a href="{% url 'ajouter_patient' %}" class="btn-shadcn">
-                    <i class="bi bi-person-plus me-2"></i> Ajouter
-                </a>
-                <a href="{% url 'upload_radiographie' %}" class="btn-shadcn btn-shadcn-primary">
-                    <i class="bi bi-cloud-upload me-2"></i> Analyser
-                </a>
-                <form method="post" action="{% url 'logout' %}" class="d-inline m-0">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-shadcn" style="color: #ef4444; border-color: #fca5a5; background-color: #fef2f2;">
-                        <i class="bi bi-box-arrow-right"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container mb-5">
-        
-        <div class="shadcn-toolbar">
-            <div class="d-flex gap-2">
-                <input type="text" id="patientSearch" class="shadcn-input" placeholder="Filter by patient name...">
-                <select id="statusFilter" class="btn-shadcn text-muted" style="cursor: pointer;">
-                    <option value="all">🔍 All Statuses</option>
-                    <option value="pneumonie">🔴 Pneumonie</option>
-                    <option value="normal">🟢 Normal</option>
-                </select>
-            </div>
-            <div>
-                <button class="btn-shadcn text-muted">
-                    <i class="bi bi-layout-three-columns me-2"></i> Columns
-                </button>
-            </div>
-        </div>
-
-        <div class="shadcn-table-wrapper">
-            <table class="table-custom" id="dataTable">
-                <thead>
-                    <tr>
-                        <th>Patient</th>
-                        <th>Radiographie</th>
-                        <th>Date</th>
-                        <th>Diagnostic IA</th>
-                        <th>Confiance</th>
-                        <th>Validation</th>
-                        <th class="text-end">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for radio in radiographies %}
-                    <tr class="data-row" data-status="{% if radio.classe_predite == 'Pneumonie' %}pneumonie{% else %}normal{% endif %}">
-                        <td class="fw-medium patient-name">
-                            <a href="{% url 'patient_detail' radio.patient.id %}" class="text-decoration-none text-dark">
-                                {{ radio.patient.nom }} {{ radio.patient.prenom }}
-                            </a>
-                        </td>
-                        <td>
-                            {% if radio.image %}
-                                <div class="d-flex gap-2 align-items-center">
-                                    <a href="{{ radio.image.url }}" target="_blank">
-                                        <img src="{{ radio.image.url }}" alt="Radio" class="radio-img">
-                                    </a>
-                                    {% if radio.heatmap_image %}
-                                    <a href="{{ radio.heatmap_image.url }}" target="_blank" class="position-relative">
-                                        <img src="{{ radio.heatmap_image.url }}" alt="Grad-CAM" class="radio-img" style="border-color: #fca5a5;">
-                                        <span class="position-absolute bottom-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.4rem; padding: 0.2rem;">🔥</span>
-                                    </a>
-                                    {% endif %}
-                                </div>
-                            {% else %}
-                                <span class="text-muted fst-italic small">Aucune image</span>
-                            {% endif %}
-                        </td>
-                        <td class="text-muted">
-                            {{ radio.date_upload|date:"Y-m-d" }}
-                        </td>
-                        <td>
-                            {% if radio.classe_predite == 'Pneumonie' %}
-                                <span class="badge-status pneumonie">Pneumonie</span>
-                            {% else %}
-                                <span class="badge-status normal">Normal</span>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {{ radio.pourcentage_confiance|floatformat:1 }}%
-                        </td>
-                        <td>
-                            {% if radio.validation_medecin == 'En attente' %}
-                                <form method="post" action="{% url 'valider_radio' radio.id %}" class="d-flex gap-1 align-items-center m-0">
-                                    {% csrf_token %}
-                                    <select name="validation" class="form-select action-select" onchange="this.form.submit()">
-                                        <option value="">En attente...</option>
-                                        <option value="Confirmé">Confirmer IA</option>
-                                        <option value="Corrigé (Normal)">Corriger: Normal</option>
-                                        <option value="Corrigé (Pneumonie)">Corriger: Pneumo.</option>
-                                    </select>
-                                </form>
-                            {% else %}
-                                <span class="text-muted small"><i class="bi bi-check2-circle me-1"></i>{{ radio.validation_medecin }}</span>
-                            {% endif %}
-                        </td>
-                        <td class="text-end">
-                            <a href="{% url 'generer_rapport_pdf' radio.id %}" target="_blank" class="btn-shadcn py-0" style="height: 2rem; padding: 0 0.5rem;" title="Télécharger PDF">
-                                <i class="bi bi-file-pdf text-muted"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr class="no-results-row">
-                        <td colspan="7">No results.</td>
-                    </tr>
-                    {% endfor %}
-                    <!-- Always add a no results row hidden by default for search -->
-                    <tr class="no-results-row d-none" id="noResultsRow">
-                        <td colspan="7">No results found for your search.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <!-- Simple JS for the filter -->
-    <script>
-        const searchInput = document.getElementById('patientSearch');
-        const statusFilter = document.getElementById('statusFilter');
-
-        function filterTable() {
-            let nameQuery = searchInput.value.toLowerCase();
-            let selectedStatus = statusFilter.value;
-            let rows = document.querySelectorAll('.data-row');
-            let visibleCount = 0;
-            
-            rows.forEach(row => {
-                let nameText = row.querySelector('.patient-name').textContent.toLowerCase();
-                let rowStatus = row.getAttribute('data-status');
-                
-                let matchesName = nameText.includes(nameQuery);
-                let matchesStatus = (selectedStatus === 'all' || rowStatus === selectedStatus);
-
-                if (matchesName && matchesStatus) {
-                    row.style.display = '';
-                    visibleCount++;
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-
-            let noResultsRow = document.getElementById('noResultsRow');
-            if(noResultsRow) {
-                if (visibleCount === 0 && rows.length > 0) {
-                    noResultsRow.classList.remove('d-none');
-                } else {
-                    noResultsRow.classList.add('d-none');
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedAI Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#434653",
+                        "secondary-container": "#d0e1fb",
+                        "inverse-on-surface": "#f0f0f9",
+                        "surface-bright": "#faf8ff",
+                        "on-primary-fixed-variant": "#00419c",
+                        "surface": "#faf8ff",
+                        "primary-fixed": "#d9e2ff",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-tertiary-container": "#ffc0a7",
+                        "background": "#faf8ff",
+                        "tertiary-container": "#993900",
+                        "outline": "#737784",
+                        "on-secondary-container": "#54647a",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e1e2eb",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-tint": "#1d59c1",
+                        "primary": "#003c90",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-container": "#ededf6",
+                        "on-tertiary-fixed": "#360f00",
+                        "outline-variant": "#c3c6d5",
+                        "on-primary-container": "#bcceff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "surface-variant": "#e1e2eb",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "surface-container-high": "#e7e7f1",
+                        "primary-container": "#0f52ba",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#001945",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-container-low": "#f3f3fc",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e3037",
+                        "tertiary": "#732900",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191b22",
+                        "inverse-primary": "#b0c6ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-dim": "#d9d9e2",
+                        "secondary": "#505f76",
+                        "on-surface": "#191b22"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "base": "4px",
+                        "gutter": "24px",
+                        "row-height-md": "64px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "data-tabular": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-tabular": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
                 }
             }
         }
-
-        searchInput.addEventListener('keyup', filterTable);
-        statusFilter.addEventListener('change', filterTable);
     </script>
-</body>
-</html>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-surface to-secondary-container/20 text-on-surface h-screen flex overflow-hidden relative">
+<!-- Organic Background Blobs -->
+<div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[100px]"></div>
+<div class="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-tertiary/5 blur-[120px]"></div>
+<div class="absolute top-[30%] right-[20%] w-[25%] h-[25%] rounded-full bg-secondary-fixed/30 blur-[80px]"></div>
+</div>
+
+<!-- Sidebar Navigation -->
+<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
+<div class="px-6 mb-10 mt-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md">{{ user.username|make_list|first|upper }}</div>
+<div>
+<div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div>
+<div class="font-body-md text-on-surface-variant text-xs opacity-80">Radiologie</div>
+</div>
+</div>
+<div class="px-4 space-y-2 flex-1">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 transition-all font-label-md relative" href="{% url 'dashboard' %}">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-primary rounded-r-full"></div>
+<span class="material-symbols-outlined text-primary">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}">
+<span class="material-symbols-outlined opacity-70">groups</span>
+                Patients
+            </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}">
+<span class="material-symbols-outlined opacity-70">psychology</span>
+                Analyses
+            </a>
+</div>
+<div class="px-4 pb-6">
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full">
+<span class="material-symbols-outlined opacity-70">logout</span>
+                Déconnexion
+    </button>
+</form>
+</div>
+</nav>
+
+<!-- Main Content -->
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
+<header class="flex justify-between items-center w-full px-margin-desktop h-[88px] flex-shrink-0">
+<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white/60 backdrop-blur-md px-5 py-2.5 rounded-[1.5rem] shadow-sm border border-white/50">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+                MedAI
+            </div>
+<div class="flex items-center gap-4">
+<a href="{% url 'upload_radiographie' %}" class="flex items-center gap-2 px-6 py-2.5 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg hover:shadow-primary/20 transition-all h-11 border border-primary/20">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+                    Analyser
+                </a>
+<form method="post" action="{% url 'logout' %}" class="inline">
+    {% csrf_token %}
+    <button type="submit" class="w-11 h-11 text-on-surface-variant bg-white/80 backdrop-blur-md hover:bg-red-50 hover:text-red-600 rounded-[1.25rem] transition-all flex items-center justify-center ml-2 border border-white/50 shadow-sm">
+<span class="material-symbols-outlined">logout</span>
+    </button>
+</form>
+</div>
+</header>
+
+<main class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop pb-12 pt-2">
+<div class="max-w-[1440px] mx-auto space-y-8">
+
+<!-- Filters -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div class="flex flex-1 w-full md:max-w-md gap-4">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/70">search</span>
+<input id="patientSearch" class="w-full pl-12 pr-4 py-2.5 bg-white/60 backdrop-blur-md border border-white rounded-[1.25rem] font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white h-12 shadow-[0_4px_15px_rgb(0,0,0,0.02)] transition-all" placeholder="Filtrer par nom du patient..." type="text"/>
+</div>
+<div class="relative">
+<select id="statusFilter" class="appearance-none bg-white/60 backdrop-blur-md border border-white text-on-surface font-body-md rounded-[1.25rem] pl-5 pr-11 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white h-12 shadow-[0_4px_15px_rgb(0,0,0,0.02)] transition-all min-w-[150px]">
+<option value="all">Tous les statuts</option>
+<option value="normal">Normal</option>
+<option value="pneumonie">Pneumonie</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/70 pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Total Analyses -->
+<div class="bg-white/70 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="text-on-surface-variant font-label-md flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-primary">analytics</span></div>
+                                Analyses Totales
+                            </div>
+<div class="text-on-surface font-headline-lg mt-1">{{ total_analyses }}</div>
+</div>
+<!-- Cas Critiques -->
+<div class="bg-gradient-to-br from-error-container/80 to-error-container/40 backdrop-blur-xl p-6 rounded-[2rem] border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-error/10 rounded-full blur-2xl"></div>
+<div class="text-error font-label-md flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-error/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">warning</span></div>
+                                Cas Pneumonie
+                            </div>
+<div class="text-error font-headline-lg flex items-baseline gap-2 mt-1">
+                                {{ cas_pneumonie }} <span class="text-sm font-body-md opacity-80">total ({{ cas_critiques_today }} aujourd'hui)</span>
+</div>
+</div>
+<!-- Précision IA -->
+<div class="bg-white/70 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-green-500/5 rounded-full blur-2xl group-hover:bg-green-500/10 transition-colors"></div>
+<div class="text-on-surface-variant font-label-md flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-green-600">check_circle</span></div>
+                                Confiance Moyenne IA
+                            </div>
+<div class="text-on-surface font-headline-lg mt-1">{{ avg_confiance|floatformat:1 }}%</div>
+</div>
+<!-- Total Patients -->
+<div class="bg-white/70 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition-colors"></div>
+<div class="text-on-surface-variant font-label-md flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-purple-600">groups</span></div>
+                                Patients Enregistrés
+                            </div>
+<div class="text-on-surface font-headline-lg mt-1">{{ total_patients }}</div>
+</div>
+</div>
+
+<!-- Analyses Récentes (Dynamic from DB) -->
+<div class="space-y-4">
+<div class="flex justify-between items-end mb-2 px-2">
+<h3 class="text-on-surface font-headline-md">Analyses Récentes</h3>
+</div>
+
+{% for radio in radiographies %}
+<div class="data-row bg-white/70 backdrop-blur-xl rounded-[2rem] p-5 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all flex flex-col md:flex-row items-center gap-6 group"
+     data-status="{% if radio.classe_predite == 'Pneumonie' %}pneumonie{% else %}normal{% endif %}">
+
+<!-- Patient Info -->
+<div class="flex items-center gap-4 w-full md:w-[250px]">
+<div class="w-14 h-14 rounded-full bg-gradient-to-br from-surface-variant to-surface flex items-center justify-center font-headline-md text-primary shrink-0 border border-white">
+                                {{ radio.patient.nom|make_list|first|upper }}{{ radio.patient.prenom|make_list|first|upper }}
+                            </div>
+<div>
+<a href="{% url 'patient_detail' radio.patient.id %}" class="font-headline-md text-lg text-on-surface hover:text-primary transition-colors patient-name">{{ radio.patient.nom }} {{ radio.patient.prenom }}</a>
+<div class="font-body-md text-on-surface-variant opacity-80">{{ radio.date_upload|date:"Y-m-d" }}</div>
+</div>
+</div>
+
+<!-- Radiography Images -->
+<div class="flex gap-3 shrink-0">
+{% if radio.image %}
+<a href="{{ radio.image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-white shadow-sm group-hover:scale-105 transition-transform">
+<img class="w-14 h-14 object-cover" src="{{ radio.image.url }}" alt="Radiographie"/>
+</a>
+{% endif %}
+{% if radio.heatmap_image %}
+<a href="{{ radio.heatmap_image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-white shadow-sm group-hover:scale-105 transition-transform delay-75">
+<img class="w-14 h-14 object-cover" src="{{ radio.heatmap_image.url }}" alt="Grad-CAM Heatmap"/>
+<div class="absolute top-1 right-1 w-3 h-3 bg-error rounded-full border-2 border-white shadow-sm"></div>
+</a>
+{% endif %}
+</div>
+
+<!-- Diagnostic Badge -->
+<div class="flex-1 flex justify-center md:justify-start">
+{% if radio.classe_predite == 'Pneumonie' %}
+<span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-error-container/50 text-error border border-error-container">
+<span class="w-2 h-2 rounded-full bg-error mr-2"></span>
+                                Pneumonie
+                                <span class="ml-2 opacity-60 font-normal">| {{ radio.pourcentage_confiance|floatformat:1 }}%</span>
+</span>
+{% else %}
+<span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-surface-container-high/50 text-on-surface border border-surface-container-highest">
+<span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>
+                                Normal
+                                <span class="ml-2 opacity-60 font-normal">| {{ radio.pourcentage_confiance|floatformat:1 }}%</span>
+</span>
+{% endif %}
+</div>
+
+<!-- Validation Status -->
+<div class="flex items-center gap-2">
+{% if radio.validation_medecin == 'En attente' %}
+<form method="post" action="{% url 'valider_radio' radio.id %}" class="flex gap-2">
+    {% csrf_token %}
+    <select name="validation" onchange="this.form.submit()" class="appearance-none bg-white/80 border border-outline-variant text-on-surface font-body-md rounded-xl pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm">
+        <option value="">En attente...</option>
+        <option value="Confirmé">Confirmer IA</option>
+        <option value="Corrigé (Normal)">Corriger: Normal</option>
+        <option value="Corrigé (Pneumonie)">Corriger: Pneumo.</option>
+    </select>
+</form>
+{% else %}
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-low/50 rounded-xl text-on-surface-variant font-label-md">
+<span class="material-symbols-outlined text-[18px] text-green-600">check_circle</span>
+                            {{ radio.validation_medecin }}
+                        </div>
+{% endif %}
+</div>
+
+<!-- Actions -->
+<div class="shrink-0 flex gap-2">
+<a href="{% url 'generer_rapport_pdf' radio.id %}" target="_blank" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-on-surface-variant hover:text-primary hover:shadow-md transition-all border border-white/50" title="Télécharger PDF">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</a>
+<a href="{% url 'patient_detail' radio.patient.id %}" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-on-surface-variant hover:text-primary hover:shadow-md transition-all border border-white/50" title="Voir le patient">
+<span class="material-symbols-outlined">arrow_forward_ios</span>
+</a>
+</div>
+</div>
+{% empty %}
+<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-12 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] text-center">
+<span class="material-symbols-outlined text-[48px] text-on-surface-variant/40 mb-4 block">radiology</span>
+<p class="text-on-surface-variant font-body-lg">Aucune analyse pour le moment.</p>
+<a href="{% url 'upload_radiographie' %}" class="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+    Lancer votre première analyse
+</a>
+</div>
+{% endfor %}
+
+<!-- No results message (hidden by default, shown by JS) -->
+<div id="noResultsRow" class="hidden bg-white/70 backdrop-blur-xl rounded-[2rem] p-12 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] text-center">
+<span class="material-symbols-outlined text-[48px] text-on-surface-variant/40 mb-4 block">search_off</span>
+<p class="text-on-surface-variant font-body-lg">Aucun résultat trouvé pour votre recherche.</p>
+</div>
+
+</div>
+</div>
+</main>
+</div>
+
+<!-- Search & Filter JS -->
+<script>
+    const searchInput = document.getElementById('patientSearch');
+    const statusFilter = document.getElementById('statusFilter');
+
+    function filterCards() {
+        const nameQuery = searchInput.value.toLowerCase();
+        const selectedStatus = statusFilter.value;
+        const cards = document.querySelectorAll('.data-row');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const nameEl = card.querySelector('.patient-name');
+            const nameText = nameEl ? nameEl.textContent.toLowerCase() : '';
+            const cardStatus = card.getAttribute('data-status');
+
+            const matchesName = nameText.includes(nameQuery);
+            const matchesStatus = (selectedStatus === 'all' || cardStatus === selectedStatus);
+
+            if (matchesName && matchesStatus) {
+                card.style.display = '';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        const noResults = document.getElementById('noResultsRow');
+        if (noResults) {
+            if (visibleCount === 0 && cards.length > 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+    }
+
+    searchInput.addEventListener('keyup', filterCards);
+    statusFilter.addEventListener('change', filterCards);
+</script>
+</body></html>
