@@ -1,5 +1,5 @@
 from django.db import models
-from .utils import predict_pneumonia
+from .utils import predict_pneumonia, generate_gradcam
 
 class Patient(models.Model):
     nom = models.CharField(max_length=100)
@@ -20,6 +20,7 @@ class Radiographie(models.Model):
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='radiographies')
     image = models.ImageField(upload_to='radiographies/')
+    heatmap_image = models.ImageField(upload_to='heatmaps/', null=True, blank=True)
     date_upload = models.DateTimeField(auto_now_add=True)
     
     # Résultats de l'IA
@@ -46,8 +47,19 @@ class Radiographie(models.Model):
             classe, confiance = predict_pneumonia(image_path)
             self.classe_predite = classe
             self.pourcentage_confiance = confiance
+
+            # Générer la carte de chaleur Grad-CAM
+            import os
+            heatmap_filename = f'heatmap_{os.path.basename(self.image.name)}'
+            heatmap_rel_path = os.path.join('heatmaps', heatmap_filename)
+            from django.conf import settings
+            heatmap_abs_path = os.path.join(settings.MEDIA_ROOT, heatmap_rel_path)
+            
+            if generate_gradcam(image_path, heatmap_abs_path):
+                self.heatmap_image = heatmap_rel_path
+
             # Sauvegarde à nouveau pour mettre à jour les champs de l'IA sans réitérer la boucle
-            super().save(update_fields=['classe_predite', 'pourcentage_confiance'])
+            super().save(update_fields=['classe_predite', 'pourcentage_confiance', 'heatmap_image'])
 
     def __str__(self):
         return f"Radio de {self.patient.nom} - {self.classe_predite} ({self.pourcentage_confiance}%)"

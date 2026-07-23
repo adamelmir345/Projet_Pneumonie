@@ -14,21 +14,21 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         :root {
-            --primary-color: #0d6efd;
-            --primary-gradient: linear-gradient(135deg, #0d6efd 0%, #00d2ff 100%);
+            --primary-color: #00a1d6;
+            --primary-gradient: linear-gradient(135deg, #005b8f 0%, #00a1d6 100%);
             --glass-bg: rgba(255, 255, 255, 0.85);
             --glass-border: rgba(255, 255, 255, 0.4);
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
+            --text-dark: #002f4b;
+            --text-muted: #005b8f;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: #f1f5f9;
             background-image: 
-                radial-gradient(at 0% 0%, hsla(210, 100%, 93%, 1) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(190, 100%, 93%, 1) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(220, 100%, 93%, 1) 0, transparent 50%);
+                radial-gradient(at 0% 0%, hsla(195, 70%, 90%, 1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(195, 60%, 85%, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(195, 50%, 95%, 1) 0, transparent 50%);
             background-attachment: fixed;
             color: var(--text-dark);
             min-height: 100vh;
@@ -88,16 +88,18 @@
             border-radius: 1rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
         
         .radio-grid-img:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
         .badge-pneumonie {
-            background-color: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            background-color: rgba(230, 57, 70, 0.1);
+            color: #e63946;
+            border: 1px solid rgba(230, 57, 70, 0.2);
             padding: 0.4em 0.8em;
             border-radius: 50px;
             font-weight: 600;
@@ -188,7 +190,17 @@
                         <div class="col-md-6">
                             <div class="card h-100 border-0 bg-transparent">
                                 {% if radio.image %}
-                                    <img src="{{ radio.image.url }}" class="radio-grid-img mb-3" alt="Radiographie">
+                                    <a href="{{ radio.image.url }}" target="_blank" class="position-relative d-block text-decoration-none">
+                                        <img src="{{ radio.image.url }}" class="radio-grid-img mb-2" alt="Radiographie originale">
+                                        <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2" style="font-size: 0.7rem;">📷 Original <i class="bi bi-box-arrow-up-right ms-1"></i></span>
+                                    </a>
+
+                                    {% if radio.heatmap_image %}
+                                    <a href="{{ radio.heatmap_image.url }}" target="_blank" class="position-relative d-block text-decoration-none">
+                                        <img src="{{ radio.heatmap_image.url }}" class="radio-grid-img mb-3" alt="Carte de chaleur Grad-CAM" style="border: 2px solid rgba(230, 57, 70, 0.3);">
+                                        <span class="badge bg-danger bg-opacity-75 position-absolute top-0 start-0 m-2" style="font-size: 0.7rem;">🔥 Grad-CAM <i class="bi bi-box-arrow-up-right ms-1"></i></span>
+                                    </a>
+                                    {% endif %}
                                 {% else %}
                                     <div class="radio-grid-img mb-3 bg-light d-flex align-items-center justify-content-center text-muted">
                                         Pas d'image

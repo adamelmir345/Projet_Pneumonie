@@ -145,12 +145,22 @@
     </div>
 
     {% if radio.image %}
-    <div class="section-title">Image Analysée</div>
-    <div class="image-container">
-        <!-- Dans xhtml2pdf, on doit souvent utiliser un chemin absolu sur le système de fichiers, ce qui est géré via link_callback, 
-             on passe l'URL du fichier -->
-        <img src="{{ radio.image.url }}" class="radio-image" />
-    </div>
+    <div class="section-title">Images Analysées</div>
+    
+    <table style="width: 100%; text-align: center; margin-top: 20px;">
+        <tr>
+            <td style="width: 50%; padding: 10px;">
+                <div style="font-weight: bold; margin-bottom: 10px; color: #64748b;">Radiographie Originale</div>
+                <img src="{{ radio.image.url }}" style="max-width: 300px; max-height: 300px; border: 1px solid #ccc;" />
+            </td>
+            {% if radio.heatmap_image %}
+            <td style="width: 50%; padding: 10px;">
+                <div style="font-weight: bold; margin-bottom: 10px; color: #dc3545;">Carte de Chaleur (Grad-CAM)</div>
+                <img src="{{ radio.heatmap_image.url }}" style="max-width: 300px; max-height: 300px; border: 2px solid rgba(230, 57, 70, 0.3);" />
+            </td>
+            {% endif %}
+        </tr>
+    </table>
     {% endif %}
 
     <div style="page-break-before: always;"></div>

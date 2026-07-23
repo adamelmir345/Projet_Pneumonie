@@ -7,277 +7,356 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         :root {
-            --primary-color: #0d6efd;
-            --primary-gradient: linear-gradient(135deg, #0d6efd 0%, #00d2ff 100%);
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
+            --primary-color: #00a1d6;
+            --primary-gradient: linear-gradient(135deg, #005b8f 0%, #00a1d6 100%);
+            --background: #ffffff;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --primary: #0f172a;
+            --muted: #64748b;
+            --ring: #94a3b8;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f1f5f9;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(210, 100%, 93%, 1) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(190, 100%, 93%, 1) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(220, 100%, 93%, 1) 0, transparent 50%);
-            background-attachment: fixed;
-            color: var(--text-dark);
+            background-color: #fafafa;
+            color: var(--primary);
             min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: white;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
         }
 
         .navbar-brand {
             font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1.5rem;
+            color: var(--primary) !important;
+            font-size: 1.25rem;
+            letter-spacing: -0.025em;
         }
 
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .btn-shadcn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            height: 2.25rem;
+            padding: 0 1rem;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+            background-color: white;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .btn-shadcn:hover {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+        
+        .btn-shadcn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-shadcn-primary:hover {
+            background-color: #334155;
+            color: white;
+        }
+
+        .shadcn-table-wrapper {
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background-color: white;
+            overflow: hidden;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         .table-custom {
             margin-bottom: 0;
+            width: 100%;
         }
 
         .table-custom th {
-            background: transparent;
-            border-bottom: 2px solid #e2e8f0;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.5px;
-            padding: 1.2rem 1rem;
+            background-color: white;
+            color: var(--muted);
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
         }
 
         .table-custom td {
-            vertical-align: middle;
             padding: 1rem;
-            border-bottom: 1px solid #f1f5f9;
-            color: var(--text-dark);
-            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+            font-size: 0.875rem;
+            color: var(--primary);
         }
 
-        .table-custom tbody tr {
-            transition: all 0.2s ease;
+        .table-custom tr:last-child td {
+            border-bottom: none;
         }
-        
+
         .table-custom tbody tr:hover {
-            background-color: rgba(248, 250, 252, 0.8);
-            transform: scale(1.005);
+            background-color: #f8fafc;
         }
 
+        /* Toolbar styles */
+        .shadcn-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .shadcn-input {
+            height: 2.25rem;
+            border-radius: 0.375rem;
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            width: 300px;
+            transition: all 0.2s;
+        }
+
+        .shadcn-input:focus {
+            outline: none;
+            border-color: var(--ring);
+            box-shadow: 0 0 0 2px white, 0 0 0 4px var(--ring);
+        }
+
+        /* Images and badges */
         .radio-img {
-            width: 60px;
-            height: 60px;
+            width: 40px;
+            height: 40px;
             object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            cursor: pointer;
+            border-radius: 0.375rem;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease;
         }
 
         .radio-img:hover {
-            transform: scale(2);
-            z-index: 10;
+            transform: scale(3);
+            z-index: 50;
             position: relative;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-gradient {
-            background: var(--primary-gradient);
-            border: none;
-            color: white;
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 9999px;
+            padding: 0.125rem 0.625rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
-            transition: all 0.3s ease;
         }
 
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
-            color: white;
-        }
-
-        .badge-pneumonie {
-            background-color: rgba(239, 68, 68, 0.1);
+        .badge-status.pneumonie {
+            background-color: #fef2f2;
             color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            padding: 0.5em 1em;
-            border-radius: 50px;
-            font-weight: 600;
-            display: inline-block;
+            border: 1px solid #fca5a5;
         }
 
-        .badge-normal {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            padding: 0.5em 1em;
-            border-radius: 50px;
-            font-weight: 600;
-            display: inline-block;
+        .badge-status.normal {
+            background-color: #f0fdf4;
+            color: #22c55e;
+            border: 1px solid #86efac;
         }
 
-        .confidence-bar {
-            height: 6px;
-            border-radius: 10px;
-            background: #e2e8f0;
-            overflow: hidden;
-            margin-top: 5px;
+        .no-results-row td {
+            text-align: center;
+            color: var(--muted);
+            padding: 2rem !important;
         }
 
-        .confidence-fill {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 1s ease-in-out;
+        .action-select {
+            font-size: 0.8rem;
+            padding: 0.25rem 1.5rem 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--border);
         }
-
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light pt-4 pb-4">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand d-flex align-items-center" href="{% url 'dashboard' %}">
-                <i class="bi bi-lungs-fill me-2 fs-2 text-primary"></i>
-                MedAI PneumoScanner
+                <i class="bi bi-lungs-fill me-2 text-primary"></i>
+                MedAI
             </a>
-            <div class="d-flex gap-3">
-                <a href="{% url 'ajouter_patient' %}" class="btn btn-outline-primary d-flex align-items-center gap-2" style="border-radius: 50px; font-weight: 600; padding: 0.6rem 1.5rem; border-width: 2px;">
-                    <i class="bi bi-person-plus-fill"></i> Ajouter un patient
+            <div class="d-flex gap-2">
+                <a href="{% url 'ajouter_patient' %}" class="btn-shadcn">
+                    <i class="bi bi-person-plus me-2"></i> Ajouter
                 </a>
-                <a href="{% url 'upload_radiographie' %}" class="btn btn-gradient d-flex align-items-center gap-2">
-                    <i class="bi bi-cloud-arrow-up-fill"></i> Analyser une radio
+                <a href="{% url 'upload_radiographie' %}" class="btn-shadcn btn-shadcn-primary">
+                    <i class="bi bi-cloud-upload me-2"></i> Analyser
                 </a>
-                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                <form method="post" action="{% url 'logout' %}" class="d-inline m-0">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-danger d-flex align-items-center gap-2" style="border-radius: 50px; font-weight: 600; padding: 0.6rem 1.5rem; border-width: 2px;">
-                        <i class="bi bi-box-arrow-right"></i> Déconnexion
+                    <button type="submit" class="btn-shadcn" style="color: #ef4444; border-color: #fca5a5; background-color: #fef2f2;">
+                        <i class="bi bi-box-arrow-right"></i>
                     </button>
                 </form>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-4 mb-5">
-        <div class="d-flex justify-content-between align-items-end mb-4">
+    <div class="container mb-5">
+        
+        <div class="shadcn-toolbar">
+            <div class="d-flex gap-2">
+                <input type="text" id="patientSearch" class="shadcn-input" placeholder="Filter by patient name...">
+                <select id="statusFilter" class="btn-shadcn text-muted" style="cursor: pointer;">
+                    <option value="all">🔍 All Statuses</option>
+                    <option value="pneumonie">🔴 Pneumonie</option>
+                    <option value="normal">🟢 Normal</option>
+                </select>
+            </div>
             <div>
-                <h2 class="fw-bold mb-1">Tableau de bord</h2>
-                <p class="text-muted mb-0">Historique des analyses et diagnostics IA</p>
+                <button class="btn-shadcn text-muted">
+                    <i class="bi bi-layout-three-columns me-2"></i> Columns
+                </button>
             </div>
         </div>
 
-        <div class="glass-card overflow-hidden">
-            <div class="table-responsive">
-                <table class="table table-custom">
-                    <thead>
-                        <tr>
-                            <th>Patient</th>
-                            <th>Radiographie</th>
-                            <th>Date d'analyse</th>
-                            <th>Diagnostic IA</th>
-                            <th>Indice de confiance</th>
-                            <th>Validation Médico</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for radio in radiographies %}
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; font-weight: bold;">
-                                        {{ radio.patient.nom|first|upper }}
-                                    </div>
-                                    <div>
-                                        <a href="{% url 'patient_detail' radio.patient.id %}" class="fw-bold text-decoration-none text-dark" style="transition: color 0.2s;" onmouseover="this.style.color='var(--primary-color)'" onmouseout="this.style.color='var(--text-dark)'">
-                                            {{ radio.patient.nom }} {{ radio.patient.prenom }}
-                                        </a>
-                                        <small class="text-muted d-block">ID: #{{ radio.patient.id }}</small>
-                                    </div>
+        <div class="shadcn-table-wrapper">
+            <table class="table-custom" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Radiographie</th>
+                        <th>Date</th>
+                        <th>Diagnostic IA</th>
+                        <th>Confiance</th>
+                        <th>Validation</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for radio in radiographies %}
+                    <tr class="data-row" data-status="{% if radio.classe_predite == 'Pneumonie' %}pneumonie{% else %}normal{% endif %}">
+                        <td class="fw-medium patient-name">
+                            <a href="{% url 'patient_detail' radio.patient.id %}" class="text-decoration-none text-dark">
+                                {{ radio.patient.nom }} {{ radio.patient.prenom }}
+                            </a>
+                        </td>
+                        <td>
+                            {% if radio.image %}
+                                <div class="d-flex gap-2 align-items-center">
+                                    <a href="{{ radio.image.url }}" target="_blank">
+                                        <img src="{{ radio.image.url }}" alt="Radio" class="radio-img">
+                                    </a>
+                                    {% if radio.heatmap_image %}
+                                    <a href="{{ radio.heatmap_image.url }}" target="_blank" class="position-relative">
+                                        <img src="{{ radio.heatmap_image.url }}" alt="Grad-CAM" class="radio-img" style="border-color: #fca5a5;">
+                                        <span class="position-absolute bottom-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.4rem; padding: 0.2rem;">🔥</span>
+                                    </a>
+                                    {% endif %}
                                 </div>
-                            </td>
-                            <td>
-                                {% if radio.image %}
-                                    <img src="{{ radio.image.url }}" alt="Radio" class="radio-img">
-                                {% else %}
-                                    <div class="text-muted fst-italic">Aucune image</div>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <div class="fw-semibold">{{ radio.date_upload|date:"d M Y" }}</div>
-                                <small class="text-muted">{{ radio.date_upload|date:"H:i" }}</small>
-                            </td>
-                            <td>
-                                {% if radio.classe_predite == 'Pneumonie' %}
-                                    <span class="badge-pneumonie"><i class="bi bi-exclamation-circle-fill me-1"></i> Pneumonie</span>
-                                {% else %}
-                                    <span class="badge-normal"><i class="bi bi-check-circle-fill me-1"></i> Normal</span>
-                                {% endif %}
-                            </td>
-                            <td style="min-width: 150px;">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="fw-bold">{{ radio.pourcentage_confiance|floatformat:1 }}%</span>
-                                </div>
-                                <div class="confidence-bar">
-                                    <div class="confidence-fill {% if radio.classe_predite == 'Pneumonie' %}bg-danger{% else %}bg-success{% endif %}" style="width: {{ radio.pourcentage_confiance }}%;"></div>
-                                </div>
-                            </td>
-                            <td>
-                                {% if radio.validation_medecin == 'En attente' %}
-                                    <form method="post" action="{% url 'valider_radio' radio.id %}" class="d-flex flex-column gap-1">
-                                        {% csrf_token %}
-                                        <button type="submit" name="validation" value="Confirmé" class="btn btn-sm btn-outline-success"><i class="bi bi-check-lg"></i> Confirmer</button>
-                                        <div class="btn-group w-100">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Corriger
-                                            </button>
-                                            <ul class="dropdown-menu shadow-sm" style="font-size: 0.85rem;">
-                                                <li><button class="dropdown-item text-success" type="submit" name="validation" value="Corrigé (Normal)">C'est Normal</button></li>
-                                                <li><button class="dropdown-item text-danger" type="submit" name="validation" value="Corrigé (Pneumonie)">C'est une Pneumonie</button></li>
-                                            </ul>
-                                        </div>
-                                    </form>
-                                {% else %}
-                                    <span class="badge bg-light text-dark border p-2 mb-1 d-block"><i class="bi bi-person-check-fill text-primary me-1"></i> {{ radio.validation_medecin }}</span>
-                                {% endif %}
-                                <a href="{% url 'generer_rapport_pdf' radio.id %}" target="_blank" class="btn btn-sm btn-outline-primary mt-1 w-100" title="Générer Rapport PDF">
-                                    <i class="bi bi-file-earmark-pdf"></i> Rapport PDF
-                                </a>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="6" class="text-center py-5">
-                                <div class="text-muted mb-3"><i class="bi bi-inbox fs-1" style="opacity: 0.5;"></i></div>
-                                <h5>Aucune radiographie analysée</h5>
-                                <p class="text-muted">Commencez par ajouter une nouvelle radiographie pour voir les résultats ici.</p>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                            {% else %}
+                                <span class="text-muted fst-italic small">Aucune image</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-muted">
+                            {{ radio.date_upload|date:"Y-m-d" }}
+                        </td>
+                        <td>
+                            {% if radio.classe_predite == 'Pneumonie' %}
+                                <span class="badge-status pneumonie">Pneumonie</span>
+                            {% else %}
+                                <span class="badge-status normal">Normal</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ radio.pourcentage_confiance|floatformat:1 }}%
+                        </td>
+                        <td>
+                            {% if radio.validation_medecin == 'En attente' %}
+                                <form method="post" action="{% url 'valider_radio' radio.id %}" class="d-flex gap-1 align-items-center m-0">
+                                    {% csrf_token %}
+                                    <select name="validation" class="form-select action-select" onchange="this.form.submit()">
+                                        <option value="">En attente...</option>
+                                        <option value="Confirmé">Confirmer IA</option>
+                                        <option value="Corrigé (Normal)">Corriger: Normal</option>
+                                        <option value="Corrigé (Pneumonie)">Corriger: Pneumo.</option>
+                                    </select>
+                                </form>
+                            {% else %}
+                                <span class="text-muted small"><i class="bi bi-check2-circle me-1"></i>{{ radio.validation_medecin }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            <a href="{% url 'generer_rapport_pdf' radio.id %}" target="_blank" class="btn-shadcn py-0" style="height: 2rem; padding: 0 0.5rem;" title="Télécharger PDF">
+                                <i class="bi bi-file-pdf text-muted"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr class="no-results-row">
+                        <td colspan="7">No results.</td>
+                    </tr>
+                    {% endfor %}
+                    <!-- Always add a no results row hidden by default for search -->
+                    <tr class="no-results-row d-none" id="noResultsRow">
+                        <td colspan="7">No results found for your search.</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Simple JS for the filter -->
+    <script>
+        const searchInput = document.getElementById('patientSearch');
+        const statusFilter = document.getElementById('statusFilter');
+
+        function filterTable() {
+            let nameQuery = searchInput.value.toLowerCase();
+            let selectedStatus = statusFilter.value;
+            let rows = document.querySelectorAll('.data-row');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                let nameText = row.querySelector('.patient-name').textContent.toLowerCase();
+                let rowStatus = row.getAttribute('data-status');
+                
+                let matchesName = nameText.includes(nameQuery);
+                let matchesStatus = (selectedStatus === 'all' || rowStatus === selectedStatus);
+
+                if (matchesName && matchesStatus) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            let noResultsRow = document.getElementById('noResultsRow');
+            if(noResultsRow) {
+                if (visibleCount === 0 && rows.length > 0) {
+                    noResultsRow.classList.remove('d-none');
+                } else {
+                    noResultsRow.classList.add('d-none');
+                }
+            }
+        }
+
+        searchInput.addEventListener('keyup', filterTable);
+        statusFilter.addEventListener('change', filterTable);
+    </script>
 </body>
 </html>

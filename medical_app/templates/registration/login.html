@@ -7,130 +7,172 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         :root {
-            --primary-color: #0d6efd;
-            --primary-gradient: linear-gradient(135deg, #0d6efd 0%, #00d2ff 100%);
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --primary: #0f172a;
+            --primary-foreground: #f8fafc;
+            --muted: #64748b;
+            --destructive: #ef4444;
+            --ring: #94a3b8;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f1f5f9;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(210, 100%, 93%, 1) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(190, 100%, 93%, 1) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(220, 100%, 93%, 1) 0, transparent 50%);
-            background-attachment: fixed;
-            color: var(--text-dark);
+            background-color: var(--background);
+            color: var(--primary);
             min-height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
+            margin: 0;
         }
 
-        .login-container {
+        .login-wrapper {
             width: 100%;
-            max-width: 450px;
-            margin: auto;
+            max-width: 400px;
             padding: 20px;
         }
 
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            padding: 3rem 2.5rem;
+        .shadcn-card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
         }
 
-        .btn-gradient {
-            background: var(--primary-gradient);
+        .card-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: none;
             border: none;
-            color: white;
-            font-weight: 600;
-            padding: 1rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
-            transition: all 0.3s ease;
-            width: 100%;
-            font-size: 1.1rem;
-            margin-top: 1rem;
+            padding: 0;
         }
 
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
-            color: white;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            color: var(--muted);
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
         }
 
         .form-control {
-            padding: 0.8rem 1.2rem;
-            border-radius: 12px;
-            border: 1px solid #cbd5e1;
-            background-color: rgba(255, 255, 255, 0.9);
-            transition: all 0.3s;
+            height: 2.5rem;
+            border-radius: 0.375rem;
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         .form-control:focus {
-            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
-            border-color: #0d6efd;
+            outline: none;
+            border-color: var(--ring);
+            box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
         }
 
-        .brand-icon {
-            font-size: 3.5rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .btn-primary-custom {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            height: 2.5rem;
+            width: 100%;
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #334155;
+            color: var(--primary-foreground);
+        }
+
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            background-color: #f1f5f9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            color: var(--primary);
+        }
+
+        .alert-error {
+            background-color: #fef2f2;
+            border: 1px solid #f87171;
+            color: #991b1b;
+            font-size: 0.875rem;
+            border-radius: 0.375rem;
+            padding: 0.75rem;
             margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="container login-container">
-        <div class="glass-card text-center">
-            <div class="brand-icon">
-                <i class="bi bi-lungs-fill"></i>
+    <div class="login-wrapper">
+        <div class="shadcn-card">
+            <div class="card-header">
+                <div class="icon-container">
+                    <i class="bi bi-lungs fs-4"></i>
+                </div>
+                <h1 class="card-title">MedAI</h1>
+                <p class="card-description">Connectez-vous à votre espace praticien</p>
             </div>
             
-            <h3 class="fw-bold mb-1">MedAI</h3>
-            <p class="text-muted mb-4">Espace Praticien - Détection Pneumonie</p>
-            
             {% if form.errors %}
-                <div class="alert alert-danger rounded-3 text-start small">
-                    Identifiant ou mot de passe incorrect. Veuillez réessayer.
+                <div class="alert-error">
+                    Identifiants incorrects. Veuillez réessayer.
                 </div>
             {% endif %}
 
-            <form method="post" action="{% url 'login' %}" class="text-start">
+            <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="id_username" class="form-label fw-bold text-dark">Nom d'utilisateur</label>
-                    <input type="text" name="username" class="form-control" id="id_username" required>
+                    <label for="id_username" class="form-label">Nom d'utilisateur</label>
+                    <input type="text" name="username" class="form-control" id="id_username" placeholder="Entrez votre identifiant" required>
                 </div>
                 <div class="mb-4">
-                    <label for="id_password" class="form-label fw-bold text-dark">Mot de passe</label>
-                    <input type="password" name="password" class="form-control" id="id_password" required>
+                    <label for="id_password" class="form-label">Mot de passe</label>
+                    <input type="password" name="password" class="form-control" id="id_password" placeholder="••••••••" required>
                 </div>
                 
-                <button type="submit" class="btn btn-gradient">
-                    <i class="bi bi-box-arrow-in-right me-2"></i> Se connecter
+                <button type="submit" class="btn-primary-custom">
+                    Se connecter
                 </button>
                 <input type="hidden" name="next" value="{{ next }}" />
             </form>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
