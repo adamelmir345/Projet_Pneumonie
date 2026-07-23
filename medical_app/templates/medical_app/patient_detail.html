@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Patient - MedAI</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --primary-gradient: linear-gradient(135deg, #0d6efd 0%, #00d2ff 100%);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(210, 100%, 93%, 1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(190, 100%, 93%, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(220, 100%, 93%, 1) 0, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--primary-gradient);
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .radio-grid-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .radio-grid-img:hover {
+            transform: scale(1.05);
+        }
+
+        .badge-pneumonie {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 0.4em 0.8em;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+        .badge-normal {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 0.4em 0.8em;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light pt-4 pb-4">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'dashboard' %}">
+                <i class="bi bi-lungs-fill me-2 fs-2 text-primary"></i>
+                MedAI PneumoScanner
+            </a>
+            <div class="d-flex gap-3">
+                <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary d-flex align-items-center gap-2" style="border-radius: 50px; font-weight: 600;">
+                    <i class="bi bi-arrow-left"></i> Retour
+                </a>
+                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger d-flex align-items-center gap-2" style="border-radius: 50px; font-weight: 600;">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4 mb-5">
+        <div class="row">
+            <!-- Colonne Profil -->
+            <div class="col-lg-4 mb-4">
+                <div class="glass-card p-4 text-center h-100">
+                    <div class="profile-avatar">
+                        {{ patient.nom|first|upper }}{{ patient.prenom|first|upper }}
+                    </div>
+                    <h3 class="fw-bold mb-1">{{ patient.nom }} {{ patient.prenom }}</h3>
+                    <p class="text-muted mb-4">Patient ID: #{{ patient.id }}</p>
+
+                    <div class="text-start mt-4">
+                        <div class="mb-3 border-bottom pb-2">
+                            <div class="info-label"><i class="bi bi-calendar3 me-2"></i>Date de naissance</div>
+                            <div class="info-value">{{ patient.date_naissance|date:"d F Y" }}</div>
+                        </div>
+                        <div class="mb-3 border-bottom pb-2">
+                            <div class="info-label"><i class="bi bi-clock-history me-2"></i>Date d'enregistrement</div>
+                            <div class="info-value">{{ patient.date_creation|date:"d/m/Y H:i" }}</div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="info-label"><i class="bi bi-clipboard2-pulse me-2"></i>Antécédents Médicaux</div>
+                            <div class="info-value mt-1">
+                                {% if patient.antecedents_medicaux %}
+                                    <div class="p-3 bg-light rounded text-dark" style="font-size: 0.95rem;">
+                                        {{ patient.antecedents_medicaux|linebreaksbr }}
+                                    </div>
+                                {% else %}
+                                    <span class="text-muted fst-italic">Aucun antécédent renseigné.</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne Historique Radios -->
+            <div class="col-lg-8">
+                <div class="glass-card p-4 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                        <h4 class="fw-bold mb-0">Historique des Radiographies</h4>
+                        <span class="badge bg-primary rounded-pill fs-6">{{ radiographies|length }} Radio(s)</span>
+                    </div>
+
+                    <div class="row g-4">
+                        {% for radio in radiographies %}
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 bg-transparent">
+                                {% if radio.image %}
+                                    <img src="{{ radio.image.url }}" class="radio-grid-img mb-3" alt="Radiographie">
+                                {% else %}
+                                    <div class="radio-grid-img mb-3 bg-light d-flex align-items-center justify-content-center text-muted">
+                                        Pas d'image
+                                    </div>
+                                {% endif %}
+                                <div class="card-body p-0">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-muted small"><i class="bi bi-calendar-event me-1"></i>{{ radio.date_upload|date:"d M Y - H:i" }}</span>
+                                        {% if radio.classe_predite == 'Pneumonie' %}
+                                            <span class="badge-pneumonie">Pneumonie</span>
+                                        {% else %}
+                                            <span class="badge-normal">Normal</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <span class="fw-semibold text-muted" style="font-size: 0.9rem;">Confiance IA :</span>
+                                        <span class="fw-bold fs-5">{{ radio.pourcentage_confiance|floatformat:1 }}%</span>
+                                    </div>
+                                    <div class="progress mt-2 mb-3" style="height: 6px; border-radius: 10px;">
+                                        <div class="progress-bar {% if radio.classe_predite == 'Pneumonie' %}bg-danger{% else %}bg-success{% endif %}" role="progressbar" style="width: {{ radio.pourcentage_confiance }}%;"></div>
+                                    </div>
+                                    
+                                    <div class="pt-2 border-top">
+                                        {% if radio.validation_medecin == 'En attente' %}
+                                            <form method="post" action="{% url 'valider_radio' radio.id %}" class="d-flex gap-2 justify-content-between">
+                                                {% csrf_token %}
+                                                <button type="submit" name="validation" value="Confirmé" class="btn btn-sm btn-success w-100"><i class="bi bi-check-lg"></i> Confirmer</button>
+                                                <div class="btn-group w-100">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle w-100" data-bs-toggle="dropdown">
+                                                        Corriger
+                                                    </button>
+                                                    <ul class="dropdown-menu shadow-sm">
+                                                        <li><button class="dropdown-item text-success" type="submit" name="validation" value="Corrigé (Normal)">Normal</button></li>
+                                                        <li><button class="dropdown-item text-danger" type="submit" name="validation" value="Corrigé (Pneumonie)">Pneumonie</button></li>
+                                                    </ul>
+                                                </div>
+                                            </form>
+                                        {% else %}
+                                            <div class="text-center text-muted small mt-2">
+                                                <i class="bi bi-person-check-fill text-primary"></i> 
+                                                <strong>Validation :</strong> {{ radio.validation_medecin }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="mt-3 text-center">
+                                    <a href="{% url 'generer_rapport_pdf' radio.id %}" target="_blank" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1 w-100 justify-content-center">
+                                        <i class="bi bi-file-earmark-pdf"></i> Générer Rapport PDF
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-12 text-center py-5">
+                            <i class="bi bi-images fs-1 text-muted opacity-50 mb-3 d-block"></i>
+                            <h5 class="text-muted">Aucune radiographie pour le moment</h5>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

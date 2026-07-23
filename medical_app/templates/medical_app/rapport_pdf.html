@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport d'Analyse Pneumonie</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+            @frame header_frame {
+                -pdf-frame-content: header_content;
+                left: 50pt; width: 512pt; top: 30pt; height: 40pt;
+            }
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 780pt; height: 30pt;
+            }
+        }
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            color: #333333;
+            line-height: 1.5;
+        }
+        .header {
+            text-align: center;
+            font-size: 24pt;
+            font-weight: bold;
+            color: #0d6efd;
+            margin-bottom: 30px;
+        }
+        .section-title {
+            background-color: #f1f5f9;
+            padding: 8px 15px;
+            font-size: 14pt;
+            font-weight: bold;
+            color: #1e293b;
+            border-left: 4px solid #0d6efd;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .info-table td {
+            padding: 8px;
+            vertical-align: top;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #64748b;
+            width: 35%;
+        }
+        .info-value {
+            width: 65%;
+            font-weight: bold;
+        }
+        .result-box {
+            border: 2px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .result-title {
+            font-size: 12pt;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        .result-value {
+            font-size: 20pt;
+            font-weight: bold;
+        }
+        .text-danger { color: #dc3545; }
+        .text-success { color: #198754; }
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .radio-image {
+            max-width: 400px;
+            max-height: 400px;
+            border: 1px solid #ccc;
+        }
+        .notes-area {
+            border: 1px solid #cbd5e1;
+            height: 150px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header_content">
+        <span style="font-weight:bold; color: #0d6efd;">MedAI</span> PneumoScanner - Rapport Médical
+    </div>
+    
+    <div id="footer_content">
+        Généré le {% now "d/m/Y H:i" %} - Page <pdf:pagenumber>
+    </div>
+
+    <div class="header">Bilan Radiologique Pulmonaire</div>
+
+    <div class="section-title">Informations du Patient</div>
+    <table class="info-table">
+        <tr>
+            <td class="info-label">ID Patient :</td>
+            <td class="info-value">#{{ patient.id }}</td>
+        </tr>
+        <tr>
+            <td class="info-label">Nom et Prénom :</td>
+            <td class="info-value">{{ patient.nom|upper }} {{ patient.prenom }}</td>
+        </tr>
+        <tr>
+            <td class="info-label">Date de Naissance :</td>
+            <td class="info-value">{{ patient.date_naissance|date:"d/m/Y" }}</td>
+        </tr>
+        <tr>
+            <td class="info-label">Antécédents Médicaux :</td>
+            <td class="info-value">
+                {% if patient.antecedents_medicaux %}
+                    {{ patient.antecedents_medicaux }}
+                {% else %}
+                    Aucun
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <div class="section-title">Diagnostic Assisté par Intelligence Artificielle</div>
+    <div class="result-box">
+        <div class="result-title">Résultat de l'analyse IA (Modèle EfficientNet)</div>
+        <div class="result-value {% if radio.classe_predite == 'Pneumonie' %}text-danger{% else %}text-success{% endif %}">
+            {{ radio.classe_predite }}
+        </div>
+        <div style="font-size: 14pt; margin-top: 10px;">
+            Indice de confiance : <strong>{{ radio.pourcentage_confiance|floatformat:1 }}%</strong>
+        </div>
+        
+        {% if radio.validation_medecin != 'En attente' %}
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc;">
+            <strong>Validation du Médecin : </strong> {{ radio.validation_medecin }}
+        </div>
+        {% endif %}
+    </div>
+
+    {% if radio.image %}
+    <div class="section-title">Image Analysée</div>
+    <div class="image-container">
+        <!-- Dans xhtml2pdf, on doit souvent utiliser un chemin absolu sur le système de fichiers, ce qui est géré via link_callback, 
+             on passe l'URL du fichier -->
+        <img src="{{ radio.image.url }}" class="radio-image" />
+    </div>
+    {% endif %}
+
+    <div style="page-break-before: always;"></div>
+    
+    <div class="section-title">Notes du Praticien & Conclusion</div>
+    <div class="notes-area"></div>
+    
+    <div style="margin-top: 50px; text-align: right;">
+        <strong>Signature du Médecin :</strong><br><br><br><br>
+        ___________________________
+    </div>
+</body>
+</html>

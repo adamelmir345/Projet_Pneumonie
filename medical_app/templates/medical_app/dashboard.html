@@ -167,6 +167,12 @@
                 <a href="{% url 'upload_radiographie' %}" class="btn btn-gradient d-flex align-items-center gap-2">
                     <i class="bi bi-cloud-arrow-up-fill"></i> Analyser une radio
                 </a>
+                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger d-flex align-items-center gap-2" style="border-radius: 50px; font-weight: 600; padding: 0.6rem 1.5rem; border-width: 2px;">
+                        <i class="bi bi-box-arrow-right"></i> Déconnexion
+                    </button>
+                </form>
             </div>
         </div>
     </nav>
@@ -189,6 +195,7 @@
                             <th>Date d'analyse</th>
                             <th>Diagnostic IA</th>
                             <th>Indice de confiance</th>
+                            <th>Validation Médico</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -200,8 +207,10 @@
                                         {{ radio.patient.nom|first|upper }}
                                     </div>
                                     <div>
-                                        <div class="fw-bold">{{ radio.patient.nom }} {{ radio.patient.prenom }}</div>
-                                        <small class="text-muted">ID: #{{ radio.patient.id }}</small>
+                                        <a href="{% url 'patient_detail' radio.patient.id %}" class="fw-bold text-decoration-none text-dark" style="transition: color 0.2s;" onmouseover="this.style.color='var(--primary-color)'" onmouseout="this.style.color='var(--text-dark)'">
+                                            {{ radio.patient.nom }} {{ radio.patient.prenom }}
+                                        </a>
+                                        <small class="text-muted d-block">ID: #{{ radio.patient.id }}</small>
                                     </div>
                                 </div>
                             </td>
@@ -231,10 +240,32 @@
                                     <div class="confidence-fill {% if radio.classe_predite == 'Pneumonie' %}bg-danger{% else %}bg-success{% endif %}" style="width: {{ radio.pourcentage_confiance }}%;"></div>
                                 </div>
                             </td>
+                            <td>
+                                {% if radio.validation_medecin == 'En attente' %}
+                                    <form method="post" action="{% url 'valider_radio' radio.id %}" class="d-flex flex-column gap-1">
+                                        {% csrf_token %}
+                                        <button type="submit" name="validation" value="Confirmé" class="btn btn-sm btn-outline-success"><i class="bi bi-check-lg"></i> Confirmer</button>
+                                        <div class="btn-group w-100">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Corriger
+                                            </button>
+                                            <ul class="dropdown-menu shadow-sm" style="font-size: 0.85rem;">
+                                                <li><button class="dropdown-item text-success" type="submit" name="validation" value="Corrigé (Normal)">C'est Normal</button></li>
+                                                <li><button class="dropdown-item text-danger" type="submit" name="validation" value="Corrigé (Pneumonie)">C'est une Pneumonie</button></li>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                {% else %}
+                                    <span class="badge bg-light text-dark border p-2 mb-1 d-block"><i class="bi bi-person-check-fill text-primary me-1"></i> {{ radio.validation_medecin }}</span>
+                                {% endif %}
+                                <a href="{% url 'generer_rapport_pdf' radio.id %}" target="_blank" class="btn btn-sm btn-outline-primary mt-1 w-100" title="Générer Rapport PDF">
+                                    <i class="bi bi-file-earmark-pdf"></i> Rapport PDF
+                                </a>
+                            </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="5" class="text-center py-5">
+                            <td colspan="6" class="text-center py-5">
                                 <div class="text-muted mb-3"><i class="bi bi-inbox fs-1" style="opacity: 0.5;"></i></div>
                                 <h5>Aucune radiographie analysée</h5>
                                 <p class="text-muted">Commencez par ajouter une nouvelle radiographie pour voir les résultats ici.</p>

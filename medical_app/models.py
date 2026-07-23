@@ -26,6 +26,15 @@ class Radiographie(models.Model):
     classe_predite = models.CharField(max_length=20, choices=RESULTAT_CHOICES, default='En attente')
     pourcentage_confiance = models.FloatField(null=True, blank=True)
 
+    # Validation par le médecin
+    VALIDATION_CHOICES = [
+        ('En attente', 'En attente'),
+        ('Confirmé', 'Confirmé (L\'IA a raison)'),
+        ('Corrigé (Normal)', 'Corrigé (C\'est Normal)'),
+        ('Corrigé (Pneumonie)', 'Corrigé (C\'est une Pneumonie)'),
+    ]
+    validation_medecin = models.CharField(max_length=30, choices=VALIDATION_CHOICES, default='En attente')
+
     def save(self, *args, **kwargs):
         # Sauvegarde d'abord pour que le fichier image soit physiquement enregistré sur le disque
         is_new = self.pk is None
