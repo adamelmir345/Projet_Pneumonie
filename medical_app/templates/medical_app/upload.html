@@ -1,171 +1,404 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analyser - MedAI PneumoScanner</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <style>
-        :root {
-            --primary-color: #00a1d6;
-            --primary-gradient: linear-gradient(135deg, #005b8f 0%, #00a1d6 100%);
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --text-dark: #002f4b;
-            --text-muted: #005b8f;
-        }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f1f5f9;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(195, 70%, 90%, 1) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(195, 60%, 85%, 1) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(195, 50%, 95%, 1) 0, transparent 50%);
-            background-attachment: fixed;
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
+<html class="h-full bg-[#f3f3fc]" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analyse Radiographique - MedAI</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Phosphor Icons -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration for Clinical Precision Theme -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              DEFAULT: '#0f52ba',
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#0f52ba',
+              900: '#1e3a8a',
+            },
+            surface: {
+              DEFAULT: '#faf8ff',
+              dim: '#d9d9e2',
+              bright: '#faf8ff',
+              'container-lowest': '#ffffff',
+              'container-low': '#f3f3fc',
+            }
+          },
+          borderRadius: {
+            'xl': '0.75rem',
+            '2xl': '1rem',
+            '3xl': '1.5rem',
+          },
+          boxShadow: {
+            'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+            'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)',
+          }
         }
-
-        .upload-container {
-            width: 100%;
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            padding: 3rem 2.5rem;
-        }
-
-        .btn-gradient {
-            background: var(--primary-gradient);
-            border: none;
-            color: white;
-            font-weight: 600;
-            padding: 1rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
-            transition: all 0.3s ease;
-            width: 100%;
-            font-size: 1.1rem;
-            margin-top: 1rem;
-        }
-
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
-            color: white;
-        }
-
-        .upload-icon-wrapper {
-            width: 80px;
-            height: 80px;
-            background: rgba(13, 110, 253, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem auto;
-            color: var(--primary-color);
-            font-size: 2.5rem;
-            box-shadow: 0 0 0 10px rgba(13, 110, 253, 0.05);
-        }
-
-        .form-control, .form-select {
-            padding: 0.8rem 1.2rem;
-            border-radius: 12px;
-            border: 1px solid #cbd5e1;
-            background-color: rgba(255, 255, 255, 0.9);
-            transition: all 0.3s;
-        }
-
-        .form-control:focus, .form-select:focus {
-            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
-            border-color: #0d6efd;
-        }
-
-        .back-link {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 500;
-            transition: color 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .back-link:hover {
-            color: var(--primary-color);
-        }
-
-        /* Django form custom styling */
-        form p {
-            margin-bottom: 1.5rem;
-        }
-        form label {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-            display: block;
-        }
-    </style>
+      }
+    }
+  </script>
+<!-- Custom CSS for specific styling -->
+<style data-purpose="custom-utilities">
+    /* Custom styling for file input to match design */
+    input[type="file"]::file-selector-button {
+      border: none;
+      background: #f3f3fc;
+      padding: 0.5rem 1rem;
+      border-right: 1px solid #d9d9e2;
+      color: #374151;
+      font-weight: 500;
+      cursor: pointer;
+      margin-right: 1rem;
+      transition: background-color 0.2s;
+    }
+    input[type="file"]::file-selector-button:hover {
+      background: #e5e7eb;
+    }
+    input[type="file"] {
+      color: #6b7280;
+    }
+    /* Style Django form fields to match Tailwind design */
+    form p {
+      margin-bottom: 1.25rem;
+    }
+    form p label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.5rem;
+    }
+    form p select,
+    form p input[type="file"],
+    form p input[type="text"],
+    form p input[type="email"],
+    form p input[type="number"] {
+      display: block;
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 1px solid #e5e7eb;
+      background-color: #ffffff;
+      padding: 0.75rem 1rem;
+      color: #374151;
+      font-size: 0.875rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s;
+    }
+    form p select:focus,
+    form p input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+  </style>
 </head>
-<body>
+<body class="h-full flex font-sans text-gray-900 antialiased overflow-hidden">
+<!-- BEGIN: Sidebar Navigation -->
+<aside class="w-64 bg-surface-container-lowest border-r border-gray-200 flex flex-col h-full hidden md:flex z-10 shadow-soft">
+<!-- Logo -->
+<div class="h-16 flex items-center px-6 border-b border-gray-100">
+<div class="flex items-center gap-2 text-primary-800 font-bold text-xl">
+<i class="ph-fill ph-heartbeat text-2xl"></i>
+<span>MedAI</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-600 hover:bg-primary-50 hover:text-primary-800 transition-colors" href="{% url 'dashboard' %}">
+<i class="ph ph-squares-four text-xl"></i>
+<span class="font-medium">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-600 hover:bg-primary-50 hover:text-primary-800 transition-colors" href="{% url 'ajouter_patient' %}">
+<i class="ph ph-users text-xl"></i>
+<span class="font-medium">Patients</span>
+</a>
+<!-- Active Link -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary-50 text-primary-800 transition-colors relative" href="{% url 'upload_radiographie' %}">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary-800 rounded-r-md"></div>
+<i class="ph-fill ph-file-magnifying-glass text-xl"></i>
+<span class="font-semibold">Analyses</span>
+</a>
+</nav>
+<!-- Bottom Action (Logout) -->
+<div class="p-4 border-t border-gray-100">
+<form method="post" action="{% url 'logout' %}">
+{% csrf_token %}
+<button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-colors border-none bg-transparent cursor-pointer">
+<i class="ph ph-sign-out text-xl"></i>
+<span class="font-medium">Déconnexion</span>
+</button>
+</form>
+</div>
+</aside>
+<!-- END: Sidebar Navigation -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col h-full bg-surface-container-low relative overflow-y-auto">
+<!-- BEGIN: Top Bar -->
+<header class="h-16 bg-surface-container-lowest border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-20 shadow-sm">
+<!-- Mobile Menu Button (Hidden on Desktop) -->
+<button class="md:hidden text-gray-500 hover:text-gray-700">
+<i class="ph ph-list text-2xl"></i>
+</button>
+<!-- Global Search -->
+<div class="hidden md:flex items-center relative w-96">
+<i class="ph ph-magnifying-glass absolute left-3 text-gray-400 text-lg"></i>
+<input class="w-full pl-10 pr-4 py-2 bg-gray-50 border-transparent rounded-xl focus:bg-white focus:border-primary-300 focus:ring-2 focus:ring-primary-100 text-sm transition-all shadow-inner" placeholder="Rechercher un patient, une analyse..." type="text"/>
+</div>
+<!-- Right Side Actions -->
+<div class="flex items-center gap-4">
+<button class="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 relative transition-colors">
+<i class="ph ph-bell text-xl"></i>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
+</button>
+<div class="h-8 w-px bg-gray-200 mx-1"></div>
+<div class="flex items-center gap-2 p-1.5 rounded-full pr-3">
+<div class="w-8 h-8 rounded-full border border-gray-200 bg-primary-100 flex items-center justify-center">
+<i class="ph-fill ph-user text-primary-800 text-sm"></i>
+</div>
+<span class="text-sm font-medium text-gray-700 hidden sm:block">{{ request.user.get_full_name|default:request.user.username }}</span>
+</div>
+</div>
+</header>
+<!-- END: Top Bar -->
+<!-- BEGIN: Page Content -->
+<div class="flex-1 p-6 lg:p-10 flex flex-col items-center justify-start bg-gradient-to-br from-blue-50/50 to-surface-container-low">
+<!-- Back Link -->
+<div class="w-full max-w-2xl mb-6">
+<a class="inline-flex items-center gap-2 text-primary-700 hover:text-primary-900 font-medium transition-colors" href="{% url 'dashboard' %}">
+<i class="ph ph-arrow-left"></i>
+          Retour au tableau de bord
+        </a>
+</div>
+<!-- Analysis Card -->
+<div class="w-full max-w-2xl bg-surface-container-lowest rounded-3xl shadow-card border border-gray-100 p-8 sm:p-12">
+<!-- Header Section -->
+<div class="flex flex-col items-center text-center mb-10">
+<div class="w-20 h-20 bg-primary-50 rounded-full flex items-center justify-center mb-6 shadow-inner ring-8 ring-primary-50/50">
+<i class="ph-duotone ph-file-x-ray text-4xl text-primary-800"></i>
+</div>
+<h1 class="text-3xl font-bold text-gray-900 mb-3 tracking-tight">Analyse Radiographique</h1>
+<p class="text-gray-500 max-w-md mx-auto text-base leading-relaxed">
+            Sélectionnez le patient et uploadez une radiographie pulmonaire pour détection automatique par l'IA.
+          </p>
+</div>
+<!-- Form Section -->
+<form method="post" enctype="multipart/form-data" class="space-y-6" id="uploadForm">
+{% csrf_token %}
 
-    <div class="container upload-container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <a href="{% url 'dashboard' %}" class="back-link">
-                <i class="bi bi-arrow-left"></i> Retour au tableau de bord
-            </a>
-            <form method="post" action="{% url 'logout' %}" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3 fw-bold">
-                    <i class="bi bi-box-arrow-right"></i> Déconnexion
-                </button>
-            </form>
-        </div>
-        
-        <div class="glass-card text-center">
-            <div class="upload-icon-wrapper">
-                <i class="bi bi-file-earmark-medical"></i>
-            </div>
-            
-            <h3 class="fw-bold mb-2">Analyse Radiographique</h3>
-            <p class="text-muted mb-4">Sélectionnez le patient et uploadez une radiographie pulmonaire pour détection automatique par l'IA.</p>
-            
-            <form method="post" enctype="multipart/form-data" class="text-start" id="uploadForm">
-                {% csrf_token %}
-                {{ form.as_p }}
-                
-                <button type="submit" class="btn btn-gradient" id="submitBtn">
-                    <i class="bi bi-magic me-2"></i> Lancer l'analyse IA
-                </button>
-            </form>
-        </div>
-    </div>
+<!-- Hidden native Django select (kept in sync by JS) -->
+<div style="display:none;">
+{{ form.patient }}
+</div>
 
-    <script>
-        document.getElementById('uploadForm').addEventListener('submit', function() {
-            const btn = document.getElementById('submitBtn');
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Analyse IA en cours...';
-            btn.classList.add('disabled');
+<!-- Custom Searchable Patient Selector -->
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-gray-700">
+<i class="ph ph-user-circle text-base mr-1"></i> Patient
+</label>
+<div class="relative" id="patientSelectorWrapper">
+<!-- Search Input -->
+<div class="relative">
+<i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none"></i>
+<input
+  type="text"
+  id="patientSearchInput"
+  autocomplete="off"
+  placeholder="Rechercher par nom, prénom..."
+  class="w-full pl-11 pr-10 py-3 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 shadow-sm placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all"
+/>
+<!-- Clear button -->
+<button type="button" id="clearSearchBtn" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 transition-colors hidden">
+<i class="ph ph-x-circle text-xl"></i>
+</button>
+</div>
+
+<!-- Selected patient badge (shown after selection) -->
+<div id="selectedPatientBadge" class="hidden mt-2 flex items-center gap-2 bg-primary-50 border border-primary-200 rounded-xl px-4 py-2.5 text-sm">
+<div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
+<i class="ph-fill ph-user text-primary-800 text-sm"></i>
+</div>
+<span id="selectedPatientName" class="font-medium text-primary-800 flex-1"></span>
+<button type="button" id="changePatientBtn" class="text-primary-400 hover:text-primary-700 transition-colors ml-2">
+<i class="ph ph-pencil-simple text-base"></i>
+</button>
+</div>
+
+<!-- Dropdown results -->
+<div id="patientDropdown" class="absolute z-30 w-full mt-1.5 bg-white border border-gray-200 rounded-xl shadow-lg max-h-60 overflow-y-auto hidden">
+<!-- Patients are populated by JS -->
+<div id="patientList"></div>
+<!-- No results message -->
+<div id="noResults" class="hidden px-4 py-6 text-center">
+<i class="ph ph-magnifying-glass-minus text-3xl text-gray-300 mb-2 block"></i>
+<p class="text-sm text-gray-400">Aucun patient trouvé</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- File Upload Field -->
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-gray-700" for="id_image">
+<i class="ph ph-image text-base mr-1"></i> Radiographie pulmonaire
+</label>
+<div class="relative">
+{{ form.image }}
+</div>
+<p class="text-xs text-gray-400 mt-1.5 flex items-center gap-1">
+<i class="ph ph-info text-sm"></i>
+Formats supportés : JPEG, PNG. Taille max : 50 MB.
+</p>
+</div>
+
+<!-- Divider -->
+<div class="py-2">
+<hr class="border-gray-100"/>
+</div>
+<!-- Submit Button -->
+<button id="submitBtn" class="w-full flex items-center justify-center gap-2 bg-primary-800 hover:bg-primary-900 text-white font-semibold py-3.5 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" type="submit">
+<i class="ph-fill ph-sparkle text-lg"></i>
+            Lancer l'analyse IA
+          </button>
+</form>
+</div>
+</div>
+<!-- END: Page Content -->
+</main>
+<!-- END: Main Content Area -->
+
+<!-- Searchable Patient Selector + Loading Spinner Scripts -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // ===== Patient Search Selector =====
+    const nativeSelect = document.getElementById('id_patient');
+    const searchInput = document.getElementById('patientSearchInput');
+    const dropdown = document.getElementById('patientDropdown');
+    const patientList = document.getElementById('patientList');
+    const noResults = document.getElementById('noResults');
+    const selectedBadge = document.getElementById('selectedPatientBadge');
+    const selectedName = document.getElementById('selectedPatientName');
+    const changeBtn = document.getElementById('changePatientBtn');
+    const clearBtn = document.getElementById('clearSearchBtn');
+
+    // Build patient data from native Django select options
+    const patients = [];
+    if (nativeSelect) {
+        Array.from(nativeSelect.options).forEach(opt => {
+            if (opt.value && opt.value !== '') {
+                patients.push({ id: opt.value, name: opt.textContent.trim() });
+            }
         });
-    </script>
-</body>
-</html>
+    }
+
+    function renderPatients(filter = '') {
+        patientList.innerHTML = '';
+        const query = filter.toLowerCase().trim();
+        const filtered = query
+            ? patients.filter(p => p.name.toLowerCase().includes(query))
+            : patients;
+
+        if (filtered.length === 0) {
+            noResults.classList.remove('hidden');
+        } else {
+            noResults.classList.add('hidden');
+            filtered.forEach((p, idx) => {
+                const initials = p.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-primary-50 transition-colors' + (idx < filtered.length - 1 ? ' border-b border-gray-50' : '');
+                div.innerHTML = `
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center flex-shrink-0">
+                        <span class="text-xs font-bold text-primary-800">${initials}</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-800 truncate">${highlightMatch(p.name, query)}</p>
+                    </div>
+                    <i class="ph ph-caret-right text-gray-300 text-sm"></i>
+                `;
+                div.addEventListener('click', () => selectPatient(p));
+                patientList.appendChild(div);
+            });
+        }
+    }
+
+    function highlightMatch(text, query) {
+        if (!query) return text;
+        const idx = text.toLowerCase().indexOf(query);
+        if (idx === -1) return text;
+        return text.slice(0, idx) + '<span class="bg-yellow-100 text-yellow-800 rounded px-0.5">' + text.slice(idx, idx + query.length) + '</span>' + text.slice(idx + query.length);
+    }
+
+    function selectPatient(patient) {
+        nativeSelect.value = patient.id;
+        selectedName.textContent = patient.name;
+        selectedBadge.classList.remove('hidden');
+        searchInput.parentElement.classList.add('hidden');
+        dropdown.classList.add('hidden');
+    }
+
+    function resetSelection() {
+        nativeSelect.value = '';
+        selectedBadge.classList.add('hidden');
+        searchInput.parentElement.classList.remove('hidden');
+        searchInput.value = '';
+        searchInput.focus();
+        renderPatients();
+        dropdown.classList.remove('hidden');
+    }
+
+    // Event listeners
+    searchInput.addEventListener('focus', () => {
+        renderPatients(searchInput.value);
+        dropdown.classList.remove('hidden');
+    });
+
+    searchInput.addEventListener('input', () => {
+        const val = searchInput.value;
+        clearBtn.classList.toggle('hidden', val.length === 0);
+        renderPatients(val);
+        dropdown.classList.remove('hidden');
+    });
+
+    clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearBtn.classList.add('hidden');
+        searchInput.focus();
+        renderPatients();
+    });
+
+    changeBtn.addEventListener('click', resetSelection);
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        const wrapper = document.getElementById('patientSelectorWrapper');
+        if (!wrapper.contains(e.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+
+    // ===== Loading spinner on submit =====
+    document.getElementById('uploadForm').addEventListener('submit', function() {
+        const btn = document.getElementById('submitBtn');
+        btn.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Analyse IA en cours...';
+        btn.classList.add('opacity-75', 'pointer-events-none');
+    });
+});
+</script>
+</body></html>
