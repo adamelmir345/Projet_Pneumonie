@@ -1,154 +1,351 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedAI - Ajouter un Patient</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <style>
-        :root {
-            --primary-color: #00a1d6;
-            --primary-gradient: linear-gradient(135deg, #005b8f 0%, #00a1d6 100%);
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --text-dark: #002f4b;
-            --text-muted: #005b8f;
-        }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f1f5f9;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(195, 70%, 90%, 1) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(195, 60%, 85%, 1) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(195, 50%, 95%, 1) 0, transparent 50%);
-            background-attachment: fixed;
-            color: var(--text-dark);
-            min-height: 100vh;
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedAI - Patients</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#434653",
+                        "secondary-container": "#d0e1fb",
+                        "inverse-on-surface": "#f0f0f9",
+                        "surface-bright": "#faf8ff",
+                        "on-primary-fixed-variant": "#00419c",
+                        "surface": "#faf8ff",
+                        "primary-fixed": "#d9e2ff",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-tertiary-container": "#ffc0a7",
+                        "background": "#faf8ff",
+                        "tertiary-container": "#993900",
+                        "outline": "#737784",
+                        "on-secondary-container": "#54647a",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e1e2eb",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-tint": "#1d59c1",
+                        "primary": "#003c90",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-container": "#ededf6",
+                        "on-tertiary-fixed": "#360f00",
+                        "outline-variant": "#c3c6d5",
+                        "on-primary-container": "#bcceff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "surface-variant": "#e1e2eb",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "surface-container-high": "#e7e7f1",
+                        "primary-container": "#0f52ba",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#001945",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-container-low": "#f3f3fc",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e3037",
+                        "tertiary": "#732900",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191b22",
+                        "inverse-primary": "#b0c6ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-dim": "#d9d9e2",
+                        "secondary": "#505f76",
+                        "on-surface": "#191b22"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "base": "4px",
+                        "gutter": "24px",
+                        "row-height-md": "64px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "data-tabular": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-tabular": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
         }
-
-        .navbar-brand {
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1.5rem;
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-        }
-
-        .btn-gradient {
-            background: var(--primary-gradient);
-            border: none;
-            color: white;
-            font-weight: 600;
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
-            color: white;
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        
-        .form-control {
-            border-radius: 0.75rem;
-            padding: 0.75rem 1rem;
-            border: 1px solid #cbd5e1;
-            background-color: rgba(255, 255, 255, 0.9);
-        }
-
-        .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-            border-color: var(--primary-color);
-        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light pt-4 pb-4">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'dashboard' %}">
-                <i class="bi bi-lungs-fill me-2 fs-2 text-primary"></i>
-                MedAI PneumoScanner
+<body class="bg-gradient-to-br from-surface to-secondary-container/20 text-on-surface h-screen flex overflow-hidden relative">
+<!-- Organic Background Blobs -->
+<div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[100px]"></div>
+<div class="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-tertiary/5 blur-[120px]"></div>
+<div class="absolute top-[30%] right-[20%] w-[25%] h-[25%] rounded-full bg-secondary-fixed/30 blur-[80px]"></div>
+</div>
+
+<!-- Sidebar Navigation (EXACT same as dashboard) -->
+<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
+<div class="px-6 mb-10 mt-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md">{{ user.username|make_list|first|upper }}</div>
+<div>
+<div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div>
+<div class="font-body-md text-on-surface-variant text-xs opacity-80">Radiologie</div>
+</div>
+</div>
+<div class="px-4 space-y-2 flex-1">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}">
+<span class="material-symbols-outlined opacity-70">dashboard</span>
+                Dashboard
             </a>
-            <div class="d-flex gap-3">
-                <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary d-flex align-items-center gap-2" style="border-radius: 50px; font-weight: 600; padding: 0.6rem 1.5rem;">
-                    <i class="bi bi-house-door-fill"></i> Tableau de bord
-                </a>
-                <form method="post" action="{% url 'logout' %}" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-danger d-flex align-items-center gap-2" style="border-radius: 50px; font-weight: 600; padding: 0.6rem 1.5rem; border-width: 2px;">
-                        <i class="bi bi-box-arrow-right"></i>
-                    </button>
-                </form>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 transition-all font-label-md relative" href="{% url 'ajouter_patient' %}">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-primary rounded-r-full"></div>
+<span class="material-symbols-outlined text-primary">groups</span>
+                Patients
+            </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}">
+<span class="material-symbols-outlined opacity-70">psychology</span>
+                Analyses
+            </a>
+</div>
+<div class="px-4 pb-6">
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full">
+<span class="material-symbols-outlined opacity-70">logout</span>
+                Déconnexion
+    </button>
+</form>
+</div>
+</nav>
+
+<!-- Main Content -->
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
+<!-- Header (EXACT same as dashboard) -->
+<header class="flex justify-between items-center w-full px-margin-desktop h-[88px] flex-shrink-0">
+<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white/60 backdrop-blur-md px-5 py-2.5 rounded-[1.5rem] shadow-sm border border-white/50">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+                MedAI
             </div>
+<div class="flex items-center gap-4">
+<button onclick="document.getElementById('addPatientModal').classList.remove('hidden')" class="flex items-center gap-2 px-5 py-2.5 rounded-[1.25rem] bg-white/80 backdrop-blur-md text-on-surface font-label-md hover:bg-white transition-all shadow-sm border border-white/50 h-11">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+                    Ajouter
+                </button>
+<a href="{% url 'upload_radiographie' %}" class="flex items-center gap-2 px-6 py-2.5 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg hover:shadow-primary/20 transition-all h-11 border border-primary/20">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+                    Analyser
+                </a>
+<form method="post" action="{% url 'logout' %}" class="inline">
+    {% csrf_token %}
+    <button type="submit" class="w-11 h-11 text-on-surface-variant bg-white/80 backdrop-blur-md hover:bg-red-50 hover:text-red-600 rounded-[1.25rem] transition-all flex items-center justify-center ml-2 border border-white/50 shadow-sm">
+<span class="material-symbols-outlined">logout</span>
+    </button>
+</form>
+</div>
+</header>
+
+<main class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop pb-12 pt-2">
+<div class="max-w-[1440px] mx-auto space-y-8">
+
+<!-- Search Filter -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div class="flex flex-1 w-full md:max-w-md gap-4">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/70">search</span>
+<input id="patientSearch" class="w-full pl-12 pr-4 py-2.5 bg-white/60 backdrop-blur-md border border-white rounded-[1.25rem] font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white h-12 shadow-[0_4px_15px_rgb(0,0,0,0.02)] transition-all" placeholder="Rechercher un patient..." type="text"/>
+</div>
+</div>
+</div>
+
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white/70 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="text-on-surface-variant font-label-md flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-primary">folder_shared</span></div>
+                                Total Patients
+                            </div>
+<div class="text-on-surface font-headline-lg mt-1">{{ total_patients }}</div>
+</div>
+<div class="bg-white/70 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition-colors"></div>
+<div class="text-on-surface-variant font-label-md flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-purple-600">hourglass_empty</span></div>
+                                En Attente
+                            </div>
+<div class="text-on-surface font-headline-lg mt-1">{{ en_attente }}</div>
+</div>
+<div class="bg-gradient-to-br from-error-container/80 to-error-container/40 backdrop-blur-xl p-6 rounded-[2rem] border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-error/10 rounded-full blur-2xl"></div>
+<div class="text-error font-label-md flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-error/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">warning</span></div>
+                                Cas Pneumonie
+                            </div>
+<div class="text-error font-headline-lg mt-1">{{ cas_critiques }}</div>
+</div>
+</div>
+
+<!-- Patient List -->
+<div class="space-y-4">
+<div class="flex justify-between items-end mb-2 px-2">
+<h3 class="text-on-surface font-headline-md">Tous les Patients</h3>
+<span class="font-label-md text-primary bg-primary-fixed px-3 py-1.5 rounded-full">{{ total_patients }} patient{{ total_patients|pluralize:"s" }}</span>
+</div>
+
+{% for patient in patients %}
+<div class="patient-row bg-white/70 backdrop-blur-xl rounded-[2rem] p-5 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all flex flex-col md:flex-row items-center gap-6 group">
+<!-- Avatar + Name -->
+<div class="flex items-center gap-4 w-full md:w-[250px]">
+<div class="w-14 h-14 rounded-full bg-gradient-to-br from-surface-variant to-surface flex items-center justify-center font-headline-md text-primary shrink-0 border border-white">
+    {{ patient.nom|make_list|first|upper }}{{ patient.prenom|make_list|first|upper }}
+</div>
+<div>
+<div class="font-headline-md text-lg text-on-surface patient-name">{{ patient.nom }} {{ patient.prenom }}</div>
+<div class="font-body-md text-on-surface-variant opacity-80">ID #{{ patient.id }} · {{ patient.date_naissance|date:"d/m/Y" }}</div>
+</div>
+</div>
+
+<!-- Last Radio -->
+<div class="flex gap-3 shrink-0">
+{% with last_radio=patient.radiographies.last %}
+{% if last_radio and last_radio.image %}
+<a href="{{ last_radio.image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-white shadow-sm group-hover:scale-105 transition-transform">
+<img class="w-14 h-14 object-cover" src="{{ last_radio.image.url }}" alt="Radio"/>
+</a>
+{% if last_radio.heatmap_image %}
+<a href="{{ last_radio.heatmap_image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-white shadow-sm group-hover:scale-105 transition-transform delay-75">
+<img class="w-14 h-14 object-cover" src="{{ last_radio.heatmap_image.url }}" alt="Heatmap"/>
+<div class="absolute top-1 right-1 w-3 h-3 bg-error rounded-full border-2 border-white shadow-sm"></div>
+</a>
+{% endif %}
+{% endif %}
+{% endwith %}
+</div>
+
+<!-- Status -->
+<div class="flex-1 flex justify-center md:justify-start">
+{% with last_radio=patient.radiographies.last %}
+{% if last_radio %}
+    {% if last_radio.classe_predite == 'Pneumonie' %}
+    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-error-container/50 text-error border border-error-container">
+        <span class="w-2 h-2 rounded-full bg-error mr-2"></span>
+        Pneumonie
+        <span class="ml-2 opacity-60 font-normal">| {{ last_radio.pourcentage_confiance|floatformat:1 }}%</span>
+    </span>
+    {% else %}
+    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-surface-container-high/50 text-on-surface border border-surface-container-highest">
+        <span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>
+        Normal
+        <span class="ml-2 opacity-60 font-normal">| {{ last_radio.pourcentage_confiance|floatformat:1 }}%</span>
+    </span>
+    {% endif %}
+{% else %}
+    <span class="text-on-surface-variant text-sm italic">Aucune analyse</span>
+{% endif %}
+{% endwith %}
+</div>
+
+<!-- Action -->
+<div class="shrink-0">
+<a href="{% url 'patient_detail' patient.id %}" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-on-surface-variant hover:text-primary hover:shadow-md transition-all border border-white/50">
+<span class="material-symbols-outlined">arrow_forward_ios</span>
+</a>
+</div>
+</div>
+{% empty %}
+<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-12 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] text-center">
+<span class="material-symbols-outlined text-[48px] text-on-surface-variant/40 mb-4 block">groups</span>
+<p class="text-on-surface-variant font-body-lg">Aucun patient enregistré.</p>
+<p class="text-on-surface-variant text-sm mt-1">Cliquez sur "Ajouter" pour commencer.</p>
+</div>
+{% endfor %}
+</div>
+</div>
+</main>
+</div>
+
+<!-- Add Patient Modal -->
+<div id="addPatientModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+<div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-lg border border-white overflow-hidden">
+<div class="flex justify-between items-center p-6 border-b border-outline-variant/30">
+<div>
+<h3 class="font-headline-md text-on-surface">Nouveau Patient</h3>
+<p class="font-body-md text-on-surface-variant mt-1">Renseignez les informations du patient.</p>
+</div>
+<button onclick="document.getElementById('addPatientModal').classList.add('hidden')" class="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form method="post" class="p-6 space-y-5">
+    {% csrf_token %}
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label for="{{ form.nom.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Nom</label>
+            <input type="text" name="nom" id="{{ form.nom.id_for_label }}" placeholder="Nom" required
+                   class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
         </div>
-    </nav>
-
-    <div class="container mt-4 mb-5" style="max-width: 600px;">
-        <div class="mb-4">
-            <h2 class="fw-bold mb-1">Nouveau Patient</h2>
-            <p class="text-muted mb-0">Renseignez les informations du patient.</p>
-        </div>
-
-        <div class="glass-card">
-            <form method="post">
-                {% csrf_token %}
-                
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="{{ form.nom.id_for_label }}" class="form-label">Nom</label>
-                        {{ form.nom }}
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="{{ form.prenom.id_for_label }}" class="form-label">Prénom</label>
-                        {{ form.prenom }}
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.date_naissance.id_for_label }}" class="form-label">Date de Naissance</label>
-                    {{ form.date_naissance }}
-                </div>
-
-                <div class="mb-4">
-                    <label for="{{ form.antecedents_medicaux.id_for_label }}" class="form-label">Antécédents médicaux</label>
-                    {{ form.antecedents_medicaux }}
-                </div>
-
-                <div class="d-flex justify-content-end gap-2">
-                    <a href="{% url 'dashboard' %}" class="btn btn-light" style="border-radius: 50px; font-weight: 600; padding: 0.6rem 1.5rem;">Annuler</a>
-                    <button type="submit" class="btn btn-gradient d-flex align-items-center gap-2">
-                        <i class="bi bi-save-fill"></i> Enregistrer
-                    </button>
-                </div>
-            </form>
+        <div>
+            <label for="{{ form.prenom.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Prénom</label>
+            <input type="text" name="prenom" id="{{ form.prenom.id_for_label }}" placeholder="Prénom" required
+                   class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <div>
+        <label for="{{ form.date_naissance.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Date de Naissance</label>
+        <input type="date" name="date_naissance" id="{{ form.date_naissance.id_for_label }}" required
+               class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+    </div>
+    <div>
+        <label for="{{ form.antecedents_medicaux.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Antécédents médicaux</label>
+        <textarea name="antecedents_medicaux" id="{{ form.antecedents_medicaux.id_for_label }}" rows="3" placeholder="Antécédents éventuels..."
+                  class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all resize-none"></textarea>
+    </div>
+    <div class="flex justify-end gap-3 pt-2">
+        <button type="button" onclick="document.getElementById('addPatientModal').classList.add('hidden')" class="px-5 py-2.5 rounded-xl border border-outline-variant text-on-surface font-label-md hover:bg-surface-container-low transition-colors">Annuler</button>
+        <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg transition-all flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">save</span>
+            Enregistrer
+        </button>
+    </div>
+</form>
+</div>
+</div>
+
+<!-- Search JS -->
+<script>
+    document.getElementById('patientSearch').addEventListener('keyup', function() {
+        const query = this.value.toLowerCase();
+        document.querySelectorAll('.patient-row').forEach(row => {
+            const name = row.querySelector('.patient-name').textContent.toLowerCase();
+            row.style.display = name.includes(query) ? '' : 'none';
+        });
+    });
+
+    {% if form.errors %}
+    document.getElementById('addPatientModal').classList.remove('hidden');
+    {% endif %}
+</script>
+</body></html>
