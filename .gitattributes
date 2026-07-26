@@ -1,0 +1,2 @@
+# Tell GitHub Linguist that HTML templates are not the main language
+*.html linguist-vendored
