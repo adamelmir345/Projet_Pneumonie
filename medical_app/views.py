@@ -9,16 +9,50 @@ def ajouter_patient(request):
         form = PatientForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('dashboard')
+            return redirect('ajouter_patient')
     else:
         form = PatientForm()
-    return render(request, 'medical_app/ajouter_patient.html', {'form': form})
+    
+    patients = Patient.objects.all().order_by('-date_creation')
+    total_patients = patients.count()
+    # Patients with at least one pneumonia radio
+    cas_critiques = Patient.objects.filter(radiographies__classe_predite='Pneumonie').distinct().count()
+    # Patients with radios pending validation
+    en_attente = Patient.objects.filter(radiographies__validation_medecin='En attente').distinct().count()
+    
+    context = {
+        'form': form,
+        'patients': patients,
+        'total_patients': total_patients,
+        'cas_critiques': cas_critiques,
+        'en_attente': en_attente,
+    }
+    return render(request, 'medical_app/ajouter_patient.html', context)
 
 @login_required
 def dashboard(request):
+    from django.utils import timezone
+    from django.db.models import Avg
     # Récupère toutes les radiographies, de la plus récente à la plus ancienne
     radiographies = Radiographie.objects.all().order_by('-date_upload')
-    return render(request, 'medical_app/dashboard.html', {'radiographies': radiographies})
+    
+    # KPI Statistics
+    total_analyses = radiographies.count()
+    cas_pneumonie = radiographies.filter(classe_predite='Pneumonie').count()
+    today = timezone.now().date()
+    cas_critiques_today = radiographies.filter(classe_predite='Pneumonie', date_upload__date=today).count()
+    avg_confiance = radiographies.aggregate(avg=Avg('pourcentage_confiance'))['avg'] or 0
+    total_patients = Patient.objects.count()
+    
+    context = {
+        'radiographies': radiographies,
+        'total_analyses': total_analyses,
+        'cas_pneumonie': cas_pneumonie,
+        'cas_critiques_today': cas_critiques_today,
+        'avg_confiance': avg_confiance,
+        'total_patients': total_patients,
+    }
+    return render(request, 'medical_app/dashboard.html', context)
 
 @login_required
 def upload_radiographie(request):
