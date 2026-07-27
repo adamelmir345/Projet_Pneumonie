@@ -8,4 +8,5 @@ urlpatterns = [
     path('patient/<int:patient_id>/', views.patient_detail, name='patient_detail'),
     path('valider-radio/<int:radio_id>/', views.valider_radio, name='valider_radio'),
     path('rapport-pdf/<int:radio_id>/', views.generer_rapport_pdf, name='generer_rapport_pdf'),
+    path('settings/', views.settings_view, name='settings'),
 ]

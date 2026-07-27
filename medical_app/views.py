@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
 from .models import Radiographie, Patient
 from .forms import RadiographieForm, PatientForm
 
@@ -108,3 +110,44 @@ def generer_rapport_pdf(request, radio_id):
     if pisa_status.err:
        return HttpResponse('Une erreur s\'est produite lors de la génération du PDF', status=500)
     return response
+
+@login_required
+def settings_view(request):
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        
+        if action == 'update_profile':
+            request.user.first_name = request.POST.get('first_name', '')
+            request.user.last_name = request.POST.get('last_name', '')
+            request.user.email = request.POST.get('email', '')
+            request.user.save()
+            messages.success(request, 'Profil mis à jour avec succès.')
+            
+        elif action == 'change_password':
+            current_password = request.POST.get('current_password', '')
+            new_password = request.POST.get('new_password', '')
+            confirm_password = request.POST.get('confirm_password', '')
+            
+            if not request.user.check_password(current_password):
+                messages.error(request, 'Le mot de passe actuel est incorrect.')
+            elif new_password != confirm_password:
+                messages.error(request, 'Les nouveaux mots de passe ne correspondent pas.')
+            elif len(new_password) < 8:
+                messages.error(request, 'Le mot de passe doit contenir au moins 8 caractères.')
+            else:
+                request.user.set_password(new_password)
+                request.user.save()
+                update_session_auth_hash(request, request.user)
+                messages.success(request, 'Mot de passe modifié avec succès.')
+        
+        return redirect('settings')
+    
+    # Statistics for the settings page
+    total_analyses = Radiographie.objects.count()
+    total_patients = Patient.objects.count()
+    
+    context = {
+        'total_analyses': total_analyses,
+        'total_patients': total_patients,
+    }
+    return render(request, 'medical_app/settings.html', context)

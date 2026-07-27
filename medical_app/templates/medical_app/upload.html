@@ -1,204 +1,230 @@
 <!DOCTYPE html>
 
-<html class="h-full bg-[#f3f3fc]" lang="fr"><head>
+<html class="light" lang="fr"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Analyse Radiographique - MedAI</title>
-<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Phosphor Icons -->
-<script src="https://unpkg.com/@phosphor-icons/web"></script>
-<!-- Google Fonts: Inter -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind Configuration for Clinical Precision Theme -->
-<script data-purpose="tailwind-config">
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            primary: {
-              DEFAULT: '#0f52ba',
-              50: '#eff6ff',
-              100: '#dbeafe',
-              200: '#bfdbfe',
-              300: '#93c5fd',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#0f52ba',
-              900: '#1e3a8a',
-            },
-            surface: {
-              DEFAULT: '#faf8ff',
-              dim: '#d9d9e2',
-              bright: '#faf8ff',
-              'container-lowest': '#ffffff',
-              'container-low': '#f3f3fc',
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#434653",
+                        "secondary-container": "#d0e1fb",
+                        "inverse-on-surface": "#f0f0f9",
+                        "surface-bright": "#faf8ff",
+                        "on-primary-fixed-variant": "#00419c",
+                        "surface": "#faf8ff",
+                        "primary-fixed": "#d9e2ff",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-tertiary-container": "#ffc0a7",
+                        "background": "#faf8ff",
+                        "tertiary-container": "#993900",
+                        "outline": "#737784",
+                        "on-secondary-container": "#54647a",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e1e2eb",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-tint": "#1d59c1",
+                        "primary": "#003c90",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-container": "#ededf6",
+                        "on-tertiary-fixed": "#360f00",
+                        "outline-variant": "#c3c6d5",
+                        "on-primary-container": "#bcceff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "surface-variant": "#e1e2eb",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "surface-container-high": "#e7e7f1",
+                        "primary-container": "#0f52ba",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#001945",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-container-low": "#f3f3fc",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e3037",
+                        "tertiary": "#732900",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191b22",
+                        "inverse-primary": "#b0c6ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-dim": "#d9d9e2",
+                        "secondary": "#505f76",
+                        "on-surface": "#191b22"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "base": "4px",
+                        "gutter": "24px",
+                        "row-height-md": "64px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "data-tabular": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-tabular": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
             }
-          },
-          borderRadius: {
-            'xl': '0.75rem',
-            '2xl': '1rem',
-            '3xl': '1.5rem',
-          },
-          boxShadow: {
-            'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
-            'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)',
-          }
         }
-      }
-    }
-  </script>
-<!-- Custom CSS for specific styling -->
-<style data-purpose="custom-utilities">
-    /* Custom styling for file input to match design */
-    input[type="file"]::file-selector-button {
-      border: none;
-      background: #f3f3fc;
-      padding: 0.5rem 1rem;
-      border-right: 1px solid #d9d9e2;
-      color: #374151;
-      font-weight: 500;
-      cursor: pointer;
-      margin-right: 1rem;
-      transition: background-color 0.2s;
-    }
-    input[type="file"]::file-selector-button:hover {
-      background: #e5e7eb;
-    }
-    input[type="file"] {
-      color: #6b7280;
-    }
-    /* Style Django form fields to match Tailwind design */
-    form p {
-      margin-bottom: 1.25rem;
-    }
-    form p label {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #374151;
-      margin-bottom: 0.5rem;
-    }
-    form p select,
-    form p input[type="file"],
-    form p input[type="text"],
-    form p input[type="email"],
-    form p input[type="number"] {
-      display: block;
-      width: 100%;
-      border-radius: 0.75rem;
-      border: 1px solid #e5e7eb;
-      background-color: #ffffff;
-      padding: 0.75rem 1rem;
-      color: #374151;
-      font-size: 0.875rem;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-      transition: all 0.2s;
-    }
-    form p select:focus,
-    form p input:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-    }
-  </style>
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .upload-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 1px solid rgba(195, 198, 213, 0.6);
+            border-radius: 1rem;
+            font-size: 14px;
+            color: #191b22;
+            transition: all 0.2s;
+            outline: none;
+        }
+        .upload-input:focus {
+            border-color: #003c90;
+            box-shadow: 0 0 0 3px rgba(0, 60, 144, 0.1);
+        }
+        /* Style Django form fields */
+        form p { margin-bottom: 1.25rem; }
+        form p label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #434653;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        form p select, form p input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 1px solid rgba(195, 198, 213, 0.6);
+            border-radius: 1rem;
+            font-size: 14px;
+            color: #191b22;
+            transition: all 0.2s;
+            outline: none;
+        }
+        form p select:focus, form p input:focus {
+            border-color: #003c90;
+            box-shadow: 0 0 0 3px rgba(0, 60, 144, 0.1);
+        }
+    </style>
 </head>
-<body class="h-full flex font-sans text-gray-900 antialiased overflow-hidden">
-<!-- BEGIN: Sidebar Navigation -->
-<aside class="w-64 bg-surface-container-lowest border-r border-gray-200 flex flex-col h-full hidden md:flex z-10 shadow-soft">
-<!-- Logo -->
-<div class="h-16 flex items-center px-6 border-b border-gray-100">
-<div class="flex items-center gap-2 text-primary-800 font-bold text-xl">
-<i class="ph-fill ph-heartbeat text-2xl"></i>
-<span>MedAI</span>
+<body class="bg-gradient-to-br from-surface to-secondary-container/20 text-on-surface h-screen flex overflow-hidden relative">
+<!-- Organic Background Blobs -->
+<div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[100px]"></div>
+<div class="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-tertiary/5 blur-[120px]"></div>
+<div class="absolute top-[30%] right-[20%] w-[25%] h-[25%] rounded-full bg-secondary-fixed/30 blur-[80px]"></div>
+</div>
+
+<!-- Sidebar Navigation -->
+<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
+<div class="px-6 mb-10 mt-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md">{{ user.username|make_list|first|upper }}</div>
+<div>
+<div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div>
+<div class="font-body-md text-on-surface-variant text-xs opacity-80">Radiologie</div>
 </div>
 </div>
-<!-- Navigation Links -->
-<nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-600 hover:bg-primary-50 hover:text-primary-800 transition-colors" href="{% url 'dashboard' %}">
-<i class="ph ph-squares-four text-xl"></i>
-<span class="font-medium">Tableau de bord</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-600 hover:bg-primary-50 hover:text-primary-800 transition-colors" href="{% url 'ajouter_patient' %}">
-<i class="ph ph-users text-xl"></i>
-<span class="font-medium">Patients</span>
-</a>
+<div class="px-4 space-y-2 flex-1">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}">
+<span class="material-symbols-outlined opacity-70">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}">
+<span class="material-symbols-outlined opacity-70">groups</span>
+                Patients
+            </a>
 <!-- Active Link -->
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary-50 text-primary-800 transition-colors relative" href="{% url 'upload_radiographie' %}">
-<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary-800 rounded-r-md"></div>
-<i class="ph-fill ph-file-magnifying-glass text-xl"></i>
-<span class="font-semibold">Analyses</span>
-</a>
-</nav>
-<!-- Bottom Action (Logout) -->
-<div class="p-4 border-t border-gray-100">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 transition-all font-label-md relative" href="{% url 'upload_radiographie' %}">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-primary rounded-r-full"></div>
+<span class="material-symbols-outlined text-primary">psychology</span>
+                Analyses
+            </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}">
+<span class="material-symbols-outlined opacity-70">settings</span>
+                Paramètres
+            </a>
+</div>
+<div class="px-4 pb-6">
 <form method="post" action="{% url 'logout' %}">
-{% csrf_token %}
-<button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-colors border-none bg-transparent cursor-pointer">
-<i class="ph ph-sign-out text-xl"></i>
-<span class="font-medium">Déconnexion</span>
-</button>
+    {% csrf_token %}
+    <button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full">
+<span class="material-symbols-outlined opacity-70">logout</span>
+                Déconnexion
+    </button>
 </form>
 </div>
-</aside>
-<!-- END: Sidebar Navigation -->
-<!-- BEGIN: Main Content Area -->
-<main class="flex-1 flex flex-col h-full bg-surface-container-low relative overflow-y-auto">
-<!-- BEGIN: Top Bar -->
-<header class="h-16 bg-surface-container-lowest border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-20 shadow-sm">
-<!-- Mobile Menu Button (Hidden on Desktop) -->
-<button class="md:hidden text-gray-500 hover:text-gray-700">
-<i class="ph ph-list text-2xl"></i>
-</button>
-<!-- Global Search -->
-<div class="hidden md:flex items-center relative w-96">
-<i class="ph ph-magnifying-glass absolute left-3 text-gray-400 text-lg"></i>
-<input class="w-full pl-10 pr-4 py-2 bg-gray-50 border-transparent rounded-xl focus:bg-white focus:border-primary-300 focus:ring-2 focus:ring-primary-100 text-sm transition-all shadow-inner" placeholder="Rechercher un patient, une analyse..." type="text"/>
-</div>
-<!-- Right Side Actions -->
+</nav>
+
+<!-- Main Content -->
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
+<header class="flex justify-between items-center w-full px-margin-desktop h-[88px] flex-shrink-0">
+<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white/60 backdrop-blur-md px-5 py-2.5 rounded-[1.5rem] shadow-sm border border-white/50">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+                MedAI
+            </div>
 <div class="flex items-center gap-4">
-<button class="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 relative transition-colors">
-<i class="ph ph-bell text-xl"></i>
-<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
-</button>
-<div class="h-8 w-px bg-gray-200 mx-1"></div>
-<div class="flex items-center gap-2 p-1.5 rounded-full pr-3">
-<div class="w-8 h-8 rounded-full border border-gray-200 bg-primary-100 flex items-center justify-center">
-<i class="ph-fill ph-user text-primary-800 text-sm"></i>
-</div>
-<span class="text-sm font-medium text-gray-700 hidden sm:block">{{ request.user.get_full_name|default:request.user.username }}</span>
-</div>
+<a href="{% url 'dashboard' %}" class="flex items-center gap-2 px-6 py-2.5 rounded-[1.25rem] bg-white/80 backdrop-blur-md text-on-surface-variant font-label-md hover:shadow-sm transition-all h-11 border border-white/50">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                    Retour
+                </a>
+<form method="post" action="{% url 'logout' %}" class="inline">
+    {% csrf_token %}
+    <button type="submit" class="w-11 h-11 text-on-surface-variant bg-white/80 backdrop-blur-md hover:bg-red-50 hover:text-red-600 rounded-[1.25rem] transition-all flex items-center justify-center ml-2 border border-white/50 shadow-sm">
+<span class="material-symbols-outlined">logout</span>
+    </button>
+</form>
 </div>
 </header>
-<!-- END: Top Bar -->
-<!-- BEGIN: Page Content -->
-<div class="flex-1 p-6 lg:p-10 flex flex-col items-center justify-start bg-gradient-to-br from-blue-50/50 to-surface-container-low">
-<!-- Back Link -->
-<div class="w-full max-w-2xl mb-6">
-<a class="inline-flex items-center gap-2 text-primary-700 hover:text-primary-900 font-medium transition-colors" href="{% url 'dashboard' %}">
-<i class="ph ph-arrow-left"></i>
-          Retour au tableau de bord
-        </a>
-</div>
+
+<main class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop pb-12 pt-2">
+<div class="max-w-[700px] mx-auto space-y-8">
+
 <!-- Analysis Card -->
-<div class="w-full max-w-2xl bg-surface-container-lowest rounded-3xl shadow-card border border-gray-100 p-8 sm:p-12">
+<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 sm:p-12 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
 <!-- Header Section -->
 <div class="flex flex-col items-center text-center mb-10">
-<div class="w-20 h-20 bg-primary-50 rounded-full flex items-center justify-center mb-6 shadow-inner ring-8 ring-primary-50/50">
-<i class="ph-duotone ph-file-x-ray text-4xl text-primary-800"></i>
+<div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-full flex items-center justify-center mb-6 border border-primary/10">
+<span class="material-symbols-outlined text-primary text-[36px]" style="font-variation-settings: 'FILL' 1;">radiology</span>
 </div>
-<h1 class="text-3xl font-bold text-gray-900 mb-3 tracking-tight">Analyse Radiographique</h1>
-<p class="text-gray-500 max-w-md mx-auto text-base leading-relaxed">
+<h1 class="font-headline-md text-on-surface mb-2">Analyse Radiographique</h1>
+<p class="font-body-md text-on-surface-variant max-w-md mx-auto">
             Sélectionnez le patient et uploadez une radiographie pulmonaire pour détection automatique par l'IA.
           </p>
 </div>
+
 <!-- Form Section -->
 <form method="post" enctype="multipart/form-data" class="space-y-6" id="uploadForm">
 {% csrf_token %}
@@ -210,45 +236,43 @@
 
 <!-- Custom Searchable Patient Selector -->
 <div class="space-y-2">
-<label class="block text-sm font-semibold text-gray-700">
-<i class="ph ph-user-circle text-base mr-1"></i> Patient
+<label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px] align-middle mr-1">person_search</span> Patient
 </label>
 <div class="relative" id="patientSelectorWrapper">
 <!-- Search Input -->
 <div class="relative">
-<i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none"></i>
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[20px] pointer-events-none">search</span>
 <input
   type="text"
   id="patientSearchInput"
   autocomplete="off"
   placeholder="Rechercher par nom, prénom..."
-  class="w-full pl-11 pr-10 py-3 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 shadow-sm placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all"
+  class="upload-input pl-11 pr-10"
 />
 <!-- Clear button -->
-<button type="button" id="clearSearchBtn" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 transition-colors hidden">
-<i class="ph ph-x-circle text-xl"></i>
+<button type="button" id="clearSearchBtn" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant/40 hover:text-on-surface-variant transition-colors hidden">
+<span class="material-symbols-outlined text-[20px]">close</span>
 </button>
 </div>
 
 <!-- Selected patient badge (shown after selection) -->
-<div id="selectedPatientBadge" class="hidden mt-2 flex items-center gap-2 bg-primary-50 border border-primary-200 rounded-xl px-4 py-2.5 text-sm">
-<div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
-<i class="ph-fill ph-user text-primary-800 text-sm"></i>
+<div id="selectedPatientBadge" class="hidden mt-2 flex items-center gap-3 bg-primary-fixed/50 border border-primary-fixed-dim/40 rounded-2xl px-4 py-2.5">
+<div class="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary text-xs font-bold flex-shrink-0">
+<span id="selectedPatientInitials"></span>
 </div>
-<span id="selectedPatientName" class="font-medium text-primary-800 flex-1"></span>
-<button type="button" id="changePatientBtn" class="text-primary-400 hover:text-primary-700 transition-colors ml-2">
-<i class="ph ph-pencil-simple text-base"></i>
+<span id="selectedPatientName" class="font-label-md text-primary flex-1"></span>
+<button type="button" id="changePatientBtn" class="text-on-surface-variant/50 hover:text-primary transition-colors ml-2">
+<span class="material-symbols-outlined text-[18px]">edit</span>
 </button>
 </div>
 
 <!-- Dropdown results -->
-<div id="patientDropdown" class="absolute z-30 w-full mt-1.5 bg-white border border-gray-200 rounded-xl shadow-lg max-h-60 overflow-y-auto hidden">
-<!-- Patients are populated by JS -->
+<div id="patientDropdown" class="absolute z-30 w-full mt-2 bg-white/95 backdrop-blur-xl border border-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] max-h-60 overflow-y-auto hidden">
 <div id="patientList"></div>
-<!-- No results message -->
 <div id="noResults" class="hidden px-4 py-6 text-center">
-<i class="ph ph-magnifying-glass-minus text-3xl text-gray-300 mb-2 block"></i>
-<p class="text-sm text-gray-400">Aucun patient trouvé</p>
+<span class="material-symbols-outlined text-[32px] text-on-surface-variant/30 mb-2 block">search_off</span>
+<p class="font-body-md text-on-surface-variant/60">Aucun patient trouvé</p>
 </div>
 </div>
 </div>
@@ -256,33 +280,34 @@
 
 <!-- File Upload Field -->
 <div class="space-y-2">
-<label class="block text-sm font-semibold text-gray-700" for="id_image">
-<i class="ph ph-image text-base mr-1"></i> Radiographie pulmonaire
+<label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider" for="id_image">
+<span class="material-symbols-outlined text-[16px] align-middle mr-1">image</span> Radiographie pulmonaire
 </label>
 <div class="relative">
 {{ form.image }}
 </div>
-<p class="text-xs text-gray-400 mt-1.5 flex items-center gap-1">
-<i class="ph ph-info text-sm"></i>
+<p class="text-xs text-on-surface-variant/60 mt-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">info</span>
 Formats supportés : JPEG, PNG. Taille max : 50 MB.
 </p>
 </div>
 
 <!-- Divider -->
 <div class="py-2">
-<hr class="border-gray-100"/>
+<hr class="border-outline-variant/30"/>
 </div>
+
 <!-- Submit Button -->
-<button id="submitBtn" class="w-full flex items-center justify-center gap-2 bg-primary-800 hover:bg-primary-900 text-white font-semibold py-3.5 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" type="submit">
-<i class="ph-fill ph-sparkle text-lg"></i>
+<button id="submitBtn" class="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg hover:shadow-primary/20 transition-all border border-primary/20" type="submit">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
             Lancer l'analyse IA
           </button>
 </form>
 </div>
+
 </div>
-<!-- END: Page Content -->
 </main>
-<!-- END: Main Content Area -->
+</div>
 
 <!-- Searchable Patient Selector + Loading Spinner Scripts -->
 <script>
@@ -295,10 +320,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const noResults = document.getElementById('noResults');
     const selectedBadge = document.getElementById('selectedPatientBadge');
     const selectedName = document.getElementById('selectedPatientName');
+    const selectedInitials = document.getElementById('selectedPatientInitials');
     const changeBtn = document.getElementById('changePatientBtn');
     const clearBtn = document.getElementById('clearSearchBtn');
 
-    // Build patient data from native Django select options
     const patients = [];
     if (nativeSelect) {
         Array.from(nativeSelect.options).forEach(opt => {
@@ -322,15 +347,15 @@ document.addEventListener('DOMContentLoaded', function() {
             filtered.forEach((p, idx) => {
                 const initials = p.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
                 const div = document.createElement('div');
-                div.className = 'flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-primary-50 transition-colors' + (idx < filtered.length - 1 ? ' border-b border-gray-50' : '');
+                div.className = 'flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-primary-fixed/30 transition-colors' + (idx < filtered.length - 1 ? ' border-b border-outline-variant/20' : '');
                 div.innerHTML = `
-                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center flex-shrink-0">
-                        <span class="text-xs font-bold text-primary-800">${initials}</span>
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-surface-variant to-surface flex items-center justify-center flex-shrink-0 font-label-md text-primary text-xs font-bold">
+                        ${initials}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-800 truncate">${highlightMatch(p.name, query)}</p>
+                        <p class="font-body-md text-on-surface truncate">${highlightMatch(p.name, query)}</p>
                     </div>
-                    <i class="ph ph-caret-right text-gray-300 text-sm"></i>
+                    <span class="material-symbols-outlined text-on-surface-variant/30 text-[16px]">chevron_right</span>
                 `;
                 div.addEventListener('click', () => selectPatient(p));
                 patientList.appendChild(div);
@@ -342,12 +367,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!query) return text;
         const idx = text.toLowerCase().indexOf(query);
         if (idx === -1) return text;
-        return text.slice(0, idx) + '<span class="bg-yellow-100 text-yellow-800 rounded px-0.5">' + text.slice(idx, idx + query.length) + '</span>' + text.slice(idx + query.length);
+        return text.slice(0, idx) + '<span class="bg-primary-fixed text-primary rounded px-0.5">' + text.slice(idx, idx + query.length) + '</span>' + text.slice(idx + query.length);
     }
 
     function selectPatient(patient) {
         nativeSelect.value = patient.id;
         selectedName.textContent = patient.name;
+        const initials = patient.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+        selectedInitials.textContent = initials;
         selectedBadge.classList.remove('hidden');
         searchInput.parentElement.classList.add('hidden');
         dropdown.classList.add('hidden');
@@ -363,7 +390,6 @@ document.addEventListener('DOMContentLoaded', function() {
         dropdown.classList.remove('hidden');
     }
 
-    // Event listeners
     searchInput.addEventListener('focus', () => {
         renderPatients(searchInput.value);
         dropdown.classList.remove('hidden');
@@ -385,7 +411,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     changeBtn.addEventListener('click', resetSelection);
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
         const wrapper = document.getElementById('patientSelectorWrapper');
         if (!wrapper.contains(e.target)) {
