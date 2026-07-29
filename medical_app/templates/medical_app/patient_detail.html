@@ -194,11 +194,87 @@
                         {{ patient.nom|make_list|first|upper }}{{ patient.prenom|make_list|first|upper }}
                     </div>
                     <h2 class="font-headline-lg text-headline-lg text-on-background mb-1 z-10">{{ patient.nom }} {{ patient.prenom }}</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant mb-6 z-10">Patient ID: #{{ patient.id }}</p>
-                    <div class="w-full flex justify-center gap-2 mb-6 z-10">
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-4 z-10">Patient ID: #{{ patient.id }}</p>
+                    <div class="w-full flex justify-center gap-2 mb-6 z-10 flex-wrap">
                         <span class="px-3 py-1 bg-white border border-white text-on-surface-variant font-label-md text-label-md rounded-full shadow-sm">{{ patient.date_naissance|date:"d/m/Y" }}</span>
+                        {% if patient.sexe %}
+                        <span class="px-3 py-1 bg-white border border-white text-on-surface-variant font-label-md text-label-md rounded-full shadow-sm">{{ patient.sexe }}</span>
+                        {% endif %}
+                        {% if patient.groupe_sanguin %}
+                        <span class="px-3 py-1 bg-error-container/30 border border-error-container/50 text-error font-label-md text-label-md rounded-full shadow-sm">{{ patient.groupe_sanguin }}</span>
+                        {% endif %}
                     </div>
+
                     <div class="w-full border-t border-outline-variant/30 pt-6 flex flex-col gap-4 text-left z-10">
+                        <!-- Contact -->
+                        {% if patient.telephone or patient.adresse %}
+                        <div class="flex flex-col gap-2">
+                            {% if patient.telephone %}
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[16px] text-on-surface-variant/60">call</span>
+                                <span class="font-body-md text-on-background">{{ patient.telephone }}</span>
+                            </div>
+                            {% endif %}
+                            {% if patient.adresse %}
+                            <div class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-[16px] text-on-surface-variant/60 mt-0.5">location_on</span>
+                                <span class="font-body-md text-on-background">{{ patient.adresse }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Mesures corporelles -->
+                        {% if patient.poids or patient.taille %}
+                        <div>
+                            <p class="font-label-md text-label-md text-on-surface-variant mb-2">Mesures</p>
+                            <div class="grid grid-cols-2 gap-2">
+                                {% if patient.poids %}
+                                <div class="bg-surface-container-low rounded-xl px-3 py-2 text-center">
+                                    <span class="font-headline-md text-primary text-lg">{{ patient.poids|floatformat:1 }}</span>
+                                    <span class="font-body-md text-on-surface-variant text-xs block">kg</span>
+                                </div>
+                                {% endif %}
+                                {% if patient.taille %}
+                                <div class="bg-surface-container-low rounded-xl px-3 py-2 text-center">
+                                    <span class="font-headline-md text-primary text-lg">{{ patient.taille|floatformat:0 }}</span>
+                                    <span class="font-body-md text-on-surface-variant text-xs block">cm</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Statut tabagique -->
+                        {% if patient.fumeur %}
+                        <div>
+                            <p class="font-label-md text-label-md text-on-surface-variant mb-1">Statut tabagique</p>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-label-md text-sm
+                                {% if patient.fumeur == 'Fumeur' %}bg-error-container/30 text-error border border-error-container/50
+                                {% elif patient.fumeur == 'Ancien fumeur' %}bg-tertiary-fixed/30 text-tertiary border border-tertiary-fixed-dim/50
+                                {% else %}bg-surface-container-high text-on-surface-variant border border-outline-variant/30{% endif %}">
+                                <span class="material-symbols-outlined text-[14px]">
+                                    {% if patient.fumeur == 'Fumeur' %}smoking_rooms{% elif patient.fumeur == 'Ancien fumeur' %}smoke_free{% else %}smoke_free{% endif %}
+                                </span>
+                                {{ patient.fumeur }}
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        <!-- Allergies -->
+                        {% if patient.allergies %}
+                        <div>
+                            <p class="font-label-md text-label-md text-on-surface-variant mb-1">Allergies</p>
+                            <div class="bg-error-container/15 border border-error-container/30 rounded-xl px-3 py-2">
+                                <p class="font-body-md text-error text-sm flex items-start gap-1.5">
+                                    <span class="material-symbols-outlined text-[16px] mt-0.5">warning</span>
+                                    {{ patient.allergies }}
+                                </p>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Antécédents -->
                         <div>
                             <p class="font-label-md text-label-md text-on-surface-variant mb-1">Antécédents</p>
                             <p class="font-body-md text-body-md text-on-background">
@@ -209,6 +285,17 @@
                                 {% endif %}
                             </p>
                         </div>
+
+                        <!-- Notes médecin -->
+                        {% if patient.notes_medecin %}
+                        <div>
+                            <p class="font-label-md text-label-md text-on-surface-variant mb-1">Notes du médecin</p>
+                            <div class="bg-primary-fixed/20 border border-primary-fixed-dim/30 rounded-xl px-3 py-2">
+                                <p class="font-body-md text-primary text-sm">{{ patient.notes_medecin }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+
                         <div>
                             <p class="font-label-md text-label-md text-on-surface-variant mb-1">Enregistré le</p>
                             <p class="font-body-md text-body-md text-on-background">{{ patient.date_creation|date:"d M Y" }}</p>

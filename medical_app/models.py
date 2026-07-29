@@ -2,14 +2,44 @@ from django.db import models
 from .utils import predict_pneumonia, generate_gradcam
 
 class Patient(models.Model):
+    SEXE_CHOICES = [
+        ('Homme', 'Homme'),
+        ('Femme', 'Femme'),
+    ]
+    GROUPE_SANGUIN_CHOICES = [
+        ('A+', 'A+'), ('A-', 'A-'),
+        ('B+', 'B+'), ('B-', 'B-'),
+        ('AB+', 'AB+'), ('AB-', 'AB-'),
+        ('O+', 'O+'), ('O-', 'O-'),
+    ]
+    FUMEUR_CHOICES = [
+        ('Non-fumeur', 'Non-fumeur'),
+        ('Fumeur', 'Fumeur'),
+        ('Ancien fumeur', 'Ancien fumeur'),
+    ]
+
+    # Identité
     nom = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
     date_naissance = models.DateField()
+    sexe = models.CharField(max_length=10, choices=SEXE_CHOICES, blank=True, null=True)
+    telephone = models.CharField(max_length=20, blank=True, null=True)
+    adresse = models.TextField(blank=True, null=True)
+
+    # Médical
+    groupe_sanguin = models.CharField(max_length=5, choices=GROUPE_SANGUIN_CHOICES, blank=True, null=True)
+    poids = models.FloatField(blank=True, null=True, help_text="Poids en kg")
+    taille = models.FloatField(blank=True, null=True, help_text="Taille en cm")
+    allergies = models.TextField(blank=True, null=True)
+    fumeur = models.CharField(max_length=20, choices=FUMEUR_CHOICES, blank=True, null=True)
     antecedents_medicaux = models.TextField(blank=True, null=True)
+    notes_medecin = models.TextField(blank=True, null=True)
+
     date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.nom} {self.prenom}"
+
 
 class Radiographie(models.Model):
     RESULTAT_CHOICES = [

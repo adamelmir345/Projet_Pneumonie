@@ -293,8 +293,8 @@
 
 <!-- Add Patient Modal -->
 <div id="addPatientModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-<div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-lg border border-white overflow-hidden">
-<div class="flex justify-between items-center p-6 border-b border-outline-variant/30">
+<div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl border border-white overflow-hidden max-h-[90vh] flex flex-col">
+<div class="flex justify-between items-center p-6 border-b border-outline-variant/30 flex-shrink-0">
 <div>
 <h3 class="font-headline-md text-on-surface">Nouveau Patient</h3>
 <p class="font-body-md text-on-surface-variant mt-1">Renseignez les informations du patient.</p>
@@ -303,30 +303,128 @@
 <span class="material-symbols-outlined">close</span>
 </button>
 </div>
-<form method="post" class="p-6 space-y-5">
+<form method="post" class="p-6 space-y-6 overflow-y-auto">
     {% csrf_token %}
-    <div class="grid grid-cols-2 gap-4">
-        <div>
-            <label for="{{ form.nom.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Nom</label>
-            <input type="text" name="nom" id="{{ form.nom.id_for_label }}" placeholder="Nom" required
-                   class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
-        </div>
-        <div>
-            <label for="{{ form.prenom.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Prénom</label>
-            <input type="text" name="prenom" id="{{ form.prenom.id_for_label }}" placeholder="Prénom" required
-                   class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
-        </div>
-    </div>
+
+    <!-- Section: Identité -->
     <div>
-        <label for="{{ form.date_naissance.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Date de Naissance</label>
-        <input type="date" name="date_naissance" id="{{ form.date_naissance.id_for_label }}" required
-               class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+        <h4 class="font-label-md text-primary text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-[16px]">badge</span> Identité
+        </h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label for="{{ form.nom.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Nom *</label>
+                <input type="text" name="nom" id="{{ form.nom.id_for_label }}" placeholder="Nom" required
+                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+            </div>
+            <div>
+                <label for="{{ form.prenom.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Prénom *</label>
+                <input type="text" name="prenom" id="{{ form.prenom.id_for_label }}" placeholder="Prénom" required
+                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            <div>
+                <label for="{{ form.date_naissance.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Date de Naissance *</label>
+                <input type="date" name="date_naissance" id="{{ form.date_naissance.id_for_label }}" required
+                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+            </div>
+            <div>
+                <label for="{{ form.sexe.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Sexe</label>
+                <select name="sexe" id="{{ form.sexe.id_for_label }}"
+                        class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all">
+                    <option value="">---------</option>
+                    <option value="Homme">Homme</option>
+                    <option value="Femme">Femme</option>
+                </select>
+            </div>
+        </div>
     </div>
+
+    <hr class="border-outline-variant/30"/>
+
+    <!-- Section: Contact -->
     <div>
-        <label for="{{ form.antecedents_medicaux.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Antécédents médicaux</label>
-        <textarea name="antecedents_medicaux" id="{{ form.antecedents_medicaux.id_for_label }}" rows="3" placeholder="Antécédents éventuels..."
-                  class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all resize-none"></textarea>
+        <h4 class="font-label-md text-primary text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-[16px]">call</span> Contact
+        </h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label for="{{ form.telephone.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Téléphone</label>
+                <input type="text" name="telephone" id="{{ form.telephone.id_for_label }}" placeholder="06 12 34 56 78"
+                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+            </div>
+            <div>
+                <label for="{{ form.adresse.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Adresse</label>
+                <input type="text" name="adresse" id="{{ form.adresse.id_for_label }}" placeholder="Adresse du patient"
+                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+            </div>
+        </div>
     </div>
+
+    <hr class="border-outline-variant/30"/>
+
+    <!-- Section: Médical -->
+    <div>
+        <h4 class="font-label-md text-primary text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-[16px]">medical_information</span> Informations Médicales
+        </h4>
+        <div class="grid grid-cols-3 gap-4">
+            <div>
+                <label for="{{ form.groupe_sanguin.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Groupe sanguin</label>
+                <select name="groupe_sanguin" id="{{ form.groupe_sanguin.id_for_label }}"
+                        class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all">
+                    <option value="">---------</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+            <div>
+                <label for="{{ form.poids.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Poids (kg)</label>
+                <input type="number" name="poids" id="{{ form.poids.id_for_label }}" placeholder="kg" step="0.1"
+                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+            </div>
+            <div>
+                <label for="{{ form.taille.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Taille (cm)</label>
+                <input type="number" name="taille" id="{{ form.taille.id_for_label }}" placeholder="cm" step="0.1"
+                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            <div>
+                <label for="{{ form.fumeur.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Statut tabagique</label>
+                <select name="fumeur" id="{{ form.fumeur.id_for_label }}"
+                        class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all">
+                    <option value="">---------</option>
+                    <option value="Non-fumeur">Non-fumeur</option>
+                    <option value="Fumeur">Fumeur</option>
+                    <option value="Ancien fumeur">Ancien fumeur</option>
+                </select>
+            </div>
+            <div>
+                <label for="{{ form.allergies.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Allergies</label>
+                <input type="text" name="allergies" id="{{ form.allergies.id_for_label }}" placeholder="Allergies connues..."
+                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+            </div>
+        </div>
+        <div class="mt-4">
+            <label for="{{ form.antecedents_medicaux.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Antécédents médicaux</label>
+            <textarea name="antecedents_medicaux" id="{{ form.antecedents_medicaux.id_for_label }}" rows="2" placeholder="Antécédents éventuels..."
+                      class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all resize-none"></textarea>
+        </div>
+        <div class="mt-4">
+            <label for="{{ form.notes_medecin.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Notes du médecin</label>
+            <textarea name="notes_medecin" id="{{ form.notes_medecin.id_for_label }}" rows="2" placeholder="Notes libres..."
+                      class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all resize-none"></textarea>
+        </div>
+    </div>
+
     <div class="flex justify-end gap-3 pt-2">
         <button type="button" onclick="document.getElementById('addPatientModal').classList.add('hidden')" class="px-5 py-2.5 rounded-xl border border-outline-variant text-on-surface font-label-md hover:bg-surface-container-low transition-colors">Annuler</button>
         <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg transition-all flex items-center gap-2">
