@@ -329,7 +329,7 @@
 <span class="font-body-md text-on-surface-variant text-sm">Notification immédiate lorsque l'IA détecte des anomalies sévères (Pneumonie, etc.).</span>
 </div>
 <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
-<input checked class="sr-only peer" type="checkbox"/>
+<input id="notif_critical" class="sr-only peer" type="checkbox"/>
 <div class="w-11 h-6 bg-outline-variant peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-error"></div>
 </label>
 </div>
@@ -340,7 +340,7 @@
 <span class="font-body-md text-on-surface-variant text-sm">Notifier lorsqu'une analyse radiographique est terminée.</span>
 </div>
 <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
-<input checked class="sr-only peer" type="checkbox"/>
+<input id="notif_complete" class="sr-only peer" type="checkbox"/>
 <div class="w-11 h-6 bg-outline-variant peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
 </label>
 </div>
@@ -384,5 +384,65 @@
 </div>
 </main>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const notifCritical = document.getElementById('notif_critical');
+    const notifComplete = document.getElementById('notif_complete');
+
+    // Restore state from localStorage
+    notifCritical.checked = localStorage.getItem('notif_critical') === 'true';
+    notifComplete.checked = localStorage.getItem('notif_complete') === 'true';
+
+    function requestNotificationPermission(callback) {
+        if (!("Notification" in window)) {
+            alert("Ce navigateur ne supporte pas les notifications de bureau.");
+            return;
+        }
+        if (Notification.permission === "granted") {
+            callback();
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then(function (permission) {
+                if (permission === "granted") {
+                    callback();
+                }
+            });
+        }
+    }
+
+    function sendNotification(title, body) {
+        if (Notification.permission === "granted") {
+            new Notification(title, {
+                body: body,
+                icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png" // Icone de médecine
+            });
+        }
+    }
+
+    notifCritical.addEventListener('change', function() {
+        localStorage.setItem('notif_critical', this.checked);
+        if (this.checked) {
+            requestNotificationPermission(() => {
+                sendNotification(
+                    "⚠️ Alerte Médicale Activée", 
+                    "Les notifications pour les résultats critiques (ex: Pneumonie) sont activées."
+                );
+            });
+        }
+    });
+
+    notifComplete.addEventListener('change', function() {
+        localStorage.setItem('notif_complete', this.checked);
+        if (this.checked) {
+            requestNotificationPermission(() => {
+                sendNotification(
+                    "✅ Analyse Terminée", 
+                    "Vous serez notifié à chaque fois qu'une IA termine une analyse radiographique."
+                );
+            });
+        }
+    });
+});
+</script>
 
 </body></html>
