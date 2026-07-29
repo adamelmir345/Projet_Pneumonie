@@ -297,9 +297,13 @@
 <div class="flex items-center justify-between mb-6">
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">trending_up</span>
-<h2 class="font-headline-md text-on-surface text-lg">Tendance Diagnostique (6 Mois)</h2>
+<h2 class="font-headline-md text-on-surface text-lg">Tendance Diagnostique</h2>
 </div>
-<span class="font-label-md text-on-surface-variant text-xs bg-surface-container-low px-3 py-1.5 rounded-full">Derniers mois</span>
+<select id="trendPeriodSelector" onchange="updateTrendChart()" class="font-label-md text-on-surface-variant text-sm bg-surface-container-low border border-outline-variant px-3 py-1.5 rounded-full focus:ring-primary focus:border-primary">
+    <option value="6months">6 derniers mois</option>
+    <option value="30days">30 derniers jours</option>
+    <option value="7days">7 derniers jours</option>
+</select>
 </div>
 <div class="h-[300px]">
 <canvas id="monthlyChart"></canvas>
@@ -388,15 +392,33 @@ Chart.defaults.font.family = 'Inter';
 Chart.defaults.plugins.legend.display = false;
 
 // 1. Monthly Analyses (Line/Area Chart style similar to trend)
+const trendData = {
+    '6months': {
+        labels: {{ mois_labels|safe }},
+        pneumonies: {{ mois_pneumonies|safe }},
+        normaux: {{ mois_normaux|safe }}
+    },
+    '30days': {
+        labels: {{ jours30_labels|safe }},
+        pneumonies: {{ jours30_pneumonies|safe }},
+        normaux: {{ jours30_normaux|safe }}
+    },
+    '7days': {
+        labels: {{ jours7_labels|safe }},
+        pneumonies: {{ jours7_pneumonies|safe }},
+        normaux: {{ jours7_normaux|safe }}
+    }
+};
+
 const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
-new Chart(monthlyCtx, {
+let trendChart = new Chart(monthlyCtx, {
     type: 'line',
     data: {
-        labels: {{ mois_labels|safe }},
+        labels: trendData['6months'].labels,
         datasets: [
             {
                 label: 'Pneumonie',
-                data: {{ mois_pneumonies|safe }},
+                data: trendData['6months'].pneumonies,
                 borderColor: 'rgba(186, 26, 26, 1)',
                 backgroundColor: 'rgba(186, 26, 26, 0.1)',
                 borderWidth: 3,
@@ -407,7 +429,7 @@ new Chart(monthlyCtx, {
             },
             {
                 label: 'Normal',
-                data: {{ mois_normaux|safe }},
+                data: trendData['6months'].normaux,
                 borderColor: 'rgba(0, 60, 144, 1)', // Primary blue
                 backgroundColor: 'rgba(0, 60, 144, 0.1)',
                 borderWidth: 3,
@@ -434,6 +456,16 @@ new Chart(monthlyCtx, {
         }
     }
 });
+
+function updateTrendChart() {
+    const period = document.getElementById('trendPeriodSelector').value;
+    const data = trendData[period];
+    
+    trendChart.data.labels = data.labels;
+    trendChart.data.datasets[0].data = data.pneumonies;
+    trendChart.data.datasets[1].data = data.normaux;
+    trendChart.update();
+}
 
 // 2. Donut Chart (Pneumonia vs Normal)
 const donutCtx = document.getElementById('donutChart').getContext('2d');

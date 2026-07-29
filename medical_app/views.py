@@ -155,7 +155,7 @@ def settings_view(request):
 @login_required
 def statistics_view(request):
     from django.db.models import Count, Avg
-    from django.db.models.functions import TruncMonth
+    from django.db.models.functions import TruncMonth, TruncDay
     from django.utils import timezone
     import json
 
@@ -169,18 +169,9 @@ def statistics_view(request):
 
     # --- Analyses par mois (6 derniers mois) ---
     six_months_ago = timezone.now() - timezone.timedelta(days=180)
-    analyses_par_mois = (
-        Radiographie.objects
-        .filter(date_upload__gte=six_months_ago)
-        .annotate(mois=TruncMonth('date_upload'))
-        .values('mois')
-        .annotate(total=Count('id'), pneumonie=Count('id', filter=Radiographie.objects.filter(classe_predite='Pneumonie').query.where if False else None))
-        .order_by('mois')
-    )
-    # Recalcul propre
-    analyses_par_mois_data = []
+    
+    # Recalcul propre pour 6 mois
     mois_labels = []
-    mois_totals = []
     mois_pneumonies = []
     mois_normaux = []
     
@@ -189,9 +180,7 @@ def statistics_view(request):
         .filter(date_upload__gte=six_months_ago)
         .annotate(mois=TruncMonth('date_upload'))
         .values('mois')
-        .annotate(
-            total=Count('id'),
-        )
+        .annotate(total=Count('id'))
         .order_by('mois')
     )
     for entry in mois_qs:
@@ -203,9 +192,62 @@ def statistics_view(request):
             classe_predite='Pneumonie'
         ).count()
         mois_labels.append(mois.strftime('%b %Y'))
-        mois_totals.append(total)
         mois_pneumonies.append(pneumo)
         mois_normaux.append(total - pneumo)
+
+    # --- Analyses 30 derniers jours ---
+    thirty_days_ago = timezone.now() - timezone.timedelta(days=30)
+    jours30_labels = []
+    jours30_pneumonies = []
+    jours30_normaux = []
+    
+    jours30_qs = (
+        Radiographie.objects
+        .filter(date_upload__gte=thirty_days_ago)
+        .annotate(jour=TruncDay('date_upload'))
+        .values('jour')
+        .annotate(total=Count('id'))
+        .order_by('jour')
+    )
+    for entry in jours30_qs:
+        jour = entry['jour']
+        total = entry['total']
+        pneumo = Radiographie.objects.filter(
+            date_upload__year=jour.year,
+            date_upload__month=jour.month,
+            date_upload__day=jour.day,
+            classe_predite='Pneumonie'
+        ).count()
+        jours30_labels.append(jour.strftime('%d %b'))
+        jours30_pneumonies.append(pneumo)
+        jours30_normaux.append(total - pneumo)
+
+    # --- Analyses 7 derniers jours ---
+    seven_days_ago = timezone.now() - timezone.timedelta(days=7)
+    jours7_labels = []
+    jours7_pneumonies = []
+    jours7_normaux = []
+    
+    jours7_qs = (
+        Radiographie.objects
+        .filter(date_upload__gte=seven_days_ago)
+        .annotate(jour=TruncDay('date_upload'))
+        .values('jour')
+        .annotate(total=Count('id'))
+        .order_by('jour')
+    )
+    for entry in jours7_qs:
+        jour = entry['jour']
+        total = entry['total']
+        pneumo = Radiographie.objects.filter(
+            date_upload__year=jour.year,
+            date_upload__month=jour.month,
+            date_upload__day=jour.day,
+            classe_predite='Pneumonie'
+        ).count()
+        jours7_labels.append(jour.strftime('%d %b'))
+        jours7_pneumonies.append(pneumo)
+        jours7_normaux.append(total - pneumo)
 
     # --- Validation médecin ---
     validations = Radiographie.objects.values('validation_medecin').annotate(count=Count('id'))
@@ -225,9 +267,14 @@ def statistics_view(request):
         'total_patients': total_patients,
         # Charts data (JSON for JS)
         'mois_labels': json.dumps(mois_labels),
-        'mois_totals': json.dumps(mois_totals),
         'mois_pneumonies': json.dumps(mois_pneumonies),
         'mois_normaux': json.dumps(mois_normaux),
+        'jours30_labels': json.dumps(jours30_labels),
+        'jours30_pneumonies': json.dumps(jours30_pneumonies),
+        'jours30_normaux': json.dumps(jours30_normaux),
+        'jours7_labels': json.dumps(jours7_labels),
+        'jours7_pneumonies': json.dumps(jours7_pneumonies),
+        'jours7_normaux': json.dumps(jours7_normaux),
         'validation_data': json.dumps(validation_data),
         'sexe_data': json.dumps({s['sexe']: s['count'] for s in sexe_data}),
         'fumeur_data': json.dumps({f['fumeur']: f['count'] for f in fumeur_data}),
