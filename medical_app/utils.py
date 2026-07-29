@@ -41,13 +41,13 @@ def predict_pneumonia(img_path):
     prediction = model(x, training=False)
     score = float(prediction[0][0])  # Valeur entre 0 et 1 (sigmoïde)
 
-    # 5. Interprétation du résultat (selon ton entraînement binaire)
-    # Si score > 0.5 -> Pneumonie, sinon -> Normal (ou inversement selon ton encodage)
+    # 5. Interprétation du résultat
+    # Le modèle a été entraîné avec : 0 = Pneumonie, 1 = Normal
     if score > 0.5:
-        classe = "Pneumonie"
+        classe = "Normal"
         confiance = score * 100
     else:
-        classe = "Normal"
+        classe = "Pneumonie"
         confiance = (1 - score) * 100
 
     return classe, round(confiance, 2)

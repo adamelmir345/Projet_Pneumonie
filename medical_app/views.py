@@ -151,3 +151,86 @@ def settings_view(request):
         'total_patients': total_patients,
     }
     return render(request, 'medical_app/settings.html', context)
+
+@login_required
+def statistics_view(request):
+    from django.db.models import Count, Avg
+    from django.db.models.functions import TruncMonth
+    from django.utils import timezone
+    import json
+
+    # --- KPIs Globaux ---
+    total_analyses = Radiographie.objects.count()
+    cas_pneumonie = Radiographie.objects.filter(classe_predite='Pneumonie').count()
+    cas_normal = Radiographie.objects.filter(classe_predite='Normal').count()
+    taux_pneumonie = round((cas_pneumonie / total_analyses * 100), 1) if total_analyses > 0 else 0
+    avg_confiance = Radiographie.objects.aggregate(avg=Avg('pourcentage_confiance'))['avg'] or 0
+    total_patients = Patient.objects.count()
+
+    # --- Analyses par mois (6 derniers mois) ---
+    six_months_ago = timezone.now() - timezone.timedelta(days=180)
+    analyses_par_mois = (
+        Radiographie.objects
+        .filter(date_upload__gte=six_months_ago)
+        .annotate(mois=TruncMonth('date_upload'))
+        .values('mois')
+        .annotate(total=Count('id'), pneumonie=Count('id', filter=Radiographie.objects.filter(classe_predite='Pneumonie').query.where if False else None))
+        .order_by('mois')
+    )
+    # Recalcul propre
+    analyses_par_mois_data = []
+    mois_labels = []
+    mois_totals = []
+    mois_pneumonies = []
+    mois_normaux = []
+    
+    mois_qs = (
+        Radiographie.objects
+        .filter(date_upload__gte=six_months_ago)
+        .annotate(mois=TruncMonth('date_upload'))
+        .values('mois')
+        .annotate(
+            total=Count('id'),
+        )
+        .order_by('mois')
+    )
+    for entry in mois_qs:
+        mois = entry['mois']
+        total = entry['total']
+        pneumo = Radiographie.objects.filter(
+            date_upload__year=mois.year,
+            date_upload__month=mois.month,
+            classe_predite='Pneumonie'
+        ).count()
+        mois_labels.append(mois.strftime('%b %Y'))
+        mois_totals.append(total)
+        mois_pneumonies.append(pneumo)
+        mois_normaux.append(total - pneumo)
+
+    # --- Validation médecin ---
+    validations = Radiographie.objects.values('validation_medecin').annotate(count=Count('id'))
+    validation_data = {v['validation_medecin']: v['count'] for v in validations}
+
+    # --- Démographie patients ---
+    sexe_data = Patient.objects.exclude(sexe__isnull=True).exclude(sexe='').values('sexe').annotate(count=Count('id'))
+    fumeur_data = Patient.objects.exclude(fumeur__isnull=True).exclude(fumeur='').values('fumeur').annotate(count=Count('id'))
+    groupe_data = Patient.objects.exclude(groupe_sanguin__isnull=True).exclude(groupe_sanguin='').values('groupe_sanguin').annotate(count=Count('id'))
+
+    context = {
+        'total_analyses': total_analyses,
+        'cas_pneumonie': cas_pneumonie,
+        'cas_normal': cas_normal,
+        'taux_pneumonie': taux_pneumonie,
+        'avg_confiance': round(avg_confiance, 1),
+        'total_patients': total_patients,
+        # Charts data (JSON for JS)
+        'mois_labels': json.dumps(mois_labels),
+        'mois_totals': json.dumps(mois_totals),
+        'mois_pneumonies': json.dumps(mois_pneumonies),
+        'mois_normaux': json.dumps(mois_normaux),
+        'validation_data': json.dumps(validation_data),
+        'sexe_data': json.dumps({s['sexe']: s['count'] for s in sexe_data}),
+        'fumeur_data': json.dumps({f['fumeur']: f['count'] for f in fumeur_data}),
+        'groupe_data': json.dumps({g['groupe_sanguin']: g['count'] for g in groupe_data}),
+    }
+    return render(request, 'medical_app/statistics.html', context)

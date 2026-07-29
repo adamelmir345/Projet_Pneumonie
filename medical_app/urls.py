@@ -9,4 +9,5 @@ urlpatterns = [
     path('valider-radio/<int:radio_id>/', views.valider_radio, name='valider_radio'),
     path('rapport-pdf/<int:radio_id>/', views.generer_rapport_pdf, name='generer_rapport_pdf'),
     path('settings/', views.settings_view, name='settings'),
+    path('statistics/', views.statistics_view, name='statistics'),
 ]
