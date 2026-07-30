@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('medical_app.urls')),
+    path('finance/', include('finance.urls')),
 ]
 
 # Permet d'afficher les images des radiographies en mode développement

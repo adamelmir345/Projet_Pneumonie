@@ -136,6 +136,7 @@
 </div>
 </div>
 <div class="px-4 space-y-2 flex-1">
+{% if not is_pure_comptable %}
 <a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}">
 <span class="material-symbols-outlined opacity-70">dashboard</span>
                 Dashboard
@@ -152,11 +153,18 @@
 <span class="material-symbols-outlined opacity-70">bar_chart</span>
                 Statistiques
             </a>
+{% endif %}
 <a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 transition-all font-label-md relative" href="{% url 'settings' %}">
 <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-primary rounded-r-full"></div>
 <span class="material-symbols-outlined text-primary">settings</span>
                 Paramètres
             </a>
+{% if is_comptable %}
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard_finance' %}">
+<span class="material-symbols-outlined opacity-70">account_balance</span>
+                Finance
+            </a>
+{% endif %}
 </div>
 <div class="px-4 pb-6">
 <form method="post" action="{% url 'logout' %}">

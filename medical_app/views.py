@@ -2,10 +2,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from functools import wraps
 from .models import Radiographie, Patient
 from .forms import RadiographieForm, PatientForm
 
+def medecin_required(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if request.user.groups.filter(name='Comptable').exists() and not request.user.groups.filter(name='Medecin').exists():
+            messages.error(request, "Accès refusé. Vous êtes connecté en tant que Comptable.")
+            return redirect('dashboard_finance')
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+
 @login_required
+@medecin_required
 def ajouter_patient(request):
     if request.method == 'POST':
         form = PatientForm(request.POST)
@@ -32,6 +43,7 @@ def ajouter_patient(request):
     return render(request, 'medical_app/ajouter_patient.html', context)
 
 @login_required
+@medecin_required
 def dashboard(request):
     from django.utils import timezone
     from django.db.models import Avg
@@ -57,6 +69,7 @@ def dashboard(request):
     return render(request, 'medical_app/dashboard.html', context)
 
 @login_required
+@medecin_required
 def upload_radiographie(request):
     if request.method == 'POST':
         form = RadiographieForm(request.POST, request.FILES)
@@ -68,12 +81,14 @@ def upload_radiographie(request):
     return render(request, 'medical_app/upload.html', {'form': form})
 
 @login_required
+@medecin_required
 def patient_detail(request, patient_id):
     patient = get_object_or_404(Patient, id=patient_id)
     radiographies = patient.radiographies.all().order_by('-date_upload')
     return render(request, 'medical_app/patient_detail.html', {'patient': patient, 'radiographies': radiographies})
 
 @login_required
+@medecin_required
 def valider_radio(request, radio_id):
     if request.method == 'POST':
         radio = get_object_or_404(Radiographie, id=radio_id)
@@ -92,6 +107,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 
 @login_required
+@medecin_required
 def generer_rapport_pdf(request, radio_id):
     radio = get_object_or_404(Radiographie, id=radio_id)
     template_path = 'medical_app/rapport_pdf.html'
@@ -153,6 +169,7 @@ def settings_view(request):
     return render(request, 'medical_app/settings.html', context)
 
 @login_required
+@medecin_required
 def statistics_view(request):
     from django.db.models import Count, Avg
     from django.db.models.functions import TruncMonth, TruncDay

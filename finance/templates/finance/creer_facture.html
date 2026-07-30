@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nouvelle Facture — MedAI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#434653","secondary-container":"#d0e1fb","surface":"#faf8ff","primary":"#003c90","primary-container":"#0f52ba","on-primary":"#ffffff","error":"#ba1a1a","error-container":"#ffdad6","outline":"#737784","outline-variant":"#c3c6d5","on-surface":"#191b22","surface-container-low":"#f3f3fc","surface-container":"#ededf6","secondary-fixed":"#d3e4fe","tertiary":"#732900","tertiary-fixed":"#ffdbcd","on-tertiary-container":"#ffc0a7","tertiary-container":"#993900","secondary":"#505f76","primary-fixed":"#d9e2ff","on-secondary-container":"#54647a","surface-variant":"#e1e2eb","on-error-container":"#93000a","surface-container-highest":"#e1e2eb"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"base":"4px","gutter":"24px","row-height-md":"64px","margin-mobile":"16px","margin-desktop":"40px"},fontFamily:{"label-md":["Inter"],"headline-lg":["Inter"],"body-lg":["Inter"],"headline-md":["Inter"],"data-tabular":["Inter"],"body-md":["Inter"]}}}}
+</script>
+<style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-gradient-to-br from-surface to-secondary-container/20 text-on-surface h-screen flex overflow-hidden relative">
+<div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[100px]"></div>
+<div class="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-tertiary/5 blur-[120px]"></div>
+<div class="absolute top-[30%] right-[20%] w-[25%] h-[25%] rounded-full bg-secondary-fixed/30 blur-[80px]"></div>
+</div>
+
+<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
+<div class="px-6 mb-10 mt-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md">{{ user.username|make_list|first|upper }}</div>
+<div><div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div><div class="font-body-md text-on-surface-variant text-xs opacity-80">Radiologie</div></div>
+</div>
+<div class="px-4 space-y-2 flex-1">
+{% if not is_pure_comptable %}
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}"><span class="material-symbols-outlined opacity-70">dashboard</span>Dashboard</a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}"><span class="material-symbols-outlined opacity-70">groups</span>Patients</a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}"><span class="material-symbols-outlined opacity-70">psychology</span>Analyses</a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'statistics' %}"><span class="material-symbols-outlined opacity-70">bar_chart</span>Statistiques</a>
+{% endif %}
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 transition-all font-label-md relative" href="{% url 'dashboard_finance' %}">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-primary rounded-r-full"></div><span class="material-symbols-outlined text-primary">account_balance</span>Finance</a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}"><span class="material-symbols-outlined opacity-70">settings</span>Paramètres</a>
+</div>
+<div class="px-4 pb-6"><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full"><span class="material-symbols-outlined opacity-70">logout</span>Déconnexion</button></form></div>
+</nav>
+
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
+<header class="flex justify-between items-center w-full px-margin-desktop h-[88px] flex-shrink-0">
+<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white/60 backdrop-blur-md px-5 py-2.5 rounded-[1.5rem] shadow-sm border border-white/50">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings:'FILL' 1;">medical_services</span>MedAI</div>
+</header>
+
+<main class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop pb-12 pt-2">
+<div class="max-w-[1440px] mx-auto space-y-8">
+
+{% if messages %}<div class="space-y-2">{% for message in messages %}<div class="px-4 py-3 rounded-xl font-label-md text-sm {% if message.tags == 'error' %}bg-error-container/30 text-error{% elif message.tags == 'success' %}bg-green-100 text-green-800{% else %}bg-primary-fixed/30 text-primary{% endif %}">{{ message }}</div>{% endfor %}</div>{% endif %}
+
+<!-- Title -->
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-[1.25rem] bg-white/60 backdrop-blur-md flex items-center justify-center border border-white/50 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings:'FILL' 1;">add_circle</span></div>
+<div>
+<h1 class="font-headline-md text-on-surface">Nouvelle Facture</h1>
+<p class="font-body-md text-on-surface-variant">Créer une facture pour un patient</p>
+</div>
+</div>
+
+<!-- Form -->
+<form method="post" id="factureForm">
+{% csrf_token %}
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left: Patient & Info -->
+<div class="lg:col-span-5 space-y-6">
+<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings:'FILL' 1;">person</span>
+<h2 class="font-headline-md text-on-surface text-lg">Informations</h2>
+</div>
+<div class="space-y-5">
+<div>
+<label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider mb-1 block">Patient *</label>
+<select name="patient" required class="w-full bg-white/80 border border-outline-variant/40 rounded-xl px-4 py-3 font-body-md focus:ring-primary focus:border-primary">
+<option value="">Sélectionner un patient</option>
+{% for p in patients %}
+<option value="{{ p.id }}">{{ p.nom }} {{ p.prenom }}</option>
+{% endfor %}
+</select>
+</div>
+<div>
+<label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider mb-1 block">Radiographie liée (optionnel)</label>
+<select name="radiographie" class="w-full bg-white/80 border border-outline-variant/40 rounded-xl px-4 py-3 font-body-md focus:ring-primary focus:border-primary">
+<option value="">Aucune</option>
+{% for r in radiographies %}
+<option value="{{ r.id }}">{{ r.patient.nom }} — {{ r.classe_predite }} ({{ r.date_upload|date:"d/m/Y" }})</option>
+{% endfor %}
+</select>
+</div>
+<div>
+<label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider mb-1 block">Date d'échéance</label>
+<input type="date" name="date_echeance" class="w-full bg-white/80 border border-outline-variant/40 rounded-xl px-4 py-3 font-body-md focus:ring-primary focus:border-primary">
+</div>
+<div>
+<label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider mb-1 block">Notes</label>
+<textarea name="notes" rows="3" class="w-full bg-white/80 border border-outline-variant/40 rounded-xl px-4 py-3 font-body-md focus:ring-primary focus:border-primary resize-none" placeholder="Notes optionnelles..."></textarea>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Right: Lignes -->
+<div class="lg:col-span-7 space-y-6">
+<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings:'FILL' 1;">list_alt</span>
+<h2 class="font-headline-md text-on-surface text-lg">Actes médicaux</h2>
+</div>
+<button type="button" onclick="addLine()" class="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-xl font-label-md hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>Ajouter un acte</button>
+</div>
+
+<div id="lignesContainer" class="space-y-3">
+<!-- Dynamic lines added here -->
+</div>
+
+<!-- Total -->
+<div class="mt-6 pt-6 border-t border-outline-variant/30 flex items-center justify-between">
+<span class="font-headline-md text-on-surface text-lg">Total estimé</span>
+<span id="totalDisplay" class="font-headline-lg text-primary text-2xl">0.00 MAD</span>
+</div>
+</div>
+
+<div class="flex justify-end gap-4">
+<a href="{% url 'liste_factures' %}" class="px-6 py-3 bg-white/80 rounded-xl font-label-md text-on-surface-variant hover:bg-white transition-colors border border-outline-variant/30">Annuler</a>
+<button type="submit" class="flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg hover:shadow-primary/20 transition-all border border-primary/20">
+<span class="material-symbols-outlined text-[18px]">save</span>Créer la Facture</button>
+</div>
+</div>
+</div>
+</form>
+
+</div>
+</main>
+</div>
+
+<script>
+// Tarifs data from backend
+const tarifsData = [
+{% for t in tarifs %}
+{id:{{ t.id }},nom:"{{ t.nom_acte }}",prix:{{ t.prix }}},
+{% endfor %}
+];
+
+let lineCount = 0;
+
+function addLine() {
+    lineCount++;
+    const container = document.getElementById('lignesContainer');
+    const div = document.createElement('div');
+    div.className = 'flex items-center gap-3 bg-surface-container-low/50 rounded-xl p-4 border border-outline-variant/20';
+    div.id = 'ligne-' + lineCount;
+
+    let options = '<option value="">Sélectionner un acte</option>';
+    tarifsData.forEach(t => {
+        options += `<option value="${t.id}" data-prix="${t.prix}">${t.nom} — ${t.prix} MAD</option>`;
+    });
+
+    div.innerHTML = `
+        <div class="flex-1">
+            <select name="tarif_id[]" onchange="updateTotal()" required class="w-full bg-white/80 border border-outline-variant/40 rounded-lg px-3 py-2 font-body-md focus:ring-primary focus:border-primary text-sm">${options}</select>
+        </div>
+        <div class="w-24">
+            <input type="number" name="quantite[]" value="1" min="1" onchange="updateTotal()" oninput="updateTotal()" class="w-full bg-white/80 border border-outline-variant/40 rounded-lg px-3 py-2 font-body-md text-center focus:ring-primary focus:border-primary text-sm">
+        </div>
+        <button type="button" onclick="removeLine('ligne-${lineCount}')" class="w-9 h-9 flex items-center justify-center rounded-lg bg-error/10 text-error hover:bg-error/20 transition-colors flex-shrink-0">
+            <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+    `;
+    container.appendChild(div);
+    updateTotal();
+}
+
+function removeLine(id) {
+    document.getElementById(id).remove();
+    updateTotal();
+}
+
+function updateTotal() {
+    let total = 0;
+    const selects = document.querySelectorAll('select[name="tarif_id[]"]');
+    const quantities = document.querySelectorAll('input[name="quantite[]"]');
+    selects.forEach((sel, i) => {
+        const opt = sel.options[sel.selectedIndex];
+        if (opt && opt.dataset.prix) {
+            const qte = parseInt(quantities[i].value) || 1;
+            total += parseFloat(opt.dataset.prix) * qte;
+        }
+    });
+    document.getElementById('totalDisplay').textContent = total.toFixed(2) + ' MAD';
+}
+
+// Add first line automatically
+addLine();
+</script>
+</body></html>
