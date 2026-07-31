@@ -30,11 +30,22 @@ def dashboard_finance(request):
     """Vue principale du module Finance avec KPIs et graphiques."""
     now = timezone.now()
 
+    months_filter = request.GET.get('months', '6')
+    try:
+        months_filter = int(months_filter)
+    except ValueError:
+        months_filter = 6
+
+    if months_filter == 999:
+        time_threshold = now - timezone.timedelta(days=3650) # 10 years effectively
+    else:
+        time_threshold = now - timezone.timedelta(days=30 * months_filter)
+
     # --- KPIs globaux ---
-    factures_all = Facture.objects.exclude(statut='ANNULEE')
+    factures_all = Facture.objects.exclude(statut='ANNULEE').filter(date_emission__gte=time_threshold)
     ca_total = factures_all.aggregate(total=Sum('montant_total'))['total'] or Decimal('0.00')
 
-    paiements_all = Paiement.objects.filter(facture__statut__in=['EN_ATTENTE', 'PARTIELLE', 'PAYEE'])
+    paiements_all = Paiement.objects.filter(facture__statut__in=['EN_ATTENTE', 'PARTIELLE', 'PAYEE'], facture__date_emission__gte=time_threshold)
     total_paye = paiements_all.aggregate(total=Sum('montant'))['total'] or Decimal('0.00')
 
     taux_recouvrement = round(float(total_paye) / float(ca_total) * 100, 1) if ca_total > 0 else 0
@@ -47,15 +58,12 @@ def dashboard_finance(request):
         date_emission__year=now.year, date_emission__month=now.month
     ).count()
 
-    # --- Évolution CA par mois (6 derniers mois) ---
-    six_months_ago = now - timezone.timedelta(days=180)
+    # --- Évolution CA par mois ---
     ca_mois_labels = []
     ca_mois_values = []
 
     ca_mois_qs = (
-        Facture.objects
-        .exclude(statut='ANNULEE')
-        .filter(date_emission__gte=six_months_ago)
+        factures_all
         .annotate(mois=TruncMonth('date_emission'))
         .values('mois')
         .annotate(total=Sum('montant_total'))
@@ -67,7 +75,7 @@ def dashboard_finance(request):
 
     # --- Répartition par méthode de paiement ---
     methodes_qs = (
-        Paiement.objects
+        paiements_all
         .values('methode')
         .annotate(total=Sum('montant'))
         .order_by('-total')
@@ -76,7 +84,7 @@ def dashboard_finance(request):
     methode_values = [float(m['total']) for m in methodes_qs]
 
     # --- Dernières factures ---
-    dernieres_factures = Facture.objects.all()[:5]
+    dernieres_factures = factures_all.order_by('-date_emission')[:5]
 
     context = {
         'ca_total': ca_total,
@@ -91,6 +99,7 @@ def dashboard_finance(request):
         'ca_mois_values': json.dumps(ca_mois_values),
         'methode_labels': json.dumps(methode_labels),
         'methode_values': json.dumps(methode_values),
+        'current_months': months_filter,
     }
     return render(request, 'finance/finance_dashboard.html', context)
 

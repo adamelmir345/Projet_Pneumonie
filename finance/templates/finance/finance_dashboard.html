@@ -85,10 +85,20 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 <div class="w-14 h-14 rounded-[1.25rem] bg-white/60 backdrop-blur-md flex items-center justify-center border border-white/50 shadow-sm">
 <span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings:'FILL' 1;">account_balance</span>
 </div>
-<div>
+<div class="flex-1">
 <h1 class="font-headline-md text-on-surface">Tableau de Bord Finance</h1>
 <p class="font-body-md text-on-surface-variant">Vue d'ensemble de la facturation et des paiements</p>
 </div>
+<form method="get" action="" class="flex items-center gap-2">
+    <label class="font-label-md text-sm text-on-surface-variant">Période :</label>
+    <select name="months" onchange="this.form.submit()" class="bg-white/80 border border-outline-variant/40 rounded-xl px-3 py-2 font-body-md text-sm focus:ring-primary focus:border-primary">
+        <option value="1" {% if current_months == 1 %}selected{% endif %}>1 mois</option>
+        <option value="3" {% if current_months == 3 %}selected{% endif %}>3 mois</option>
+        <option value="6" {% if current_months == 6 %}selected{% endif %}>6 mois</option>
+        <option value="12" {% if current_months == 12 %}selected{% endif %}>12 mois</option>
+        <option value="999" {% if current_months == 999 %}selected{% endif %}>Tout le temps</option>
+    </select>
+</form>
 </div>
 
 <!-- KPI Row -->
