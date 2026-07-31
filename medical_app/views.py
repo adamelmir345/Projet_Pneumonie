@@ -141,6 +141,14 @@ def settings_view(request):
             request.user.last_name = request.POST.get('last_name', '')
             request.user.email = request.POST.get('email', '')
             request.user.save()
+            
+            if hasattr(request.user, 'profile'):
+                request.user.profile.specialite = request.POST.get('specialite', '')
+                request.user.profile.telephone = request.POST.get('telephone', '')
+                request.user.profile.inpe = request.POST.get('inpe', '')
+                request.user.profile.adresse_cabinet = request.POST.get('adresse_cabinet', '')
+                request.user.profile.save()
+                
             messages.success(request, 'Profil mis à jour avec succès.')
             
         elif action == 'change_password':

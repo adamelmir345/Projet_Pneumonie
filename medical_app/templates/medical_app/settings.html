@@ -267,6 +267,30 @@
 <label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider">Nom</label>
 <input type="text" name="last_name" class="settings-input" value="{{ user.last_name }}" placeholder="Votre nom">
 </div>
+
+<!-- Spécialité -->
+<div class="space-y-2">
+<label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider">Spécialité</label>
+<input type="text" name="specialite" class="settings-input" value="{{ user.profile.specialite }}" placeholder="Ex: Pneumologue">
+</div>
+
+<!-- Téléphone -->
+<div class="space-y-2">
+<label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider">Téléphone</label>
+<input type="text" name="telephone" class="settings-input" value="{{ user.profile.telephone }}" placeholder="Votre numéro de téléphone">
+</div>
+
+<!-- INPE -->
+<div class="space-y-2">
+<label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider">INPE</label>
+<input type="text" name="inpe" class="settings-input" value="{{ user.profile.inpe }}" placeholder="Identifiant National">
+</div>
+
+<!-- Adresse Cabinet -->
+<div class="space-y-2 md:col-span-2">
+<label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider">Adresse du cabinet / hôpital</label>
+<input type="text" name="adresse_cabinet" class="settings-input" value="{{ user.profile.adresse_cabinet }}" placeholder="Adresse complète">
+</div>
 </div>
 </div>
 
