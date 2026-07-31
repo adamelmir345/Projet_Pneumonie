@@ -147,6 +147,8 @@ def settings_view(request):
                 request.user.profile.telephone = request.POST.get('telephone', '')
                 request.user.profile.inpe = request.POST.get('inpe', '')
                 request.user.profile.adresse_cabinet = request.POST.get('adresse_cabinet', '')
+                if 'photo_profil' in request.FILES:
+                    request.user.profile.photo_profil = request.FILES['photo_profil']
                 request.user.profile.save()
                 
             messages.success(request, 'Profil mis à jour avec succès.')

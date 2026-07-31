@@ -20,7 +20,13 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 
 <nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
 <div class="px-6 mb-10 mt-4 flex items-center gap-4">
-<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md">{{ user.username|make_list|first|upper }}</div>
+<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md overflow-hidden">
+    {% if user.profile.photo_profil %}
+        <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
+    {% else %}
+        {{ user.username|make_list|first|upper }}
+    {% endif %}
+</div>
 <div><div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div><div class="font-body-md text-on-surface-variant text-xs opacity-80">Radiologie</div></div>
 </div>
 <div class="px-4 space-y-2 flex-1">

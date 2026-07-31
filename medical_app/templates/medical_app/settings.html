@@ -129,7 +129,13 @@
 <!-- Sidebar Navigation -->
 <nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
 <div class="px-6 mb-10 mt-4 flex items-center gap-4">
-<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md">{{ user.username|make_list|first|upper }}</div>
+<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md overflow-hidden">
+    {% if user.profile.photo_profil %}
+        <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
+    {% else %}
+        {{ user.username|make_list|first|upper }}
+    {% endif %}
+</div>
 <div>
 <div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div>
 <div class="font-body-md text-on-surface-variant text-xs opacity-80">Radiologie</div>
@@ -234,13 +240,24 @@
 <h2 class="font-headline-md text-on-surface text-lg">Informations du profil</h2>
 </div>
 
-<form method="post" action="{% url 'settings' %}">
+<form method="post" action="{% url 'settings' %}" enctype="multipart/form-data">
 {% csrf_token %}
 <input type="hidden" name="action" value="update_profile">
 
 <div class="flex flex-col sm:flex-row gap-8 items-start mb-8">
-<div class="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary text-2xl font-bold border-2 border-white shadow-lg shadow-primary/20 flex-shrink-0">
-    {{ user.username|make_list|first|upper }}
+<div class="relative w-20 h-20 rounded-full flex items-center justify-center text-on-primary text-2xl font-bold border-2 border-white shadow-lg shadow-primary/20 flex-shrink-0 group overflow-hidden bg-gradient-to-br from-primary to-primary-container">
+    <img id="avatar-preview" 
+         src="{% if user.profile.photo_profil %}{{ user.profile.photo_profil.url }}{% endif %}" 
+         alt="Photo de profil" 
+         class="w-full h-full object-cover {% if not user.profile.photo_profil %}hidden{% endif %}">
+    <span id="avatar-initials" class="{% if user.profile.photo_profil %}hidden{% endif %}">
+        {{ user.username|make_list|first|upper }}
+    </span>
+    <!-- Overlay pour modifier -->
+    <label for="photo_profil" class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+        <span class="material-symbols-outlined text-white text-[24px]">photo_camera</span>
+    </label>
+    <input type="file" id="photo_profil" name="photo_profil" class="hidden" accept="image/*" onchange="previewImage(event)">
 </div>
 <div class="flex-1 w-full grid grid-cols-1 md:grid-cols-2 gap-6">
 <!-- Username (read-only) -->
@@ -475,6 +492,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        const preview = document.getElementById('avatar-preview');
+        const initials = document.getElementById('avatar-initials');
+        preview.src = reader.result;
+        preview.classList.remove('hidden');
+        if (initials) initials.classList.add('hidden');
+    }
+    if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+    }
+}
 </script>
 
 </body></html>

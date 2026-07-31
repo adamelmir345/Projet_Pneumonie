@@ -99,6 +99,7 @@ from django.dispatch import receiver
 
 class MedecinProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    photo_profil = models.ImageField(upload_to='profils/', blank=True, null=True)
     specialite = models.CharField(max_length=100, default='Pneumologue', blank=True)
     telephone = models.CharField(max_length=20, blank=True)
     inpe = models.CharField(max_length=50, blank=True, verbose_name="INPE")
