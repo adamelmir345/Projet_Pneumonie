@@ -386,4 +386,28 @@
     searchInput.addEventListener('keyup', filterCards);
     statusFilter.addEventListener('change', filterCards);
 </script>
+
+{% if messages %}
+<script>
+    if ("Notification" in window && Notification.permission === "granted") {
+        {% for message in messages %}
+            {% if message.message == "ALERTE_PNEUMONIE" %}
+                if (localStorage.getItem('notif_critical') === 'true') {
+                    new Notification("⚠️ Alerte Médicale (Pneumonie)", {
+                        body: "Une nouvelle radiographie vient d'être analysée avec un résultat critique.",
+                        icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png"
+                    });
+                }
+            {% elif message.message == "ANALYSE_TERMINEE" %}
+                if (localStorage.getItem('notif_complete') === 'true') {
+                    new Notification("✅ Analyse Terminée", {
+                        body: "L'IA a terminé l'analyse d'une radiographie (Normal).",
+                        icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png"
+                    });
+                }
+            {% endif %}
+        {% endfor %}
+    }
+</script>
+{% endif %}
 </body></html>

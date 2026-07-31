@@ -74,7 +74,11 @@ def upload_radiographie(request):
     if request.method == 'POST':
         form = RadiographieForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()  # L'IA s'exécute automatiquement grâce à la méthode save() du modèle !
+            radio = form.save()  # L'IA s'exécute automatiquement
+            if radio.classe_predite == 'Pneumonie':
+                messages.error(request, "ALERTE_PNEUMONIE")
+            else:
+                messages.success(request, "ANALYSE_TERMINEE")
             return redirect('dashboard')
     else:
         form = RadiographieForm()
