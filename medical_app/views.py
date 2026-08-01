@@ -2,12 +2,57 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from django.http import FileResponse, Http404
+from django.http import FileResponse, Http404, JsonResponse
 from django.conf import settings as django_settings
 from functools import wraps
 import os
+import threading
+import logging
 from .models import Radiographie, Patient
 from .forms import RadiographieForm, PatientForm
+from .utils import predict_pneumonia, generate_gradcam
+
+logger = logging.getLogger(__name__)
+
+
+# =============================================================================
+# EXÉCUTION DE L'IA EN ARRIÈRE-PLAN (threading)
+# =============================================================================
+def run_ai_analysis(radio_id):
+    """Lance la prédiction IA et le Grad-CAM dans un thread séparé."""
+    import django
+    django.db.connections.close_all()  # Fermer les connexions du thread parent
+    
+    try:
+        radio = Radiographie.objects.get(id=radio_id)
+        image_path = radio.image.path
+
+        # 1. Prédiction IA
+        classe, confiance = predict_pneumonia(image_path)
+        radio.classe_predite = classe
+        radio.pourcentage_confiance = confiance
+
+        # 2. Grad-CAM
+        heatmap_filename = f'heatmap_{os.path.basename(radio.image.name)}'
+        heatmap_rel_path = os.path.join('heatmaps', heatmap_filename)
+        heatmap_abs_path = os.path.join(django_settings.MEDIA_ROOT, heatmap_rel_path)
+
+        if generate_gradcam(image_path, heatmap_abs_path):
+            radio.heatmap_image = heatmap_rel_path
+
+        # 3. Marquer comme terminée
+        radio.statut_analyse = 'TERMINEE'
+        radio.save(update_fields=['classe_predite', 'pourcentage_confiance', 'heatmap_image', 'statut_analyse'])
+        logger.info(f"✅ Analyse terminée pour radio #{radio_id} → {classe} ({confiance}%)")
+
+    except Exception as e:
+        logger.error(f"❌ Erreur analyse radio #{radio_id}: {e}")
+        try:
+            radio = Radiographie.objects.get(id=radio_id)
+            radio.statut_analyse = 'ERREUR'
+            radio.save(update_fields=['statut_analyse'])
+        except Exception:
+            pass
 
 
 # =============================================================================
@@ -94,15 +139,48 @@ def upload_radiographie(request):
     if request.method == 'POST':
         form = RadiographieForm(request.POST, request.FILES)
         if form.is_valid():
-            radio = form.save()  # L'IA s'exécute automatiquement
-            if radio.classe_predite == 'Pneumonie':
-                messages.error(request, "ALERTE_PNEUMONIE")
-            else:
-                messages.success(request, "ANALYSE_TERMINEE")
+            radio = form.save(commit=False)
+            radio.statut_analyse = 'EN_COURS'
+            radio.classe_predite = 'En attente'
+            radio.save()
+            
+            # Lancer l'IA dans un thread séparé
+            thread = threading.Thread(target=run_ai_analysis, args=(radio.id,), daemon=True)
+            thread.start()
+            
+            messages.info(request, "ANALYSE_EN_COURS")
             return redirect('dashboard')
     else:
         form = RadiographieForm()
     return render(request, 'medical_app/upload.html', {'form': form})
+
+
+# =============================================================================
+# ENDPOINT AJAX — Vérification du statut d'analyse
+# =============================================================================
+@login_required
+def check_analysis_status(request):
+    """Endpoint AJAX appelé par le dashboard pour vérifier les analyses en cours."""
+    pending = Radiographie.objects.filter(statut_analyse='EN_COURS').values_list('id', flat=True)
+    completed = []
+    
+    # Vérifier les radios dont le statut vient de passer à TERMINEE
+    radio_ids = request.GET.get('ids', '')
+    if radio_ids:
+        ids = [int(i) for i in radio_ids.split(',') if i.isdigit()]
+        done = Radiographie.objects.filter(id__in=ids, statut_analyse='TERMINEE')
+        for r in done:
+            completed.append({
+                'id': r.id,
+                'classe': r.classe_predite,
+                'confiance': r.pourcentage_confiance,
+                'patient': f"{r.patient.nom} {r.patient.prenom}",
+            })
+    
+    return JsonResponse({
+        'pending': list(pending),
+        'completed': completed,
+    })
 
 @login_required
 @medecin_required

@@ -10,4 +10,5 @@ urlpatterns = [
     path('rapport-pdf/<int:radio_id>/', views.generer_rapport_pdf, name='generer_rapport_pdf'),
     path('settings/', views.settings_view, name='settings'),
     path('statistics/', views.statistics_view, name='statistics'),
+    path('api/check-analysis/', views.check_analysis_status, name='check_analysis_status'),
 ]

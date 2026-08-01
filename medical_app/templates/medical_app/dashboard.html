@@ -254,8 +254,9 @@
 </div>
 
 {% for radio in radiographies %}
-<div class="data-row bg-white/70 backdrop-blur-xl rounded-[2rem] p-5 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all flex flex-col md:flex-row items-center gap-6 group"
-     data-status="{% if radio.classe_predite == 'Pneumonie' %}pneumonie{% else %}normal{% endif %}">
+<div class="data-row bg-white/70 backdrop-blur-xl rounded-[2rem] p-5 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all flex flex-col md:flex-row items-center gap-6 group {% if radio.statut_analyse == 'EN_COURS' %}animate-pulse{% endif %}"
+     data-status="{% if radio.statut_analyse == 'EN_COURS' %}en_cours{% elif radio.classe_predite == 'Pneumonie' %}pneumonie{% else %}normal{% endif %}"
+     data-radio-id="{{ radio.id }}">
 
 <!-- Patient Info -->
 <div class="flex items-center gap-4 w-full md:w-[250px]">
@@ -284,8 +285,16 @@
 </div>
 
 <!-- Diagnostic Badge -->
-<div class="flex-1 flex justify-center md:justify-start">
-{% if radio.classe_predite == 'Pneumonie' %}
+<div class="flex-1 flex justify-center md:justify-start" id="badge-{{ radio.id }}">
+{% if radio.statut_analyse == 'EN_COURS' %}
+<span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-amber-100/60 text-amber-700 border border-amber-200">
+    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-amber-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+    </svg>
+    Analyse IA en cours...
+</span>
+{% elif radio.classe_predite == 'Pneumonie' %}
 <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-error-container/50 text-error border border-error-container">
 <span class="w-2 h-2 rounded-full bg-error mr-2"></span>
                                 Pneumonie
@@ -393,27 +402,76 @@
     statusFilter.addEventListener('change', filterCards);
 </script>
 
-{% if messages %}
 <script>
-    if ("Notification" in window && Notification.permission === "granted") {
-        {% for message in messages %}
-            {% if message.message == "ALERTE_PNEUMONIE" %}
-                if (localStorage.getItem('notif_critical') === 'true') {
-                    new Notification("⚠️ Alerte Médicale (Pneumonie)", {
-                        body: "Une nouvelle radiographie vient d'être analysée avec un résultat critique.",
-                        icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png"
-                    });
+// =============================================================================
+// POLLING AJAX — Vérification automatique des analyses IA en cours
+// =============================================================================
+(function() {
+    // Collecter les IDs des radios "en cours" sur la page
+    let pendingIds = [];
+    document.querySelectorAll('[data-status="en_cours"]').forEach(function(el) {
+        pendingIds.push(el.getAttribute('data-radio-id'));
+    });
+
+    if (pendingIds.length === 0) return; // Rien à vérifier
+
+    const pollInterval = setInterval(function() {
+        fetch('/api/check-analysis/?ids=' + pendingIds.join(','))
+            .then(r => r.json())
+            .then(data => {
+                // Mettre à jour les cartes terminées
+                data.completed.forEach(function(item) {
+                    const card = document.querySelector('[data-radio-id="' + item.id + '"]');
+                    if (!card) return;
+
+                    // Retirer l'animation pulsante
+                    card.classList.remove('animate-pulse');
+
+                    // Mettre à jour le badge
+                    const badge = document.getElementById('badge-' + item.id);
+                    if (badge) {
+                        if (item.classe === 'Pneumonie') {
+                            badge.innerHTML = '<span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-error-container/50 text-error border border-error-container">' +
+                                '<span class="w-2 h-2 rounded-full bg-error mr-2"></span>Pneumonie' +
+                                '<span class="ml-2 opacity-60 font-normal">| ' + item.confiance.toFixed(1) + '%</span></span>';
+                            card.setAttribute('data-status', 'pneumonie');
+                        } else {
+                            badge.innerHTML = '<span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-surface-container-high/50 text-on-surface border border-surface-container-highest">' +
+                                '<span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>Normal' +
+                                '<span class="ml-2 opacity-60 font-normal">| ' + item.confiance.toFixed(1) + '%</span></span>';
+                            card.setAttribute('data-status', 'normal');
+                        }
+                    }
+
+                    // Notification de bureau
+                    if ("Notification" in window && Notification.permission === "granted") {
+                        if (item.classe === 'Pneumonie' && localStorage.getItem('notif_critical') === 'true') {
+                            new Notification("⚠️ Alerte Médicale (Pneumonie)", {
+                                body: item.patient + " — Résultat critique détecté par l'IA (" + item.confiance.toFixed(1) + "%)",
+                                icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png"
+                            });
+                        } else if (item.classe === 'Normal' && localStorage.getItem('notif_complete') === 'true') {
+                            new Notification("✅ Analyse Terminée", {
+                                body: item.patient + " — Résultat : Normal (" + item.confiance.toFixed(1) + "%)",
+                                icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png"
+                            });
+                        }
+                    }
+
+                    // Retirer des IDs en attente
+                    pendingIds = pendingIds.filter(id => id != item.id);
+                });
+
+                // Arrêter le polling quand tout est terminé
+                if (pendingIds.length === 0) {
+                    clearInterval(pollInterval);
+                    // Recharger la page pour mettre à jour les stats et les heatmaps
+                    setTimeout(() => location.reload(), 1500);
                 }
-            {% elif message.message == "ANALYSE_TERMINEE" %}
-                if (localStorage.getItem('notif_complete') === 'true') {
-                    new Notification("✅ Analyse Terminée", {
-                        body: "L'IA a terminé l'analyse d'une radiographie (Normal).",
-                        icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png"
-                    });
-                }
-            {% endif %}
-        {% endfor %}
-    }
+            })
+            .catch(err => console.error('Erreur polling:', err));
+    }, 2000); // Vérifier toutes les 2 secondes
+})();
 </script>
-{% endif %}
+
 </body></html>
