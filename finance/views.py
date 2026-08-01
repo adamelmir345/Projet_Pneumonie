@@ -334,11 +334,18 @@ def facture_pdf(request, pk):
     facture = get_object_or_404(Facture, pk=pk)
     template_path = 'finance/facture_pdf.html'
 
+    # Récupérer le profil du médecin émetteur
+    medecin = facture.medecin_emetteur
+    medecin_profile = None
+    if hasattr(medecin, 'profile'):
+        medecin_profile = medecin.profile
+
     context = {
         'facture': facture,
         'lignes': facture.lignes.all(),
         'paiements': facture.paiements.all(),
         'patient': facture.patient,
+        'medecin_profile': medecin_profile,
     }
 
     response = HttpResponse(content_type='application/pdf')

@@ -142,7 +142,12 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </span>
 </td>
 <td class="py-3 px-4">
+<div class="flex items-center gap-3">
 <a href="{% url 'detail_facture' f.pk %}" class="text-primary hover:underline font-label-md text-sm">Détail →</a>
+<a href="{% url 'facture_pdf' f.pk %}" title="Télécharger PDF" class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors">
+    <span class="material-symbols-outlined text-primary text-[16px]">picture_as_pdf</span>
+</a>
+</div>
 </td>
 </tr>
 {% empty %}
