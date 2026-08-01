@@ -1,3 +1,23 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Fichier de secrets — NE JAMAIS PUBLIER
+.env
+
+# Fichiers média (radiographies, photos de profil)
+media/
+
+# Environnement virtuel
+venv/
+
+# Modèle IA (trop volumineux pour Git)
+*.h5
+*.keras
+
+# Script temporaire
+update_avatars.py
+
+# IDE
+.vscode/
+.idea/

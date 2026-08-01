@@ -2,9 +2,29 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from django.http import FileResponse, Http404
+from django.conf import settings as django_settings
 from functools import wraps
+import os
 from .models import Radiographie, Patient
 from .forms import RadiographieForm, PatientForm
+
+
+# =============================================================================
+# VUE PROTÉGÉE POUR LES FICHIERS MÉDIA (radiographies, photos de profil)
+# =============================================================================
+@login_required
+def protected_media(request, path):
+    """Sert les fichiers média uniquement aux utilisateurs authentifiés."""
+    file_path = os.path.join(django_settings.MEDIA_ROOT, path)
+    if not os.path.exists(file_path):
+        raise Http404("Fichier introuvable.")
+    # Vérification de sécurité : empêcher la traversée de répertoire
+    real_path = os.path.realpath(file_path)
+    media_root = os.path.realpath(django_settings.MEDIA_ROOT)
+    if not real_path.startswith(media_root):
+        raise Http404("Accès refusé.")
+    return FileResponse(open(file_path, 'rb'))
 
 def medecin_required(view_func):
     @wraps(view_func)
