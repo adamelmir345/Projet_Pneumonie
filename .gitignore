@@ -21,3 +21,4 @@ update_avatars.py
 # IDE
 .vscode/
 .idea/
+node_modules/

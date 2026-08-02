@@ -1,0 +1,26 @@
+{
+  "name": "projet_pneumonie",
+  "version": "1.0.0",
+  "description": "MedAI est une application médicale moderne conçue pour assister les radiologues et pneumologues dans la détection de la pneumonie à l'aide de l'Intelligence Artificielle. Elle intègre également un module de gestion des dossiers patients, de statistiques cliniques et de facturation (Finance).",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamelmir345/Projet_Pneumonie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/adamelmir345/Projet_Pneumonie/issues"
+  },
+  "homepage": "https://github.com/adamelmir345/Projet_Pneumonie#readme",
+  "devDependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.11",
+    "tailwindcss": "^3.4.19"
+  }
+}

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #f8fafc;
+        background-image:
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 60, 144, 0.08), transparent),
+            radial-gradient(ellipse 60% 40% at 100% 0%, rgba(209, 226, 255, 0.15), transparent);
+        background-attachment: fixed;
+    }
+}
