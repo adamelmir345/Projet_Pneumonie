@@ -346,6 +346,7 @@ def facture_pdf(request, pk):
         'paiements': facture.paiements.all(),
         'patient': facture.patient,
         'medecin_profile': medecin_profile,
+        'logo_path': os.path.join(django_settings.BASE_DIR, 'medical_app', 'static', 'img', 'logo.jpg'),
     }
 
     response = HttpResponse(content_type='application/pdf')

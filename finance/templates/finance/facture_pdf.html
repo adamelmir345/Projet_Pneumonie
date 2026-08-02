@@ -3,234 +3,140 @@
 <head>
 <meta charset="utf-8"/>
 <title>Facture {{ facture.numero }}</title>
+<link rel="icon" type="image/jpeg" href="/static/img/logo.jpg">
 <style>
-    @page { size: A4; margin: 12mm 15mm; }
+    @page { size: A4; margin: 15mm; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #191b22; font-size: 11px; line-height: 1.6; }
-
-    /* ── En-tête ── */
-    .header { padding-bottom: 18px; border-bottom: 3px solid #003c90; margin-bottom: 20px; }
-    .header table { width: 100%; }
-    .header td { vertical-align: top; }
-    .logo-side { width: 55%; }
-    .logo-side h1 { font-size: 22px; color: #003c90; letter-spacing: -0.5px; margin-bottom: 2px; }
-    .logo-side .subtitle { color: #737784; font-size: 10px; }
-    .logo-side .medecin-info { margin-top: 8px; font-size: 10px; color: #434653; line-height: 1.5; }
-    .facture-side { width: 45%; text-align: right; }
-    .facture-side .facture-num { font-size: 20px; font-weight: 700; color: #003c90; letter-spacing: -0.3px; }
-    .facture-side .facture-date { color: #434653; font-size: 10px; margin-top: 2px; }
-
-    /* ── Badge statut ── */
-    .status-badge { display: inline-block; padding: 3px 14px; border-radius: 20px; font-size: 10px; font-weight: 600; margin-top: 8px; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #191b22; font-size: 12px; line-height: 1.5; }
+    
+    .header { display: flex; justify-content: space-between; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px solid #003c90; }
+    .header-left h1 { font-size: 24px; color: #003c90; margin-bottom: 4px; }
+    .header-left p { color: #434653; font-size: 11px; }
+    .header-right { text-align: right; }
+    .header-right .facture-num { font-size: 18px; font-weight: 700; color: #003c90; }
+    .header-right .facture-date { color: #434653; font-size: 11px; }
+    
+    .info-grid { display: flex; justify-content: space-between; margin-bottom: 30px; }
+    .info-box { width: 48%; padding: 15px; border: 1px solid #c3c6d5; border-radius: 8px; background: #faf8ff; }
+    .info-box h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #003c90; margin-bottom: 8px; font-weight: 600; }
+    .info-box p { font-size: 12px; margin-bottom: 3px; }
+    .info-box strong { color: #191b22; }
+    
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th { background: #003c90; color: white; padding: 10px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+    th:last-child, td:last-child { text-align: right; }
+    th:nth-child(2), td:nth-child(2) { text-align: center; }
+    th:nth-child(3), td:nth-child(3) { text-align: right; }
+    td { padding: 10px 12px; border-bottom: 1px solid #e1e2eb; font-size: 12px; }
+    tr:nth-child(even) td { background: #f3f3fc; }
+    
+    .total-row { background: #003c90 !important; }
+    .total-row td { color: white; font-weight: 700; font-size: 14px; border: none; }
+    
+    .payment-section { margin-top: 25px; }
+    .payment-section h3 { font-size: 14px; color: #003c90; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #c3c6d5; }
+    .payment-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #e1e2eb; font-size: 11px; }
+    
+    .summary-box { margin-top: 20px; padding: 15px; background: #f3f3fc; border: 1px solid #c3c6d5; border-radius: 8px; }
+    .summary-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 12px; }
+    .summary-row.total { font-size: 16px; font-weight: 700; color: #003c90; border-top: 2px solid #003c90; padding-top: 10px; margin-top: 5px; }
+    
+    .footer { margin-top: 40px; padding-top: 15px; border-top: 1px solid #c3c6d5; text-align: center; color: #737784; font-size: 9px; }
+    
+    .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
     .status-payee { background: #dcfce7; color: #166534; }
     .status-partielle { background: #fff7ed; color: #9a3412; }
     .status-attente { background: #fef2f2; color: #991b1b; }
     .status-annulee { background: #f3f4f6; color: #4b5563; }
-
-    /* ── Blocs Patient / Émetteur ── */
-    .info-grid { margin-bottom: 22px; }
-    .info-grid table { width: 100%; }
-    .info-grid td { width: 48%; vertical-align: top; }
-    .info-grid td:first-child { padding-right: 2%; }
-    .info-grid td:last-child { padding-left: 2%; }
-    .info-box { padding: 12px 14px; border: 1px solid #c3c6d5; border-radius: 6px; background: #faf8ff; }
-    .info-box h3 { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: #003c90; margin-bottom: 6px; font-weight: 700; }
-    .info-box p { font-size: 11px; margin-bottom: 2px; color: #434653; }
-    .info-box strong { color: #191b22; }
-
-    /* ── Tableau des prestations ── */
-    .items-table { width: 100%; border-collapse: collapse; margin-bottom: 18px; }
-    .items-table th { background: #003c90; color: white; padding: 8px 10px; text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
-    .items-table th:last-child, .items-table td:last-child { text-align: right; }
-    .items-table th:nth-child(2), .items-table td:nth-child(2) { text-align: center; }
-    .items-table th:nth-child(3), .items-table td:nth-child(3) { text-align: right; }
-    .items-table td { padding: 8px 10px; border-bottom: 1px solid #e1e2eb; font-size: 11px; }
-    .items-table tr:nth-child(even) td { background: #f8f8fc; }
-    .total-row td { background: #003c90 !important; color: white; font-weight: 700; font-size: 13px; border: none; }
-
-    /* ── Résumé financier ── */
-    .summary-box { padding: 14px; background: #f3f3fc; border: 1px solid #c3c6d5; border-radius: 6px; margin-bottom: 18px; }
-    .summary-row { padding: 4px 0; font-size: 11px; }
-    .summary-row table { width: 100%; }
-    .summary-row td:last-child { text-align: right; }
-    .summary-total { font-size: 15px; font-weight: 700; color: #003c90; border-top: 2px solid #003c90; padding-top: 8px; margin-top: 5px; }
-
-    /* ── Historique paiements ── */
-    .payment-section { margin-bottom: 18px; }
-    .payment-section h3 { font-size: 12px; color: #003c90; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #c3c6d5; }
-    .payment-table { width: 100%; border-collapse: collapse; }
-    .payment-table th { background: #f3f3fc; color: #003c90; padding: 6px 10px; text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid #c3c6d5; }
-    .payment-table th:last-child, .payment-table td:last-child { text-align: right; }
-    .payment-table td { padding: 6px 10px; border-bottom: 1px solid #e1e2eb; font-size: 10px; }
-
-    /* ── Pied de page ── */
-    .footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid #c3c6d5; text-align: center; color: #737784; font-size: 8px; line-height: 1.6; }
-    .footer strong { color: #003c90; }
-
-    /* ── Mentions légales ── */
-    .mentions { margin-top: 12px; padding: 10px 14px; background: #f8f8fc; border: 1px solid #e1e2eb; border-radius: 4px; font-size: 8px; color: #737784; line-height: 1.5; }
 </style>
+
+
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
-<!-- EN-TÊTE -->
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
 <div class="header">
-    <table>
-        <tr>
-            <td class="logo-side">
-                <h1>MedAI — Cabinet Médical</h1>
-                <div class="subtitle">Service de Radiologie & Diagnostic par Intelligence Artificielle</div>
-                <div class="medecin-info">
-                    <strong>Dr. {{ facture.medecin_emetteur.get_full_name|default:facture.medecin_emetteur.username }}</strong><br/>
-                    {% if medecin_profile and medecin_profile.specialite %}{{ medecin_profile.specialite }}<br/>{% endif %}
-                    {% if medecin_profile and medecin_profile.inpe %}INPE : {{ medecin_profile.inpe }}<br/>{% endif %}
-                    {% if medecin_profile and medecin_profile.telephone %}Tél : {{ medecin_profile.telephone }}<br/>{% endif %}
-                    {% if medecin_profile and medecin_profile.adresse_cabinet %}{{ medecin_profile.adresse_cabinet }}{% endif %}
-                </div>
-            </td>
-            <td class="facture-side">
-                <div class="facture-num">{{ facture.numero }}</div>
-                <div class="facture-date">Date d'émission : {{ facture.date_emission|date:"d/m/Y" }}</div>
-                {% if facture.date_echeance %}<div class="facture-date">Échéance : {{ facture.date_echeance|date:"d/m/Y" }}</div>{% endif %}
-                <div>
-                    <span class="status-badge {% if facture.statut == 'PAYEE' %}status-payee{% elif facture.statut == 'PARTIELLE' %}status-partielle{% elif facture.statut == 'EN_ATTENTE' %}status-attente{% else %}status-annulee{% endif %}">
-                        {% if facture.statut == 'PAYEE' %}✓ Payée{% elif facture.statut == 'PARTIELLE' %}◐ Partiellement payée{% elif facture.statut == 'EN_ATTENTE' %}⏳ En attente{% else %}✕ Annulée{% endif %}
-                    </span>
-                </div>
-            </td>
-        </tr>
-    </table>
+    <div class="header-left">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+            <img src="{{ logo_path }}" alt="Logo" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+            <h1 style="margin-bottom: 0;">MedAI — Cabinet Médical</h1>
+        </div>
+        <p>Service de Radiologie et Diagnostic IA</p>
+        <p>Adresse du cabinet</p>
+    </div>
+    <div class="header-right">
+        <div class="facture-num">{{ facture.numero }}</div>
+        <div class="facture-date">Date : {{ facture.date_emission|date:"d/m/Y" }}</div>
+        {% if facture.date_echeance %}<div class="facture-date">Échéance : {{ facture.date_echeance|date:"d/m/Y" }}</div>{% endif %}
+        <div style="margin-top:8px;">
+            <span class="status-badge {% if facture.statut == 'PAYEE' %}status-payee{% elif facture.statut == 'PARTIELLE' %}status-partielle{% elif facture.statut == 'EN_ATTENTE' %}status-attente{% else %}status-annulee{% endif %}">
+                {% if facture.statut == 'PAYEE' %}Payée{% elif facture.statut == 'PARTIELLE' %}Partiellement payée{% elif facture.statut == 'EN_ATTENTE' %}En attente{% else %}Annulée{% endif %}
+            </span>
+        </div>
+    </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
-<!-- INFORMATIONS PATIENT / ÉMETTEUR -->
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
 <div class="info-grid">
-    <table>
-        <tr>
-            <td>
-                <div class="info-box">
-                    <h3>Facturé à (Patient)</h3>
-                    <p><strong>{{ patient.nom }} {{ patient.prenom }}</strong></p>
-                    <p>Né(e) le {{ patient.date_naissance|date:"d/m/Y" }}{% if patient.sexe %} — {{ patient.sexe }}{% endif %}</p>
-                    {% if patient.telephone %}<p>Tél : {{ patient.telephone }}</p>{% endif %}
-                    {% if patient.adresse %}<p>{{ patient.adresse }}</p>{% endif %}
-                    {% if patient.groupe_sanguin %}<p>Groupe sanguin : {{ patient.groupe_sanguin }}</p>{% endif %}
-                </div>
-            </td>
-            <td>
-                <div class="info-box">
-                    <h3>Radiographie liée</h3>
-                    {% if facture.radiographie %}
-                    <p><strong>Diagnostic IA :</strong> {{ facture.radiographie.classe_predite }}</p>
-                    <p>Confiance : {{ facture.radiographie.pourcentage_confiance|floatformat:1 }}%</p>
-                    <p>Date d'analyse : {{ facture.radiographie.date_upload|date:"d/m/Y à H:i" }}</p>
-                    {% if facture.radiographie.validation_medecin != 'En attente' %}
-                    <p><strong>Validation :</strong> {{ facture.radiographie.validation_medecin }}</p>
-                    {% endif %}
-                    {% else %}
-                    <p style="color: #737784; font-style: italic;">Aucune radiographie liée à cette facture.</p>
-                    {% endif %}
-                    {% if facture.notes %}<p style="margin-top:8px;font-style:italic;color:#737784;">Note : {{ facture.notes }}</p>{% endif %}
-                </div>
-            </td>
-        </tr>
-    </table>
+    <div class="info-box">
+        <h3>Patient</h3>
+        <p><strong>{{ patient.nom }} {{ patient.prenom }}</strong></p>
+        <p>Né(e) le {{ patient.date_naissance|date:"d/m/Y" }}</p>
+        {% if patient.telephone %}<p>Tél: {{ patient.telephone }}</p>{% endif %}
+        {% if patient.adresse %}<p>{{ patient.adresse }}</p>{% endif %}
+    </div>
+    <div class="info-box">
+        <h3>Émetteur</h3>
+        <p><strong>Dr. {{ facture.medecin_emetteur.get_full_name|default:facture.medecin_emetteur.username }}</strong></p>
+        <p>Service de Radiologie</p>
+        {% if facture.notes %}<p style="margin-top:8px;font-style:italic;">{{ facture.notes }}</p>{% endif %}
+    </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
-<!-- DÉTAIL DES PRESTATIONS -->
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
-<table class="items-table">
+<table>
     <thead>
         <tr>
-            <th style="width:50%">Désignation</th>
-            <th style="width:12%">Qté</th>
-            <th style="width:19%">Prix Unitaire</th>
-            <th style="width:19%">Total</th>
+            <th>Désignation</th>
+            <th>Qté</th>
+            <th>Prix Unitaire</th>
+            <th>Total</th>
         </tr>
     </thead>
     <tbody>
         {% for l in lignes %}
         <tr>
-            <td>{{ l.tarif.nom_acte }}{% if l.tarif.code %} <span style="color:#737784;font-size:9px;">({{ l.tarif.code }})</span>{% endif %}</td>
+            <td>{{ l.tarif.nom_acte }}{% if l.tarif.code %} <span style="color:#737784;">({{ l.tarif.code }})</span>{% endif %}</td>
             <td>{{ l.quantite }}</td>
             <td>{{ l.prix_unitaire_snapshot }} MAD</td>
             <td>{{ l.sous_total }} MAD</td>
         </tr>
         {% endfor %}
         <tr class="total-row">
-            <td colspan="3">MONTANT TOTAL</td>
+            <td colspan="3">TOTAL</td>
             <td>{{ facture.montant_total }} MAD</td>
         </tr>
     </tbody>
 </table>
 
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
-<!-- RÉSUMÉ FINANCIER -->
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
-<div class="summary-box">
-    <div class="summary-row">
-        <table><tr><td>Montant total HT</td><td>{{ facture.montant_total }} MAD</td></tr></table>
-    </div>
-    <div class="summary-row">
-        <table><tr><td>Total des paiements reçus</td><td>{{ facture.montant_paye }} MAD</td></tr></table>
-    </div>
-    <div class="summary-row summary-total">
-        <table><tr><td><strong>Solde restant dû</strong></td><td><strong>{{ facture.solde_restant }} MAD</strong></td></tr></table>
-    </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
-<!-- HISTORIQUE DES PAIEMENTS -->
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
 {% if paiements %}
 <div class="payment-section">
     <h3>Historique des paiements</h3>
-    <table class="payment-table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Méthode</th>
-                <th>Référence</th>
-                <th>Montant</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for p in paiements %}
-            <tr>
-                <td>{{ p.date_paiement|date:"d/m/Y" }}</td>
-                <td>{{ p.get_methode_display }}</td>
-                <td>{% if p.reference_transaction %}{{ p.reference_transaction }}{% else %}—{% endif %}</td>
-                <td><strong>{{ p.montant }} MAD</strong></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% for p in paiements %}
+    <div class="payment-item">
+        <span>{{ p.date_paiement|date:"d/m/Y" }} — {{ p.get_methode_display }}{% if p.reference_transaction %} (Réf: {{ p.reference_transaction }}){% endif %}</span>
+        <strong>{{ p.montant }} MAD</strong>
+    </div>
+    {% endfor %}
 </div>
 {% endif %}
 
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
-<!-- MENTIONS LÉGALES -->
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
-<div class="mentions">
-    <strong>Conditions de paiement :</strong> Le paiement est dû à réception de la facture sauf mention contraire.
-    En cas de retard de paiement, des pénalités de retard pourront être appliquées conformément à la réglementation en vigueur.
-    <br/>
-    <strong>Données médicales :</strong> Ce document contient des informations couvertes par le secret médical.
-    Sa diffusion est strictement réservée au patient concerné et aux professionnels de santé autorisés.
+<div class="summary-box">
+    <div class="summary-row"><span>Montant total</span><span>{{ facture.montant_total }} MAD</span></div>
+    <div class="summary-row"><span>Montant payé</span><span>{{ facture.montant_paye }} MAD</span></div>
+    <div class="summary-row total"><span>Solde restant</span><span>{{ facture.solde_restant }} MAD</span></div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
-<!-- PIED DE PAGE -->
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
 <div class="footer">
-    <p><strong>Facture {{ facture.numero }}</strong> — Émise le {{ facture.date_emission|date:"d/m/Y à H:i" }}</p>
-    <p>Dr. {{ facture.medecin_emetteur.get_full_name|default:facture.medecin_emetteur.username }}{% if medecin_profile and medecin_profile.inpe %} — INPE {{ medecin_profile.inpe }}{% endif %}</p>
-    <p>MedAI — Cabinet Médical{% if medecin_profile and medecin_profile.adresse_cabinet %} — {{ medecin_profile.adresse_cabinet }}{% endif %}</p>
-    <p style="margin-top:6px;">Ce document est généré automatiquement par le système MedAI et fait foi de facture.</p>
+    <p>Facture {{ facture.numero }} — Émise le {{ facture.date_emission|date:"d/m/Y à H:i" }} — MedAI Cabinet Médical</p>
+    <p>Ce document est généré automatiquement et fait foi de facture.</p>
 </div>
 
 </body>

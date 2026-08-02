@@ -4,117 +4,117 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>MedAI Dashboard</title>
+<link rel="icon" type="image/jpeg" href="/static/img/logo.jpg">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "on-surface-variant": "#434653",
-                        "secondary-container": "#d0e1fb",
-                        "inverse-on-surface": "#f0f0f9",
-                        "surface-bright": "#faf8ff",
-                        "on-primary-fixed-variant": "#00419c",
-                        "surface": "#faf8ff",
-                        "primary-fixed": "#d9e2ff",
-                        "tertiary-fixed": "#ffdbcd",
-                        "on-tertiary-container": "#ffc0a7",
-                        "background": "#faf8ff",
-                        "tertiary-container": "#993900",
-                        "outline": "#737784",
-                        "on-secondary-container": "#54647a",
-                        "on-secondary": "#ffffff",
-                        "on-primary": "#ffffff",
-                        "surface-container-highest": "#e1e2eb",
-                        "on-secondary-fixed-variant": "#38485d",
-                        "surface-tint": "#1d59c1",
-                        "primary": "#003c90",
-                        "secondary-fixed-dim": "#b7c8e1",
-                        "surface-container": "#ededf6",
-                        "on-tertiary-fixed": "#360f00",
-                        "outline-variant": "#c3c6d5",
-                        "on-primary-container": "#bcceff",
-                        "error-container": "#ffdad6",
-                        "error": "#ba1a1a",
-                        "on-tertiary-fixed-variant": "#7d2d00",
-                        "surface-variant": "#e1e2eb",
-                        "primary-fixed-dim": "#b0c6ff",
-                        "surface-container-high": "#e7e7f1",
-                        "primary-container": "#0f52ba",
-                        "on-tertiary": "#ffffff",
-                        "on-primary-fixed": "#001945",
-                        "tertiary-fixed-dim": "#ffb596",
-                        "surface-container-low": "#f3f3fc",
-                        "on-error": "#ffffff",
-                        "inverse-surface": "#2e3037",
-                        "tertiary": "#732900",
-                        "secondary-fixed": "#d3e4fe",
-                        "on-error-container": "#93000a",
-                        "on-background": "#191b22",
-                        "inverse-primary": "#b0c6ff",
-                        "surface-container-lowest": "#ffffff",
-                        "on-secondary-fixed": "#0b1c30",
-                        "surface-dim": "#d9d9e2",
-                        "secondary": "#505f76",
-                        "on-surface": "#191b22"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    spacing: {
-                        "base": "4px",
-                        "gutter": "24px",
-                        "row-height-md": "64px",
-                        "margin-mobile": "16px",
-                        "margin-desktop": "40px"
-                    },
-                    fontFamily: {
-                        "label-md": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "headline-md": ["Inter"],
-                        "data-tabular": ["Inter"],
-                        "body-md": ["Inter"]
-                    },
-                    fontSize: {
-                        "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "data-tabular": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
-                    }
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "surface": "#faf8ff",
+                    "surface-dim": "#d9d9e2",
+                    "surface-bright": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f3fc",
+                    "surface-container": "#ededf6",
+                    "surface-container-high": "#e7e7f1",
+                    "surface-container-highest": "#e1e2eb",
+                    "on-surface": "#191b22",
+                    "on-surface-variant": "#434653",
+                    "inverse-surface": "#2e3037",
+                    "inverse-on-surface": "#f0f0f9",
+                    "outline": "#737784",
+                    "outline-variant": "#c3c6d5",
+                    "surface-tint": "#1d59c1",
+                    "primary": "#003c90",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0f52ba",
+                    "on-primary-container": "#bcceff",
+                    "inverse-primary": "#b0c6ff",
+                    "secondary": "#505f76",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#d0e1fb",
+                    "on-secondary-container": "#54647a",
+                    "tertiary": "#732900",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#993900",
+                    "on-tertiary-container": "#ffc0a7",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#d9e2ff",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "on-primary-fixed": "#001945",
+                    "on-primary-fixed-variant": "#00419c",
+                    "secondary-fixed": "#d3e4fe",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "tertiary-fixed": "#ffdbcd",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "background": "#faf8ff",
+                    "on-background": "#191b22",
+                    "surface-variant": "#e1e2eb"
+                },
+                borderRadius: {
+                    "sm": "0.25rem",
+                    "DEFAULT": "0.5rem",
+                    "md": "0.75rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+                },
+                spacing: {
+                    "base": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "row-height-md": "64px"
+                },
+                fontFamily: {
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "data-tabular": ["Inter", "sans-serif"]
                 }
             }
         }
-    </script>
+    };
+</script>
 <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #f8fafc;
+        background-image:
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 60, 144, 0.08), transparent),
+            radial-gradient(ellipse 60% 40% at 100% 0%, rgba(209, 226, 255, 0.15), transparent);
+        background-attachment: fixed;
+    }
+</style>
+
+
 </head>
-<body class="bg-gradient-to-br from-surface to-secondary-container/20 text-on-surface h-screen flex overflow-hidden relative">
-<!-- Organic Background Blobs -->
-<div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[100px]"></div>
-<div class="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-tertiary/5 blur-[120px]"></div>
-<div class="absolute top-[30%] right-[20%] w-[25%] h-[25%] rounded-full bg-secondary-fixed/30 blur-[80px]"></div>
+<body class="bg-[#f8fafc] text-on-surface h-screen flex overflow-hidden relative">
+
 </div>
 
 <!-- Sidebar Navigation -->
-<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
+<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white flex-shrink-0 relative z-10 border-r border-outline-variant">
 <div class="px-6 mb-10 mt-4 flex items-center gap-4">
-<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md overflow-hidden">
-    {% if user.profile.photo_profil %}
-        <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
-    {% else %}
-        {{ user.username|make_list|first|upper }}
-    {% endif %}
+<div class="w-12 h-12 rounded-[1rem] bg-primary flex items-center justify-center text-on-primary shadow-sm font-headline-md overflow-hidden">
+ {% if user.profile.photo_profil %}
+ <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
+ {% else %}
+ {{ user.username|make_list|first|upper }}
+ {% endif %}
 </div>
 <div>
 <div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div>
@@ -123,42 +123,42 @@
 </div>
 <div class="px-4 space-y-2 flex-1">
 {% if not is_pure_comptable %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 transition-all font-label-md relative" href="{% url 'dashboard' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-sm border border-outline-variant/60 transition-all font-label-md relative" href="{% url 'dashboard' %}">
 <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-primary rounded-r-full"></div>
 <span class="material-symbols-outlined text-primary">dashboard</span>
-                Dashboard
-            </a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}">
+ Dashboard
+ </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}">
 <span class="material-symbols-outlined opacity-70">groups</span>
-                Patients
-            </a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}">
+ Patients
+ </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}">
 <span class="material-symbols-outlined opacity-70">psychology</span>
-                Analyses
-            </a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'statistics' %}">
+ Analyses
+ </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'statistics' %}">
 <span class="material-symbols-outlined opacity-70">bar_chart</span>
-                Statistiques
-            </a>
+ Statistiques
+ </a>
 {% endif %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}">
 <span class="material-symbols-outlined opacity-70">settings</span>
-                Paramètres
-            </a>
+ Paramètres
+ </a>
 {% if is_comptable %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard_finance' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard_finance' %}">
 <span class="material-symbols-outlined opacity-70">account_balance</span>
-                Finance
-            </a>
+ Finance
+ </a>
 {% endif %}
 </div>
 <div class="px-4 pb-6">
 <form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full">
+ {% csrf_token %}
+ <button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full">
 <span class="material-symbols-outlined opacity-70">logout</span>
-                Déconnexion
-    </button>
+ Déconnexion
+ </button>
 </form>
 </div>
 </nav>
@@ -166,20 +166,20 @@
 <!-- Main Content -->
 <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
 <header class="flex justify-between items-center w-full px-margin-desktop h-[88px] flex-shrink-0">
-<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white/60 backdrop-blur-md px-5 py-2.5 rounded-[1.5rem] shadow-sm border border-white/50">
-<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">medical_services</span>
-                MedAI
-            </div>
+<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white px-5 py-2.5 rounded-xl shadow-sm border border-outline-variant">
+<img src="/static/img/logo.jpg" alt="MedAI Logo" class="w-8 h-8 rounded-full object-cover border border-primary/20">
+ MedAI
+ </div>
 <div class="flex items-center gap-4">
-<a href="{% url 'upload_radiographie' %}" class="flex items-center gap-2 px-6 py-2.5 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg hover:shadow-primary/20 transition-all h-11 border border-primary/20">
+<a href="{% url 'upload_radiographie' %}" class="flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors shadow-sm">
 <span class="material-symbols-outlined text-[20px]">analytics</span>
-                    Analyser
-                </a>
+ Analyser
+ </a>
 <form method="post" action="{% url 'logout' %}" class="inline">
-    {% csrf_token %}
-    <button type="submit" class="w-11 h-11 text-on-surface-variant bg-white/80 backdrop-blur-md hover:bg-red-50 hover:text-red-600 rounded-[1.25rem] transition-all flex items-center justify-center ml-2 border border-white/50 shadow-sm">
+ {% csrf_token %}
+ <button type="submit" class="w-11 h-11 text-on-surface-variant bg-white hover:bg-red-50 hover:text-red-600 rounded-lg transition-all flex items-center justify-center ml-2 border border-outline-variant shadow-sm">
 <span class="material-symbols-outlined">logout</span>
-    </button>
+ </button>
 </form>
 </div>
 </header>
@@ -192,10 +192,10 @@
 <div class="flex flex-1 w-full md:max-w-md gap-4">
 <div class="relative flex-1">
 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/70">search</span>
-<input id="patientSearch" class="w-full pl-12 pr-4 py-2.5 bg-white/60 backdrop-blur-md border border-white rounded-[1.25rem] font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white h-12 shadow-[0_4px_15px_rgb(0,0,0,0.02)] transition-all" placeholder="Filtrer par nom du patient..." type="text"/>
+<input id="patientSearch" class="w-full pl-12 pr-4 py-2.5 bg-white border border-outline-variant rounded-lg font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white h-12 shadow-sm transition-all" placeholder="Filtrer par nom du patient..." type="text"/>
 </div>
 <div class="relative">
-<select id="statusFilter" class="appearance-none bg-white/60 backdrop-blur-md border border-white text-on-surface font-body-md rounded-[1.25rem] pl-5 pr-11 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white h-12 shadow-[0_4px_15px_rgb(0,0,0,0.02)] transition-all min-w-[150px]">
+<select id="statusFilter" class="appearance-none bg-white border border-outline-variant text-on-surface font-body-md rounded-lg pl-5 pr-11 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white h-12 shadow-sm transition-all min-w-[150px]">
 <option value="all">Tous les statuts</option>
 <option value="normal">Normal</option>
 <option value="pneumonie">Pneumonie</option>
@@ -208,41 +208,37 @@
 <!-- KPI Cards -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 <!-- Total Analyses -->
-<div class="bg-white/70 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
-<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-3 relative overflow-hidden group hover:shadow-md transition-all">
 <div class="text-on-surface-variant font-label-md flex items-center gap-2">
-<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-primary">analytics</span></div>
-                                Analyses Totales
-                            </div>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-primary">analytics</span></div>
+ Analyses Totales
+ </div>
 <div class="text-on-surface font-headline-lg mt-1">{{ total_analyses }}</div>
 </div>
 <!-- Cas Critiques -->
-<div class="bg-gradient-to-br from-error-container/80 to-error-container/40 backdrop-blur-xl p-6 rounded-[2rem] border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
-<div class="absolute -right-4 -top-4 w-24 h-24 bg-error/10 rounded-full blur-2xl"></div>
+<div class="bg-gradient-to-br from-error-container/80 to-error-container/40 p-6 rounded-xl border border-outline-variant/60 shadow-sm flex flex-col gap-3 relative overflow-hidden group hover:shadow-md transition-all">
 <div class="text-error font-label-md flex items-center gap-2">
-<div class="w-8 h-8 rounded-full bg-error/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">warning</span></div>
-                                Cas Pneumonie
-                            </div>
+<div class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">warning</span></div>
+ Cas Pneumonie
+ </div>
 <div class="text-error font-headline-lg flex items-baseline gap-2 mt-1">
-                                {{ cas_pneumonie }} <span class="text-sm font-body-md opacity-80">total ({{ cas_critiques_today }} aujourd'hui)</span>
+ {{ cas_pneumonie }} <span class="text-sm font-body-md opacity-80">total ({{ cas_critiques_today }} aujourd'hui)</span>
 </div>
 </div>
 <!-- Précision IA -->
-<div class="bg-white/70 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
-<div class="absolute -right-4 -top-4 w-24 h-24 bg-green-500/5 rounded-full blur-2xl group-hover:bg-green-500/10 transition-colors"></div>
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-3 relative overflow-hidden group hover:shadow-md transition-all">
 <div class="text-on-surface-variant font-label-md flex items-center gap-2">
 <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-green-600">check_circle</span></div>
-                                Confiance Moyenne IA
-                            </div>
+ Confiance Moyenne IA
+ </div>
 <div class="text-on-surface font-headline-lg mt-1">{{ avg_confiance|floatformat:1 }}%</div>
 </div>
 <!-- Total Patients -->
-<div class="bg-white/70 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
-<div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition-colors"></div>
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-3 relative overflow-hidden group hover:shadow-md transition-all">
 <div class="text-on-surface-variant font-label-md flex items-center gap-2">
 <div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-purple-600">groups</span></div>
-                                Patients Enregistrés
-                            </div>
+ Patients Enregistrés
+ </div>
 <div class="text-on-surface font-headline-lg mt-1">{{ total_patients }}</div>
 </div>
 </div>
@@ -254,15 +250,15 @@
 </div>
 
 {% for radio in radiographies %}
-<div class="data-row bg-white/70 backdrop-blur-xl rounded-[2rem] p-5 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all flex flex-col md:flex-row items-center gap-6 group {% if radio.statut_analyse == 'EN_COURS' %}animate-pulse{% endif %}"
-     data-status="{% if radio.statut_analyse == 'EN_COURS' %}en_cours{% elif radio.classe_predite == 'Pneumonie' %}pneumonie{% else %}normal{% endif %}"
-     data-radio-id="{{ radio.id }}">
+<div class="data-row bg-white rounded-xl p-5 border border-outline-variant shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row items-center gap-6 group {% if radio.statut_analyse == 'EN_COURS' %}animate-pulse{% endif %}"
+ data-status="{% if radio.statut_analyse == 'EN_COURS' %}en_cours{% elif radio.classe_predite == 'Pneumonie' %}pneumonie{% else %}normal{% endif %}"
+ data-radio-id="{{ radio.id }}">
 
 <!-- Patient Info -->
 <div class="flex items-center gap-4 w-full md:w-[250px]">
-<div class="w-14 h-14 rounded-full bg-gradient-to-br from-surface-variant to-surface flex items-center justify-center font-headline-md text-primary shrink-0 border border-white">
-                                {{ radio.patient.nom|make_list|first|upper }}{{ radio.patient.prenom|make_list|first|upper }}
-                            </div>
+<div class="w-14 h-14 rounded-full bg-surface-variant flex items-center justify-center font-headline-md text-primary shrink-0 border border-outline-variant">
+ {{ radio.patient.nom|make_list|first|upper }}{{ radio.patient.prenom|make_list|first|upper }}
+ </div>
 <div>
 <a href="{% url 'patient_detail' radio.patient.id %}" class="font-headline-md text-lg text-on-surface hover:text-primary transition-colors patient-name">{{ radio.patient.nom }} {{ radio.patient.prenom }}</a>
 <div class="font-body-md text-on-surface-variant opacity-80">{{ radio.date_upload|date:"Y-m-d" }}</div>
@@ -272,14 +268,14 @@
 <!-- Radiography Images -->
 <div class="flex gap-3 shrink-0">
 {% if radio.image %}
-<a href="{{ radio.image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-white shadow-sm group-hover:scale-105 transition-transform">
+<a href="{{ radio.image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-outline-variant shadow-sm group-hover:scale-105 transition-transform">
 <img class="w-14 h-14 object-cover" src="{{ radio.image.url }}" alt="Radiographie"/>
 </a>
 {% endif %}
 {% if radio.heatmap_image %}
-<a href="{{ radio.heatmap_image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-white shadow-sm group-hover:scale-105 transition-transform delay-75">
+<a href="{{ radio.heatmap_image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-outline-variant shadow-sm group-hover:scale-105 transition-transform delay-75">
 <img class="w-14 h-14 object-cover" src="{{ radio.heatmap_image.url }}" alt="Grad-CAM Heatmap"/>
-<div class="absolute top-1 right-1 w-3 h-3 bg-error rounded-full border-2 border-white shadow-sm"></div>
+<div class="absolute top-1 right-1 w-3 h-3 bg-error rounded-full border-2 border-outline-variant shadow-sm"></div>
 </a>
 {% endif %}
 </div>
@@ -288,23 +284,23 @@
 <div class="flex-1 flex justify-center md:justify-start" id="badge-{{ radio.id }}">
 {% if radio.statut_analyse == 'EN_COURS' %}
 <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-amber-100/60 text-amber-700 border border-amber-200">
-    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-amber-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-    </svg>
-    Analyse IA en cours...
+ <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-amber-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+ <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+ <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+ </svg>
+ Analyse IA en cours...
 </span>
 {% elif radio.classe_predite == 'Pneumonie' %}
 <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-error-container/50 text-error border border-error-container">
 <span class="w-2 h-2 rounded-full bg-error mr-2"></span>
-                                Pneumonie
-                                <span class="ml-2 opacity-60 font-normal">| {{ radio.pourcentage_confiance|floatformat:1 }}%</span>
+ Pneumonie
+ <span class="ml-2 opacity-60 font-normal">| {{ radio.pourcentage_confiance|floatformat:1 }}%</span>
 </span>
 {% else %}
 <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-surface-container-high/50 text-on-surface border border-surface-container-highest">
 <span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>
-                                Normal
-                                <span class="ml-2 opacity-60 font-normal">| {{ radio.pourcentage_confiance|floatformat:1 }}%</span>
+ Normal
+ <span class="ml-2 opacity-60 font-normal">| {{ radio.pourcentage_confiance|floatformat:1 }}%</span>
 </span>
 {% endif %}
 </div>
@@ -313,45 +309,45 @@
 <div class="flex items-center gap-2">
 {% if radio.validation_medecin == 'En attente' %}
 <form method="post" action="{% url 'valider_radio' radio.id %}" class="flex gap-2">
-    {% csrf_token %}
-    <select name="validation" onchange="this.form.submit()" class="appearance-none bg-white/80 border border-outline-variant text-on-surface font-body-md rounded-xl pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm">
-        <option value="">En attente...</option>
-        <option value="Confirmé">Confirmer IA</option>
-        <option value="Corrigé (Normal)">Corriger: Normal</option>
-        <option value="Corrigé (Pneumonie)">Corriger: Pneumo.</option>
-    </select>
+ {% csrf_token %}
+ <select name="validation" onchange="this.form.submit()" class="appearance-none bg-white border border-outline-variant text-on-surface font-body-md rounded-xl pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm">
+ <option value="">En attente...</option>
+ <option value="Confirmé">Confirmer IA</option>
+ <option value="Corrigé (Normal)">Corriger: Normal</option>
+ <option value="Corrigé (Pneumonie)">Corriger: Pneumo.</option>
+ </select>
 </form>
 {% else %}
 <div class="flex items-center gap-2 px-4 py-2 bg-surface-container-low/50 rounded-xl text-on-surface-variant font-label-md">
 <span class="material-symbols-outlined text-[18px] text-green-600">check_circle</span>
-                            {{ radio.validation_medecin }}
-                        </div>
+ {{ radio.validation_medecin }}
+ </div>
 {% endif %}
 </div>
 
 <!-- Actions -->
 <div class="shrink-0 flex gap-2">
-<a href="{% url 'generer_rapport_pdf' radio.id %}" target="_blank" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-on-surface-variant hover:text-primary hover:shadow-md transition-all border border-white/50" title="Télécharger PDF">
+<a href="{% url 'generer_rapport_pdf' radio.id %}" target="_blank" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-on-surface-variant hover:text-primary hover:shadow-md transition-all border border-outline-variant" title="Télécharger PDF">
 <span class="material-symbols-outlined">picture_as_pdf</span>
 </a>
-<a href="{% url 'patient_detail' radio.patient.id %}" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-on-surface-variant hover:text-primary hover:shadow-md transition-all border border-white/50" title="Voir le patient">
+<a href="{% url 'patient_detail' radio.patient.id %}" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-on-surface-variant hover:text-primary hover:shadow-md transition-all border border-outline-variant" title="Voir le patient">
 <span class="material-symbols-outlined">arrow_forward_ios</span>
 </a>
 </div>
 </div>
 {% empty %}
-<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-12 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] text-center">
+<div class="bg-white rounded-xl p-12 border border-outline-variant shadow-sm text-center">
 <span class="material-symbols-outlined text-[48px] text-on-surface-variant/40 mb-4 block">radiology</span>
 <p class="text-on-surface-variant font-body-lg">Aucune analyse pour le moment.</p>
-<a href="{% url 'upload_radiographie' %}" class="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg transition-all">
+<a href="{% url 'upload_radiographie' %}" class="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-lg bg-primary text-on-primary hover:bg-primary-container rounded-lg text-sm font-semibold transition-colors shadow-sm">
 <span class="material-symbols-outlined text-[20px]">add</span>
-    Lancer votre première analyse
+ Lancer votre première analyse
 </a>
 </div>
 {% endfor %}
 
 <!-- No results message (hidden by default, shown by JS) -->
-<div id="noResultsRow" class="hidden bg-white/70 backdrop-blur-xl rounded-[2rem] p-12 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] text-center">
+<div id="noResultsRow" class="hidden bg-white rounded-xl p-12 border border-outline-variant shadow-sm text-center">
 <span class="material-symbols-outlined text-[48px] text-on-surface-variant/40 mb-4 block">search_off</span>
 <p class="text-on-surface-variant font-body-lg">Aucun résultat trouvé pour votre recherche.</p>
 </div>
@@ -363,43 +359,43 @@
 
 <!-- Search & Filter JS -->
 <script>
-    const searchInput = document.getElementById('patientSearch');
-    const statusFilter = document.getElementById('statusFilter');
+ const searchInput = document.getElementById('patientSearch');
+ const statusFilter = document.getElementById('statusFilter');
 
-    function filterCards() {
-        const nameQuery = searchInput.value.toLowerCase();
-        const selectedStatus = statusFilter.value;
-        const cards = document.querySelectorAll('.data-row');
-        let visibleCount = 0;
+ function filterCards() {
+ const nameQuery = searchInput.value.toLowerCase();
+ const selectedStatus = statusFilter.value;
+ const cards = document.querySelectorAll('.data-row');
+ let visibleCount = 0;
 
-        cards.forEach(card => {
-            const nameEl = card.querySelector('.patient-name');
-            const nameText = nameEl ? nameEl.textContent.toLowerCase() : '';
-            const cardStatus = card.getAttribute('data-status');
+ cards.forEach(card => {
+ const nameEl = card.querySelector('.patient-name');
+ const nameText = nameEl ? nameEl.textContent.toLowerCase() : '';
+ const cardStatus = card.getAttribute('data-status');
 
-            const matchesName = nameText.includes(nameQuery);
-            const matchesStatus = (selectedStatus === 'all' || cardStatus === selectedStatus);
+ const matchesName = nameText.includes(nameQuery);
+ const matchesStatus = (selectedStatus === 'all' || cardStatus === selectedStatus);
 
-            if (matchesName && matchesStatus) {
-                card.style.display = '';
-                visibleCount++;
-            } else {
-                card.style.display = 'none';
-            }
-        });
+ if (matchesName && matchesStatus) {
+ card.style.display = '';
+ visibleCount++;
+ } else {
+ card.style.display = 'none';
+ }
+ });
 
-        const noResults = document.getElementById('noResultsRow');
-        if (noResults) {
-            if (visibleCount === 0 && cards.length > 0) {
-                noResults.classList.remove('hidden');
-            } else {
-                noResults.classList.add('hidden');
-            }
-        }
-    }
+ const noResults = document.getElementById('noResultsRow');
+ if (noResults) {
+ if (visibleCount === 0 && cards.length > 0) {
+ noResults.classList.remove('hidden');
+ } else {
+ noResults.classList.add('hidden');
+ }
+ }
+ }
 
-    searchInput.addEventListener('keyup', filterCards);
-    statusFilter.addEventListener('change', filterCards);
+ searchInput.addEventListener('keyup', filterCards);
+ statusFilter.addEventListener('change', filterCards);
 </script>
 
 <script>
@@ -407,70 +403,70 @@
 // POLLING AJAX — Vérification automatique des analyses IA en cours
 // =============================================================================
 (function() {
-    // Collecter les IDs des radios "en cours" sur la page
-    let pendingIds = [];
-    document.querySelectorAll('[data-status="en_cours"]').forEach(function(el) {
-        pendingIds.push(el.getAttribute('data-radio-id'));
-    });
+ // Collecter les IDs des radios "en cours" sur la page
+ let pendingIds = [];
+ document.querySelectorAll('[data-status="en_cours"]').forEach(function(el) {
+ pendingIds.push(el.getAttribute('data-radio-id'));
+ });
 
-    if (pendingIds.length === 0) return; // Rien à vérifier
+ if (pendingIds.length === 0) return; // Rien à vérifier
 
-    const pollInterval = setInterval(function() {
-        fetch('/api/check-analysis/?ids=' + pendingIds.join(','))
-            .then(r => r.json())
-            .then(data => {
-                // Mettre à jour les cartes terminées
-                data.completed.forEach(function(item) {
-                    const card = document.querySelector('[data-radio-id="' + item.id + '"]');
-                    if (!card) return;
+ const pollInterval = setInterval(function() {
+ fetch('/api/check-analysis/?ids=' + pendingIds.join(','))
+ .then(r => r.json())
+ .then(data => {
+ // Mettre à jour les cartes terminées
+ data.completed.forEach(function(item) {
+ const card = document.querySelector('[data-radio-id="' + item.id + '"]');
+ if (!card) return;
 
-                    // Retirer l'animation pulsante
-                    card.classList.remove('animate-pulse');
+ // Retirer l'animation pulsante
+ card.classList.remove('animate-pulse');
 
-                    // Mettre à jour le badge
-                    const badge = document.getElementById('badge-' + item.id);
-                    if (badge) {
-                        if (item.classe === 'Pneumonie') {
-                            badge.innerHTML = '<span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-error-container/50 text-error border border-error-container">' +
-                                '<span class="w-2 h-2 rounded-full bg-error mr-2"></span>Pneumonie' +
-                                '<span class="ml-2 opacity-60 font-normal">| ' + item.confiance.toFixed(1) + '%</span></span>';
-                            card.setAttribute('data-status', 'pneumonie');
-                        } else {
-                            badge.innerHTML = '<span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-surface-container-high/50 text-on-surface border border-surface-container-highest">' +
-                                '<span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>Normal' +
-                                '<span class="ml-2 opacity-60 font-normal">| ' + item.confiance.toFixed(1) + '%</span></span>';
-                            card.setAttribute('data-status', 'normal');
-                        }
-                    }
+ // Mettre à jour le badge
+ const badge = document.getElementById('badge-' + item.id);
+ if (badge) {
+ if (item.classe === 'Pneumonie') {
+ badge.innerHTML = '<span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-error-container/50 text-error border border-error-container">' +
+ '<span class="w-2 h-2 rounded-full bg-error mr-2"></span>Pneumonie' +
+ '<span class="ml-2 opacity-60 font-normal">| ' + item.confiance.toFixed(1) + '%</span></span>';
+ card.setAttribute('data-status', 'pneumonie');
+ } else {
+ badge.innerHTML = '<span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-surface-container-high/50 text-on-surface border border-surface-container-highest">' +
+ '<span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>Normal' +
+ '<span class="ml-2 opacity-60 font-normal">| ' + item.confiance.toFixed(1) + '%</span></span>';
+ card.setAttribute('data-status', 'normal');
+ }
+ }
 
-                    // Notification de bureau
-                    if ("Notification" in window && Notification.permission === "granted") {
-                        if (item.classe === 'Pneumonie' && localStorage.getItem('notif_critical') === 'true') {
-                            new Notification("⚠️ Alerte Médicale (Pneumonie)", {
-                                body: item.patient + " — Résultat critique détecté par l'IA (" + item.confiance.toFixed(1) + "%)",
-                                icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png"
-                            });
-                        } else if (item.classe === 'Normal' && localStorage.getItem('notif_complete') === 'true') {
-                            new Notification("✅ Analyse Terminée", {
-                                body: item.patient + " — Résultat : Normal (" + item.confiance.toFixed(1) + "%)",
-                                icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png"
-                            });
-                        }
-                    }
+ // Notification de bureau
+ if ("Notification" in window && Notification.permission === "granted") {
+ if (item.classe === 'Pneumonie' && localStorage.getItem('notif_critical') === 'true') {
+ new Notification("⚠️ Alerte Médicale (Pneumonie)", {
+ body: item.patient + " — Résultat critique détecté par l'IA (" + item.confiance.toFixed(1) + "%)",
+ icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png"
+ });
+ } else if (item.classe === 'Normal' && localStorage.getItem('notif_complete') === 'true') {
+ new Notification("✅ Analyse Terminée", {
+ body: item.patient + " — Résultat : Normal (" + item.confiance.toFixed(1) + "%)",
+ icon: "https://cdn-icons-png.flaticon.com/512/2966/2966327.png"
+ });
+ }
+ }
 
-                    // Retirer des IDs en attente
-                    pendingIds = pendingIds.filter(id => id != item.id);
-                });
+ // Retirer des IDs en attente
+ pendingIds = pendingIds.filter(id => id != item.id);
+ });
 
-                // Arrêter le polling quand tout est terminé
-                if (pendingIds.length === 0) {
-                    clearInterval(pollInterval);
-                    // Recharger la page pour mettre à jour les stats et les heatmaps
-                    setTimeout(() => location.reload(), 1500);
-                }
-            })
-            .catch(err => console.error('Erreur polling:', err));
-    }, 2000); // Vérifier toutes les 2 secondes
+ // Arrêter le polling quand tout est terminé
+ if (pendingIds.length === 0) {
+ clearInterval(pollInterval);
+ // Recharger la page pour mettre à jour les stats et les heatmaps
+ setTimeout(() => location.reload(), 1500);
+ }
+ })
+ .catch(err => console.error('Erreur polling:', err));
+ }, 2000); // Vérifier toutes les 2 secondes
 })();
 </script>
 

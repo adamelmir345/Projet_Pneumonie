@@ -3,152 +3,153 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Statistiques - MedAI</title>
+<link rel="icon" type="image/jpeg" href="/static/img/logo.jpg">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "on-surface-variant": "#434653",
-                        "secondary-container": "#d0e1fb",
-                        "inverse-on-surface": "#f0f0f9",
-                        "surface-bright": "#faf8ff",
-                        "on-primary-fixed-variant": "#00419c",
-                        "surface": "#faf8ff",
-                        "primary-fixed": "#d9e2ff",
-                        "tertiary-fixed": "#ffdbcd",
-                        "on-tertiary-container": "#ffc0a7",
-                        "background": "#faf8ff",
-                        "tertiary-container": "#993900",
-                        "outline": "#737784",
-                        "on-secondary-container": "#54647a",
-                        "on-secondary": "#ffffff",
-                        "on-primary": "#ffffff",
-                        "surface-container-highest": "#e1e2eb",
-                        "on-secondary-fixed-variant": "#38485d",
-                        "surface-tint": "#1d59c1",
-                        "primary": "#003c90",
-                        "secondary-fixed-dim": "#b7c8e1",
-                        "surface-container": "#ededf6",
-                        "on-tertiary-fixed": "#360f00",
-                        "outline-variant": "#c3c6d5",
-                        "on-primary-container": "#bcceff",
-                        "error-container": "#ffdad6",
-                        "error": "#ba1a1a",
-                        "on-tertiary-fixed-variant": "#7d2d00",
-                        "surface-variant": "#e1e2eb",
-                        "primary-fixed-dim": "#b0c6ff",
-                        "surface-container-high": "#e7e7f1",
-                        "primary-container": "#0f52ba",
-                        "on-tertiary": "#ffffff",
-                        "on-primary-fixed": "#001945",
-                        "tertiary-fixed-dim": "#ffb596",
-                        "surface-container-low": "#f3f3fc",
-                        "on-error": "#ffffff",
-                        "inverse-surface": "#2e3037",
-                        "tertiary": "#732900",
-                        "secondary-fixed": "#d3e4fe",
-                        "on-error-container": "#93000a",
-                        "on-background": "#191b22",
-                        "inverse-primary": "#b0c6ff",
-                        "surface-container-lowest": "#ffffff",
-                        "on-secondary-fixed": "#0b1c30",
-                        "surface-dim": "#d9d9e2",
-                        "secondary": "#505f76",
-                        "on-surface": "#191b22"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    spacing: {
-                        "base": "4px",
-                        "gutter": "24px",
-                        "row-height-md": "64px",
-                        "margin-mobile": "16px",
-                        "margin-desktop": "40px"
-                    },
-                    fontFamily: {
-                        "label-md": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "headline-md": ["Inter"],
-                        "data-tabular": ["Inter"],
-                        "body-md": ["Inter"]
-                    }
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "surface": "#faf8ff",
+                    "surface-dim": "#d9d9e2",
+                    "surface-bright": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f3fc",
+                    "surface-container": "#ededf6",
+                    "surface-container-high": "#e7e7f1",
+                    "surface-container-highest": "#e1e2eb",
+                    "on-surface": "#191b22",
+                    "on-surface-variant": "#434653",
+                    "inverse-surface": "#2e3037",
+                    "inverse-on-surface": "#f0f0f9",
+                    "outline": "#737784",
+                    "outline-variant": "#c3c6d5",
+                    "surface-tint": "#1d59c1",
+                    "primary": "#003c90",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0f52ba",
+                    "on-primary-container": "#bcceff",
+                    "inverse-primary": "#b0c6ff",
+                    "secondary": "#505f76",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#d0e1fb",
+                    "on-secondary-container": "#54647a",
+                    "tertiary": "#732900",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#993900",
+                    "on-tertiary-container": "#ffc0a7",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#d9e2ff",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "on-primary-fixed": "#001945",
+                    "on-primary-fixed-variant": "#00419c",
+                    "secondary-fixed": "#d3e4fe",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "tertiary-fixed": "#ffdbcd",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "background": "#faf8ff",
+                    "on-background": "#191b22",
+                    "surface-variant": "#e1e2eb"
+                },
+                borderRadius: {
+                    "sm": "0.25rem",
+                    "DEFAULT": "0.5rem",
+                    "md": "0.75rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+                },
+                spacing: {
+                    "base": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "row-height-md": "64px"
+                },
+                fontFamily: {
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "data-tabular": ["Inter", "sans-serif"]
                 }
             }
         }
-    </script>
+    };
+</script>
 <style>
-        body { font-family: 'Inter', sans-serif; }
-        
-        @media print {
-            body { 
-                background: white !important; 
-                height: auto;
-                overflow: visible !important;
-            }
-            nav, header, button.print-btn, .fixed, .absolute { 
-                display: none !important; 
-            }
-            main { 
-                padding: 0 !important; 
-                margin: 0 !important;
-                height: auto !important;
-                overflow: visible !important;
-            }
-            .flex-1 { 
-                flex: none !important; 
-                display: block !important; 
-            }
-            .max-w-\[1440px\] {
-                max-w: 100% !important;
-            }
-            .bg-white\/70, .bg-white\/60 {
-                background: white !important;
-                border: 1px solid #e2e8f0 !important;
-                box-shadow: none !important;
-            }
-            /* Avoid page breaks inside charts */
-            .grid > div {
-                break-inside: avoid;
-                margin-bottom: 20px;
-            }
-            /* Adjust canvas size for print */
-            canvas {
-                max-width: 100% !important;
-            }
-            @page {
-                size: A4 landscape;
-                margin: 10mm;
-            }
-        }
-    </style>
+ body { font-family: 'Inter', sans-serif; }
+ 
+ @media print {
+ body { 
+ background: white !important; 
+ height: auto;
+ overflow: visible !important;
+ }
+ nav, header, button.print-btn, .fixed, .absolute { 
+ display: none !important; 
+ }
+ main { 
+ padding: 0 !important; 
+ margin: 0 !important;
+ height: auto !important;
+ overflow: visible !important;
+ }
+ .flex-1 { 
+ flex: none !important; 
+ display: block !important; 
+ }
+ .max-w-\[1440px\] {
+ max-w: 100% !important;
+ }
+ .bg-white\/70, .bg-white\/60 {
+ background: white !important;
+ border: 1px solid #e2e8f0 !important;
+ box-shadow: none !important;
+ }
+ /* Avoid page breaks inside charts */
+ .grid > div {
+ break-inside: avoid;
+ margin-bottom: 20px;
+ }
+ /* Adjust canvas size for print */
+ canvas {
+ max-width: 100% !important;
+ }
+ @page {
+ size: A4 landscape;
+ margin: 10mm;
+ }
+ }
+ </style>
+
+
 </head>
-<body class="bg-gradient-to-br from-surface to-secondary-container/20 text-on-surface h-screen flex overflow-hidden relative">
-<!-- Organic Background Blobs -->
-<div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[100px]"></div>
-<div class="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-tertiary/5 blur-[120px]"></div>
-<div class="absolute top-[30%] right-[20%] w-[25%] h-[25%] rounded-full bg-secondary-fixed/30 blur-[80px]"></div>
+<body class="bg-[#f8fafc] text-on-surface h-screen flex overflow-hidden relative">
+
 </div>
 
 <!-- Sidebar Navigation -->
-<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
+<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white flex-shrink-0 relative z-10 border-r border-outline-variant">
 <div class="px-6 mb-10 mt-4 flex items-center gap-4">
-<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md overflow-hidden">
-    {% if user.profile.photo_profil %}
-        <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
-    {% else %}
-        {{ user.username|make_list|first|upper }}
-    {% endif %}
+<div class="w-12 h-12 rounded-[1rem] bg-primary flex items-center justify-center text-on-primary shadow-sm font-headline-md overflow-hidden">
+ {% if user.profile.photo_profil %}
+ <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
+ {% else %}
+ {{ user.username|make_list|first|upper }}
+ {% endif %}
 </div>
 <div>
 <div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div>
@@ -157,43 +158,43 @@
 </div>
 <div class="px-4 space-y-2 flex-1">
 {% if not is_pure_comptable %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}">
 <span class="material-symbols-outlined opacity-70">dashboard</span>
-                Dashboard
-            </a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}">
+ Dashboard
+ </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}">
 <span class="material-symbols-outlined opacity-70">groups</span>
-                Patients
-            </a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}">
+ Patients
+ </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}">
 <span class="material-symbols-outlined opacity-70">psychology</span>
-                Analyses
-            </a>
+ Analyses
+ </a>
 <!-- Active Link -->
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 transition-all font-label-md relative" href="{% url 'statistics' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-sm border border-outline-variant/60 transition-all font-label-md relative" href="{% url 'statistics' %}">
 <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-primary rounded-r-full"></div>
 <span class="material-symbols-outlined text-primary">bar_chart</span>
-                Statistiques
-            </a>
+ Statistiques
+ </a>
 {% endif %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}">
 <span class="material-symbols-outlined opacity-70">settings</span>
-                Paramètres
-            </a>
+ Paramètres
+ </a>
 {% if is_comptable %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard_finance' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard_finance' %}">
 <span class="material-symbols-outlined opacity-70">account_balance</span>
-                Finance
-            </a>
+ Finance
+ </a>
 {% endif %}
 </div>
 <div class="px-4 pb-6">
 <form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full">
+ {% csrf_token %}
+ <button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full">
 <span class="material-symbols-outlined opacity-70">logout</span>
-                Déconnexion
-    </button>
+ Déconnexion
+ </button>
 </form>
 </div>
 </nav>
@@ -201,20 +202,20 @@
 <!-- Main Content -->
 <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
 <header class="flex justify-between items-center w-full px-margin-desktop h-[88px] flex-shrink-0">
-<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white/60 backdrop-blur-md px-5 py-2.5 rounded-[1.5rem] shadow-sm border border-white/50">
-<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">medical_services</span>
-                MedAI
-            </div>
+<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white px-5 py-2.5 rounded-xl shadow-sm border border-outline-variant">
+<img src="/static/img/logo.jpg" alt="MedAI Logo" class="w-8 h-8 rounded-full object-cover border border-primary/20">
+ MedAI
+ </div>
 <div class="flex items-center gap-4">
-<a href="{% url 'upload_radiographie' %}" class="flex items-center gap-2 px-6 py-2.5 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg hover:shadow-primary/20 transition-all h-11 border border-primary/20">
+<a href="{% url 'upload_radiographie' %}" class="flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors shadow-sm">
 <span class="material-symbols-outlined text-[20px]">analytics</span>
-                    Analyser
-                </a>
+ Analyser
+ </a>
 <form method="post" action="{% url 'logout' %}" class="inline">
-    {% csrf_token %}
-    <button type="submit" class="w-11 h-11 text-on-surface-variant bg-white/80 backdrop-blur-md hover:bg-red-50 hover:text-red-600 rounded-[1.25rem] transition-all flex items-center justify-center ml-2 border border-white/50 shadow-sm">
+ {% csrf_token %}
+ <button type="submit" class="w-11 h-11 text-on-surface-variant bg-white hover:bg-red-50 hover:text-red-600 rounded-lg transition-all flex items-center justify-center ml-2 border border-outline-variant shadow-sm">
 <span class="material-symbols-outlined">logout</span>
-    </button>
+ </button>
 </form>
 </div>
 </header>
@@ -224,48 +225,45 @@
 
 <!-- Page Title -->
 <div class="flex items-center justify-between">
-    <div class="flex items-center gap-4">
-        <div class="w-14 h-14 rounded-[1.25rem] bg-white/60 backdrop-blur-md flex items-center justify-center border border-white/50 shadow-sm">
-            <span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">bar_chart</span>
-        </div>
-        <div>
-            <h1 class="font-headline-md text-on-surface">Statistiques de Pilotage</h1>
-            <p class="font-body-md text-on-surface-variant">Vue d'ensemble de l'activité diagnostique et performances IA.</p>
-        </div>
-    </div>
-    <div>
-        <button onclick="window.print()" class="print-btn flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-xl font-label-md hover:opacity-90 transition-opacity shadow-sm">
-            <span class="material-symbols-outlined text-[20px]">download</span>
-            Télécharger le Rapport
-        </button>
-    </div>
+ <div class="flex items-center gap-4">
+ <div class="w-14 h-14 rounded-lg bg-white flex items-center justify-center border border-outline-variant shadow-sm">
+ <span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">bar_chart</span>
+ </div>
+ <div>
+ <h1 class="font-headline-md text-on-surface">Statistiques de Pilotage</h1>
+ <p class="font-body-md text-on-surface-variant">Vue d'ensemble de l'activité diagnostique et performances IA.</p>
+ </div>
+ </div>
+ <div>
+ <button onclick="window.print()" class="print-btn flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-xl font-label-md hover:opacity-90 transition-opacity shadow-sm">
+ <span class="material-symbols-outlined text-[20px]">download</span>
+ Télécharger le Rapport
+ </button>
+ </div>
 </div>
 
 <!-- KPI Cards Row -->
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
 <!-- Total Analyses -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
-<div class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-primary">analytics</span></div>
+<div class="w-7 h-7 rounded-full bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-primary">analytics</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">ANALYSES</span>
 </div>
 <div class="font-headline-lg text-on-surface">{{ total_analyses }}</div>
 </div>
 
 <!-- Pneumonie -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-error/5 rounded-full blur-xl group-hover:bg-error/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
-<div class="w-7 h-7 rounded-full bg-error/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-error">coronavirus</span></div>
+<div class="w-7 h-7 rounded-full bg-error-container flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-error">coronavirus</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">PNEUMONIE</span>
 </div>
 <div class="font-headline-lg text-error">{{ cas_pneumonie }}</div>
 </div>
 
 <!-- Normal -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-green-500/5 rounded-full blur-xl group-hover:bg-green-500/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
 <div class="w-7 h-7 rounded-full bg-green-500/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-green-600">check_circle</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">NORMAL</span>
@@ -274,8 +272,7 @@
 </div>
 
 <!-- Taux Pneumonie -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-tertiary/5 rounded-full blur-xl group-hover:bg-tertiary/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
 <div class="w-7 h-7 rounded-full bg-tertiary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-tertiary">percent</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">TAUX PNEUMO</span>
@@ -284,20 +281,18 @@
 </div>
 
 <!-- Confiance Moyenne -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-secondary/5 rounded-full blur-xl group-hover:bg-secondary/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
-<div class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-secondary">speed</span></div>
+<div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-secondary">speed</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">CONFIANCE IA</span>
 </div>
 <div class="font-headline-lg text-secondary">{{ avg_confiance }}%</div>
 </div>
 
 <!-- Total Patients -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
-<div class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-primary">groups</span></div>
+<div class="w-7 h-7 rounded-full bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-primary">groups</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">PATIENTS</span>
 </div>
 <div class="font-headline-lg text-primary">{{ total_patients }}</div>
@@ -307,16 +302,16 @@
 <!-- Charts Row 1: Monthly + Donut -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 <!-- Monthly Analyses Chart -->
-<div class="lg:col-span-8 bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="lg:col-span-8 bg-white rounded-xl p-8 border border-outline-variant shadow-sm">
 <div class="flex items-center justify-between mb-6">
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">trending_up</span>
 <h2 class="font-headline-md text-on-surface text-lg">Tendance Diagnostique</h2>
 </div>
 <select id="trendPeriodSelector" onchange="updateTrendChart()" class="font-label-md text-on-surface-variant text-sm bg-surface-container-low border border-outline-variant px-3 py-1.5 rounded-full focus:ring-primary focus:border-primary">
-    <option value="6months">6 derniers mois</option>
-    <option value="30days">30 derniers jours</option>
-    <option value="7days">7 derniers jours</option>
+ <option value="6months">6 derniers mois</option>
+ <option value="30days">30 derniers jours</option>
+ <option value="7days">7 derniers jours</option>
 </select>
 </div>
 <div class="h-[300px]">
@@ -325,7 +320,7 @@
 </div>
 
 <!-- Pneumonie vs Normal Donut -->
-<div class="lg:col-span-4 bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="lg:col-span-4 bg-white rounded-xl p-8 border border-outline-variant shadow-sm">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">donut_large</span>
 <h2 class="font-headline-md text-on-surface text-lg">Répartition</h2>
@@ -349,7 +344,7 @@
 <!-- Charts Row 2: Validation + Demographics -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 <!-- Validation Status -->
-<div class="lg:col-span-4 bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="lg:col-span-4 bg-white rounded-xl p-8 border border-outline-variant shadow-sm">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">fact_check</span>
 <h2 class="font-headline-md text-on-surface text-lg">Validations</h2>
@@ -360,7 +355,7 @@
 </div>
 
 <!-- Sex Distribution -->
-<div class="lg:col-span-4 bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="lg:col-span-4 bg-white rounded-xl p-8 border border-outline-variant shadow-sm">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">wc</span>
 <h2 class="font-headline-md text-on-surface text-lg">Sexe</h2>
@@ -371,7 +366,7 @@
 </div>
 
 <!-- Smoking Status -->
-<div class="lg:col-span-4 bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="lg:col-span-4 bg-white rounded-xl p-8 border border-outline-variant shadow-sm">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">smoking_rooms</span>
 <h2 class="font-headline-md text-on-surface text-lg">Statut tabagique</h2>
@@ -383,7 +378,7 @@
 </div>
 
 <!-- Blood Type Distribution -->
-<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="bg-white rounded-xl p-8 border border-outline-variant shadow-sm">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">bloodtype</span>
 <h2 class="font-headline-md text-on-surface text-lg">Groupes sanguins</h2>
@@ -407,126 +402,126 @@ Chart.defaults.plugins.legend.display = false;
 
 // 1. Monthly Analyses (Line/Area Chart style similar to trend)
 const trendData = {
-    '6months': {
-        labels: {{ mois_labels|safe }},
-        pneumonies: {{ mois_pneumonies|safe }},
-        normaux: {{ mois_normaux|safe }}
-    },
-    '30days': {
-        labels: {{ jours30_labels|safe }},
-        pneumonies: {{ jours30_pneumonies|safe }},
-        normaux: {{ jours30_normaux|safe }}
-    },
-    '7days': {
-        labels: {{ jours7_labels|safe }},
-        pneumonies: {{ jours7_pneumonies|safe }},
-        normaux: {{ jours7_normaux|safe }}
-    }
+ '6months': {
+ labels: {{ mois_labels|safe }},
+ pneumonies: {{ mois_pneumonies|safe }},
+ normaux: {{ mois_normaux|safe }}
+ },
+ '30days': {
+ labels: {{ jours30_labels|safe }},
+ pneumonies: {{ jours30_pneumonies|safe }},
+ normaux: {{ jours30_normaux|safe }}
+ },
+ '7days': {
+ labels: {{ jours7_labels|safe }},
+ pneumonies: {{ jours7_pneumonies|safe }},
+ normaux: {{ jours7_normaux|safe }}
+ }
 };
 
 const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
 let trendChart = new Chart(monthlyCtx, {
-    type: 'line',
-    data: {
-        labels: trendData['6months'].labels,
-        datasets: [
-            {
-                label: 'Pneumonie',
-                data: trendData['6months'].pneumonies,
-                borderColor: 'rgba(186, 26, 26, 1)',
-                backgroundColor: 'rgba(186, 26, 26, 0.1)',
-                borderWidth: 3,
-                tension: 0.4,
-                fill: true,
-                pointBackgroundColor: 'rgba(186, 26, 26, 1)',
-                pointRadius: 4,
-            },
-            {
-                label: 'Normal',
-                data: trendData['6months'].normaux,
-                borderColor: 'rgba(0, 60, 144, 1)', // Primary blue
-                backgroundColor: 'rgba(0, 60, 144, 0.1)',
-                borderWidth: 3,
-                tension: 0.4,
-                fill: true,
-                pointBackgroundColor: 'rgba(0, 60, 144, 1)',
-                pointRadius: 4,
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: { display: true, position: 'top', labels: { usePointStyle: true, pointStyle: 'circle', padding: 20, font: chartFont } },
-        },
-        scales: {
-            x: { grid: { display: false }, ticks: { font: chartFont } },
-            y: { beginAtZero: true, grid: { color: gridColor }, ticks: { font: chartFont, stepSize: 1 } }
-        },
-        interaction: {
-            mode: 'index',
-            intersect: false,
-        }
-    }
+ type: 'line',
+ data: {
+ labels: trendData['6months'].labels,
+ datasets: [
+ {
+ label: 'Pneumonie',
+ data: trendData['6months'].pneumonies,
+ borderColor: 'rgba(186, 26, 26, 1)',
+ backgroundColor: 'rgba(186, 26, 26, 0.1)',
+ borderWidth: 3,
+ tension: 0.4,
+ fill: true,
+ pointBackgroundColor: 'rgba(186, 26, 26, 1)',
+ pointRadius: 4,
+ },
+ {
+ label: 'Normal',
+ data: trendData['6months'].normaux,
+ borderColor: 'rgba(0, 60, 144, 1)', // Primary blue
+ backgroundColor: 'rgba(0, 60, 144, 0.1)',
+ borderWidth: 3,
+ tension: 0.4,
+ fill: true,
+ pointBackgroundColor: 'rgba(0, 60, 144, 1)',
+ pointRadius: 4,
+ }
+ ]
+ },
+ options: {
+ responsive: true,
+ maintainAspectRatio: false,
+ plugins: {
+ legend: { display: true, position: 'top', labels: { usePointStyle: true, pointStyle: 'circle', padding: 20, font: chartFont } },
+ },
+ scales: {
+ x: { grid: { display: false }, ticks: { font: chartFont } },
+ y: { beginAtZero: true, grid: { color: gridColor }, ticks: { font: chartFont, stepSize: 1 } }
+ },
+ interaction: {
+ mode: 'index',
+ intersect: false,
+ }
+ }
 });
 
 function updateTrendChart() {
-    const period = document.getElementById('trendPeriodSelector').value;
-    const data = trendData[period];
-    
-    trendChart.data.labels = data.labels;
-    trendChart.data.datasets[0].data = data.pneumonies;
-    trendChart.data.datasets[1].data = data.normaux;
-    trendChart.update();
+ const period = document.getElementById('trendPeriodSelector').value;
+ const data = trendData[period];
+ 
+ trendChart.data.labels = data.labels;
+ trendChart.data.datasets[0].data = data.pneumonies;
+ trendChart.data.datasets[1].data = data.normaux;
+ trendChart.update();
 }
 
 // 2. Donut Chart (Pneumonia vs Normal)
 const donutCtx = document.getElementById('donutChart').getContext('2d');
 new Chart(donutCtx, {
-    type: 'doughnut',
-    data: {
-        labels: ['Pneumonie', 'Normal'],
-        datasets: [{
-            data: [{{ cas_pneumonie }}, {{ cas_normal }}],
-            backgroundColor: ['#ba1a1a', '#16a34a'],
-            borderWidth: 0,
-            hoverOffset: 8,
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '65%',
-        plugins: {
-            legend: { display: false },
-            tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw / ({{ cas_pneumonie }} + {{ cas_normal }}) * 100)}%)` } }
-        }
-    }
+ type: 'doughnut',
+ data: {
+ labels: ['Pneumonie', 'Normal'],
+ datasets: [{
+ data: [{{ cas_pneumonie }}, {{ cas_normal }}],
+ backgroundColor: ['#ba1a1a', '#16a34a'],
+ borderWidth: 0,
+ hoverOffset: 8,
+ }]
+ },
+ options: {
+ responsive: true,
+ maintainAspectRatio: false,
+ cutout: '65%',
+ plugins: {
+ legend: { display: false },
+ tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw / ({{ cas_pneumonie }} + {{ cas_normal }}) * 100)}%)` } }
+ }
+ }
 });
 
 // 3. Validation Status (Doughnut)
 const validationCtx = document.getElementById('validationChart').getContext('2d');
 const validationData = {{ validation_data|safe }};
 new Chart(validationCtx, {
-    type: 'doughnut',
-    data: {
-        labels: Object.keys(validationData),
-        datasets: [{
-            data: Object.values(validationData),
-            backgroundColor: ['#737784', '#003c90', '#16a34a', '#ba1a1a'],
-            borderWidth: 0,
-            hoverOffset: 6,
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '60%',
-        plugins: {
-            legend: { display: true, position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', padding: 10, font: { size: 10, family: 'Inter' }, boxWidth: 8 } },
-        }
-    }
+ type: 'doughnut',
+ data: {
+ labels: Object.keys(validationData),
+ datasets: [{
+ data: Object.values(validationData),
+ backgroundColor: ['#737784', '#003c90', '#16a34a', '#ba1a1a'],
+ borderWidth: 0,
+ hoverOffset: 6,
+ }]
+ },
+ options: {
+ responsive: true,
+ maintainAspectRatio: false,
+ cutout: '60%',
+ plugins: {
+ legend: { display: true, position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', padding: 10, font: { size: 10, family: 'Inter' }, boxWidth: 8 } },
+ }
+ }
 });
 
 // 4. Sex Distribution (Doughnut)
@@ -535,24 +530,24 @@ const sexData = {{ sexe_data|safe }};
 const sexLabels = Object.keys(sexData).length > 0 ? Object.keys(sexData) : ['Aucune donnée'];
 const sexValues = Object.values(sexData).length > 0 ? Object.values(sexData) : [1];
 new Chart(sexCtx, {
-    type: 'doughnut',
-    data: {
-        labels: sexLabels,
-        datasets: [{
-            data: sexValues,
-            backgroundColor: Object.keys(sexData).length > 0 ? ['#003c90', '#e91e8c'] : ['#e1e2eb'],
-            borderWidth: 0,
-            hoverOffset: 6,
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '60%',
-        plugins: {
-            legend: { display: true, position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', padding: 10, font: { size: 11, family: 'Inter' }, boxWidth: 8 } },
-        }
-    }
+ type: 'doughnut',
+ data: {
+ labels: sexLabels,
+ datasets: [{
+ data: sexValues,
+ backgroundColor: Object.keys(sexData).length > 0 ? ['#003c90', '#e91e8c'] : ['#e1e2eb'],
+ borderWidth: 0,
+ hoverOffset: 6,
+ }]
+ },
+ options: {
+ responsive: true,
+ maintainAspectRatio: false,
+ cutout: '60%',
+ plugins: {
+ legend: { display: true, position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', padding: 10, font: { size: 11, family: 'Inter' }, boxWidth: 8 } },
+ }
+ }
 });
 
 // 5. Smoking Status (Doughnut)
@@ -561,24 +556,24 @@ const smokingData = {{ fumeur_data|safe }};
 const smokingLabels = Object.keys(smokingData).length > 0 ? Object.keys(smokingData) : ['Aucune donnée'];
 const smokingValues = Object.values(smokingData).length > 0 ? Object.values(smokingData) : [1];
 new Chart(smokingCtx, {
-    type: 'doughnut',
-    data: {
-        labels: smokingLabels,
-        datasets: [{
-            data: smokingValues,
-            backgroundColor: Object.keys(smokingData).length > 0 ? ['#16a34a', '#ba1a1a', '#f59e0b'] : ['#e1e2eb'],
-            borderWidth: 0,
-            hoverOffset: 6,
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '60%',
-        plugins: {
-            legend: { display: true, position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', padding: 10, font: { size: 11, family: 'Inter' }, boxWidth: 8 } },
-        }
-    }
+ type: 'doughnut',
+ data: {
+ labels: smokingLabels,
+ datasets: [{
+ data: smokingValues,
+ backgroundColor: Object.keys(smokingData).length > 0 ? ['#16a34a', '#ba1a1a', '#f59e0b'] : ['#e1e2eb'],
+ borderWidth: 0,
+ hoverOffset: 6,
+ }]
+ },
+ options: {
+ responsive: true,
+ maintainAspectRatio: false,
+ cutout: '60%',
+ plugins: {
+ legend: { display: true, position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', padding: 10, font: { size: 11, family: 'Inter' }, boxWidth: 8 } },
+ }
+ }
 });
 
 // 6. Blood Type (Bar Chart)
@@ -587,30 +582,30 @@ const bloodData = {{ groupe_data|safe }};
 const bloodLabels = Object.keys(bloodData).length > 0 ? Object.keys(bloodData) : ['Aucune donnée'];
 const bloodValues = Object.values(bloodData).length > 0 ? Object.values(bloodData) : [0];
 new Chart(bloodCtx, {
-    type: 'bar',
-    data: {
-        labels: bloodLabels,
-        datasets: [{
-            data: bloodValues,
-            backgroundColor: [
-                'rgba(186, 26, 26, 0.7)', 'rgba(186, 26, 26, 0.5)',
-                'rgba(0, 60, 144, 0.7)', 'rgba(0, 60, 144, 0.5)',
-                'rgba(115, 41, 0, 0.7)', 'rgba(115, 41, 0, 0.5)',
-                'rgba(22, 163, 74, 0.7)', 'rgba(22, 163, 74, 0.5)',
-            ],
-            borderRadius: 8,
-            borderSkipped: false,
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-            x: { grid: { display: false }, ticks: { font: { size: 13, family: 'Inter', weight: '600' } } },
-            y: { beginAtZero: true, grid: { color: gridColor }, ticks: { font: chartFont, stepSize: 1 } }
-        }
-    }
+ type: 'bar',
+ data: {
+ labels: bloodLabels,
+ datasets: [{
+ data: bloodValues,
+ backgroundColor: [
+ 'rgba(186, 26, 26, 0.7)', 'rgba(186, 26, 26, 0.5)',
+ 'rgba(0, 60, 144, 0.7)', 'rgba(0, 60, 144, 0.5)',
+ 'rgba(115, 41, 0, 0.7)', 'rgba(115, 41, 0, 0.5)',
+ 'rgba(22, 163, 74, 0.7)', 'rgba(22, 163, 74, 0.5)',
+ ],
+ borderRadius: 8,
+ borderSkipped: false,
+ }]
+ },
+ options: {
+ responsive: true,
+ maintainAspectRatio: false,
+ plugins: { legend: { display: false } },
+ scales: {
+ x: { grid: { display: false }, ticks: { font: { size: 13, family: 'Inter', weight: '600' } } },
+ y: { beginAtZero: true, grid: { color: gridColor }, ticks: { font: chartFont, stepSize: 1 } }
+ }
+ }
 });
 </script>
 </body></html>

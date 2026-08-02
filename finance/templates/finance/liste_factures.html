@@ -3,29 +3,114 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Factures — MedAI</title>
+<link rel="icon" type="image/jpeg" href="/static/img/logo.jpg">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#434653","secondary-container":"#d0e1fb","surface":"#faf8ff","primary":"#003c90","primary-container":"#0f52ba","on-primary":"#ffffff","error":"#ba1a1a","error-container":"#ffdad6","outline":"#737784","outline-variant":"#c3c6d5","on-surface":"#191b22","surface-container-low":"#f3f3fc","surface-container":"#ededf6","secondary-fixed":"#d3e4fe","tertiary":"#732900","tertiary-fixed":"#ffdbcd","on-tertiary-container":"#ffc0a7","tertiary-container":"#993900","secondary":"#505f76","primary-fixed":"#d9e2ff","on-secondary-container":"#54647a","surface-variant":"#e1e2eb","on-error-container":"#93000a","surface-container-highest":"#e1e2eb"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"base":"4px","gutter":"24px","row-height-md":"64px","margin-mobile":"16px","margin-desktop":"40px"},fontFamily:{"label-md":["Inter"],"headline-lg":["Inter"],"body-lg":["Inter"],"headline-md":["Inter"],"data-tabular":["Inter"],"body-md":["Inter"]}}}}
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "surface": "#faf8ff",
+                    "surface-dim": "#d9d9e2",
+                    "surface-bright": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f3fc",
+                    "surface-container": "#ededf6",
+                    "surface-container-high": "#e7e7f1",
+                    "surface-container-highest": "#e1e2eb",
+                    "on-surface": "#191b22",
+                    "on-surface-variant": "#434653",
+                    "inverse-surface": "#2e3037",
+                    "inverse-on-surface": "#f0f0f9",
+                    "outline": "#737784",
+                    "outline-variant": "#c3c6d5",
+                    "surface-tint": "#1d59c1",
+                    "primary": "#003c90",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0f52ba",
+                    "on-primary-container": "#bcceff",
+                    "inverse-primary": "#b0c6ff",
+                    "secondary": "#505f76",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#d0e1fb",
+                    "on-secondary-container": "#54647a",
+                    "tertiary": "#732900",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#993900",
+                    "on-tertiary-container": "#ffc0a7",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#d9e2ff",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "on-primary-fixed": "#001945",
+                    "on-primary-fixed-variant": "#00419c",
+                    "secondary-fixed": "#d3e4fe",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "tertiary-fixed": "#ffdbcd",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "background": "#faf8ff",
+                    "on-background": "#191b22",
+                    "surface-variant": "#e1e2eb"
+                },
+                borderRadius: {
+                    "sm": "0.25rem",
+                    "DEFAULT": "0.5rem",
+                    "md": "0.75rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+                },
+                spacing: {
+                    "base": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "row-height-md": "64px"
+                },
+                fontFamily: {
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "data-tabular": ["Inter", "sans-serif"]
+                }
+            }
+        }
+    };
 </script>
-<style>body{font-family:'Inter',sans-serif;}</style>
-</head>
-<body class="bg-gradient-to-br from-surface to-secondary-container/20 text-on-surface h-screen flex overflow-hidden relative">
-<div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[100px]"></div>
-<div class="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-tertiary/5 blur-[120px]"></div>
-<div class="absolute top-[30%] right-[20%] w-[25%] h-[25%] rounded-full bg-secondary-fixed/30 blur-[80px]"></div>
-</div>
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #f8fafc;
+        background-image:
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 60, 144, 0.08), transparent),
+            radial-gradient(ellipse 60% 40% at 100% 0%, rgba(209, 226, 255, 0.15), transparent);
+        background-attachment: fixed;
+    }
+</style>
 
-<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
+
+</head>
+<body class="bg-[#f8fafc] text-on-surface h-screen flex overflow-hidden relative">
+
+<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white flex-shrink-0 relative z-10 border-r border-outline-variant">
 <div class="px-6 mb-10 mt-4 flex items-center gap-4">
-<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md overflow-hidden">
-    {% if user.profile.photo_profil %}
-        <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
-    {% else %}
-        {{ user.username|make_list|first|upper }}
-    {% endif %}
+<div class="w-12 h-12 rounded-[1rem] bg-primary flex items-center justify-center text-on-primary shadow-sm font-headline-md overflow-hidden">
+ {% if user.profile.photo_profil %}
+ <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
+ {% else %}
+ {{ user.username|make_list|first|upper }}
+ {% endif %}
 </div>
 <div>
 <div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div>
@@ -34,25 +119,25 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </div>
 <div class="px-4 space-y-2 flex-1">
 {% if not is_pure_comptable %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}"><span class="material-symbols-outlined opacity-70">dashboard</span>Dashboard</a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}"><span class="material-symbols-outlined opacity-70">groups</span>Patients</a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}"><span class="material-symbols-outlined opacity-70">psychology</span>Analyses</a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'statistics' %}"><span class="material-symbols-outlined opacity-70">bar_chart</span>Statistiques</a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}"><span class="material-symbols-outlined opacity-70">dashboard</span>Dashboard</a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}"><span class="material-symbols-outlined opacity-70">groups</span>Patients</a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}"><span class="material-symbols-outlined opacity-70">psychology</span>Analyses</a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'statistics' %}"><span class="material-symbols-outlined opacity-70">bar_chart</span>Statistiques</a>
 {% endif %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 transition-all font-label-md relative" href="{% url 'dashboard_finance' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-sm border border-outline-variant/60 transition-all font-label-md relative" href="{% url 'dashboard_finance' %}">
 <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-primary rounded-r-full"></div>
 <span class="material-symbols-outlined text-primary">account_balance</span>Finance</a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}"><span class="material-symbols-outlined opacity-70">settings</span>Paramètres</a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}"><span class="material-symbols-outlined opacity-70">settings</span>Paramètres</a>
 </div>
 <div class="px-4 pb-6"><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full"><span class="material-symbols-outlined opacity-70">logout</span>Déconnexion</button></form></div>
 </nav>
 
 <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
 <header class="flex justify-between items-center w-full px-margin-desktop h-[88px] flex-shrink-0">
-<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white/60 backdrop-blur-md px-5 py-2.5 rounded-[1.5rem] shadow-sm border border-white/50">
-<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings:'FILL' 1;">medical_services</span>MedAI</div>
+<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white px-5 py-2.5 rounded-xl shadow-sm border border-outline-variant">
+<img src="/static/img/logo.jpg" alt="MedAI Logo" class="w-8 h-8 rounded-full object-cover border border-primary/20">MedAI</div>
 <div class="flex items-center gap-4">
-<a href="{% url 'creer_facture' %}" class="flex items-center gap-2 px-6 py-2.5 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg hover:shadow-primary/20 transition-all h-11 border border-primary/20">
+<a href="{% url 'creer_facture' %}" class="flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors shadow-sm">
 <span class="material-symbols-outlined text-[20px]">add</span>Nouvelle Facture</a>
 </div>
 </header>
@@ -69,7 +154,7 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 <!-- Title -->
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-4">
-<div class="w-14 h-14 rounded-[1.25rem] bg-white/60 backdrop-blur-md flex items-center justify-center border border-white/50 shadow-sm">
+<div class="w-14 h-14 rounded-lg bg-white flex items-center justify-center border border-outline-variant shadow-sm">
 <span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings:'FILL' 1;">receipt_long</span></div>
 <div>
 <h1 class="font-headline-md text-on-surface">Liste des Factures</h1>
@@ -79,11 +164,11 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </div>
 
 <!-- Filters -->
-<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-6 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="bg-white rounded-xl p-6 border border-outline-variant shadow-sm">
 <form method="get" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
 <div>
 <label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider mb-1 block">Statut</label>
-<select name="statut" class="w-full bg-white/80 border border-outline-variant/40 rounded-xl px-4 py-2.5 font-body-md focus:ring-primary focus:border-primary">
+<select name="statut" class="w-full bg-white border border-outline-variant/40 rounded-xl px-4 py-2.5 font-body-md focus:ring-primary focus:border-primary">
 <option value="">Tous</option>
 {% for val, label in statut_choices %}
 <option value="{{ val }}" {% if statut_filter == val %}selected{% endif %}>{{ label }}</option>
@@ -92,15 +177,15 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </div>
 <div>
 <label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider mb-1 block">Patient</label>
-<input type="text" name="patient" value="{{ patient_filter }}" placeholder="Nom ou prénom" class="w-full bg-white/80 border border-outline-variant/40 rounded-xl px-4 py-2.5 font-body-md focus:ring-primary focus:border-primary">
+<input type="text" name="patient" value="{{ patient_filter }}" placeholder="Nom ou prénom" class="w-full bg-white border border-outline-variant/40 rounded-xl px-4 py-2.5 font-body-md focus:ring-primary focus:border-primary">
 </div>
 <div>
 <label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider mb-1 block">Du</label>
-<input type="date" name="date_debut" value="{{ date_debut }}" class="w-full bg-white/80 border border-outline-variant/40 rounded-xl px-4 py-2.5 font-body-md focus:ring-primary focus:border-primary">
+<input type="date" name="date_debut" value="{{ date_debut }}" class="w-full bg-white border border-outline-variant/40 rounded-xl px-4 py-2.5 font-body-md focus:ring-primary focus:border-primary">
 </div>
 <div>
 <label class="font-label-md text-on-surface-variant text-xs uppercase tracking-wider mb-1 block">Au</label>
-<input type="date" name="date_fin" value="{{ date_fin }}" class="w-full bg-white/80 border border-outline-variant/40 rounded-xl px-4 py-2.5 font-body-md focus:ring-primary focus:border-primary">
+<input type="date" name="date_fin" value="{{ date_fin }}" class="w-full bg-white border border-outline-variant/40 rounded-xl px-4 py-2.5 font-body-md focus:ring-primary focus:border-primary">
 </div>
 <div>
 <button type="submit" class="w-full flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-primary text-on-primary font-label-md hover:opacity-90 transition-opacity">
@@ -110,7 +195,7 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </div>
 
 <!-- Table -->
-<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="bg-white rounded-xl p-8 border border-outline-variant shadow-sm">
 <div class="overflow-x-auto">
 <table class="w-full text-left">
 <thead>
@@ -126,7 +211,7 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </thead>
 <tbody>
 {% for f in page_obj %}
-<tr class="border-b border-outline-variant/10 hover:bg-white/50 transition-colors">
+<tr class="border-b border-outline-variant/10 hover:bg-white transition-colors">
 <td class="py-3 px-4 font-data-tabular text-primary font-semibold">{{ f.numero }}</td>
 <td class="py-3 px-4 font-body-md">{{ f.patient.nom }} {{ f.patient.prenom }}</td>
 <td class="py-3 px-4 font-body-md text-on-surface-variant">{{ f.date_emission|date:"d/m/Y" }}</td>
@@ -144,8 +229,8 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 <td class="py-3 px-4">
 <div class="flex items-center gap-3">
 <a href="{% url 'detail_facture' f.pk %}" class="text-primary hover:underline font-label-md text-sm">Détail →</a>
-<a href="{% url 'facture_pdf' f.pk %}" title="Télécharger PDF" class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors">
-    <span class="material-symbols-outlined text-primary text-[16px]">picture_as_pdf</span>
+<a href="{% url 'facture_pdf' f.pk %}" title="Télécharger PDF" class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-container hover:bg-primary/20 transition-colors">
+ <span class="material-symbols-outlined text-primary text-[16px]">picture_as_pdf</span>
 </a>
 </div>
 </td>
@@ -161,11 +246,11 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 {% if page_obj.has_other_pages %}
 <div class="flex justify-center gap-2 mt-6">
 {% if page_obj.has_previous %}
-<a href="?page={{ page_obj.previous_page_number }}&statut={{ statut_filter }}&patient={{ patient_filter }}&date_debut={{ date_debut }}&date_fin={{ date_fin }}" class="px-4 py-2 bg-white/80 rounded-xl font-label-md text-primary hover:bg-primary/10 transition-colors border border-outline-variant/30">← Précédent</a>
+<a href="?page={{ page_obj.previous_page_number }}&statut={{ statut_filter }}&patient={{ patient_filter }}&date_debut={{ date_debut }}&date_fin={{ date_fin }}" class="px-4 py-2 bg-white rounded-xl font-label-md text-primary hover:bg-primary-container transition-colors border border-outline-variant/30">← Précédent</a>
 {% endif %}
 <span class="px-4 py-2 bg-primary text-on-primary rounded-xl font-label-md">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
 {% if page_obj.has_next %}
-<a href="?page={{ page_obj.next_page_number }}&statut={{ statut_filter }}&patient={{ patient_filter }}&date_debut={{ date_debut }}&date_fin={{ date_fin }}" class="px-4 py-2 bg-white/80 rounded-xl font-label-md text-primary hover:bg-primary/10 transition-colors border border-outline-variant/30">Suivant →</a>
+<a href="?page={{ page_obj.next_page_number }}&statut={{ statut_filter }}&patient={{ patient_filter }}&date_debut={{ date_debut }}&date_fin={{ date_fin }}" class="px-4 py-2 bg-white rounded-xl font-label-md text-primary hover:bg-primary-container transition-colors border border-outline-variant/30">Suivant →</a>
 {% endif %}
 </div>
 {% endif %}

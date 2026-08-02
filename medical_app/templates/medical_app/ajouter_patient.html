@@ -4,117 +4,117 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>MedAI - Patients</title>
+<link rel="icon" type="image/jpeg" href="/static/img/logo.jpg">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "on-surface-variant": "#434653",
-                        "secondary-container": "#d0e1fb",
-                        "inverse-on-surface": "#f0f0f9",
-                        "surface-bright": "#faf8ff",
-                        "on-primary-fixed-variant": "#00419c",
-                        "surface": "#faf8ff",
-                        "primary-fixed": "#d9e2ff",
-                        "tertiary-fixed": "#ffdbcd",
-                        "on-tertiary-container": "#ffc0a7",
-                        "background": "#faf8ff",
-                        "tertiary-container": "#993900",
-                        "outline": "#737784",
-                        "on-secondary-container": "#54647a",
-                        "on-secondary": "#ffffff",
-                        "on-primary": "#ffffff",
-                        "surface-container-highest": "#e1e2eb",
-                        "on-secondary-fixed-variant": "#38485d",
-                        "surface-tint": "#1d59c1",
-                        "primary": "#003c90",
-                        "secondary-fixed-dim": "#b7c8e1",
-                        "surface-container": "#ededf6",
-                        "on-tertiary-fixed": "#360f00",
-                        "outline-variant": "#c3c6d5",
-                        "on-primary-container": "#bcceff",
-                        "error-container": "#ffdad6",
-                        "error": "#ba1a1a",
-                        "on-tertiary-fixed-variant": "#7d2d00",
-                        "surface-variant": "#e1e2eb",
-                        "primary-fixed-dim": "#b0c6ff",
-                        "surface-container-high": "#e7e7f1",
-                        "primary-container": "#0f52ba",
-                        "on-tertiary": "#ffffff",
-                        "on-primary-fixed": "#001945",
-                        "tertiary-fixed-dim": "#ffb596",
-                        "surface-container-low": "#f3f3fc",
-                        "on-error": "#ffffff",
-                        "inverse-surface": "#2e3037",
-                        "tertiary": "#732900",
-                        "secondary-fixed": "#d3e4fe",
-                        "on-error-container": "#93000a",
-                        "on-background": "#191b22",
-                        "inverse-primary": "#b0c6ff",
-                        "surface-container-lowest": "#ffffff",
-                        "on-secondary-fixed": "#0b1c30",
-                        "surface-dim": "#d9d9e2",
-                        "secondary": "#505f76",
-                        "on-surface": "#191b22"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    spacing: {
-                        "base": "4px",
-                        "gutter": "24px",
-                        "row-height-md": "64px",
-                        "margin-mobile": "16px",
-                        "margin-desktop": "40px"
-                    },
-                    fontFamily: {
-                        "label-md": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "headline-md": ["Inter"],
-                        "data-tabular": ["Inter"],
-                        "body-md": ["Inter"]
-                    },
-                    fontSize: {
-                        "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "data-tabular": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
-                    }
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "surface": "#faf8ff",
+                    "surface-dim": "#d9d9e2",
+                    "surface-bright": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f3fc",
+                    "surface-container": "#ededf6",
+                    "surface-container-high": "#e7e7f1",
+                    "surface-container-highest": "#e1e2eb",
+                    "on-surface": "#191b22",
+                    "on-surface-variant": "#434653",
+                    "inverse-surface": "#2e3037",
+                    "inverse-on-surface": "#f0f0f9",
+                    "outline": "#737784",
+                    "outline-variant": "#c3c6d5",
+                    "surface-tint": "#1d59c1",
+                    "primary": "#003c90",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0f52ba",
+                    "on-primary-container": "#bcceff",
+                    "inverse-primary": "#b0c6ff",
+                    "secondary": "#505f76",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#d0e1fb",
+                    "on-secondary-container": "#54647a",
+                    "tertiary": "#732900",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#993900",
+                    "on-tertiary-container": "#ffc0a7",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#d9e2ff",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "on-primary-fixed": "#001945",
+                    "on-primary-fixed-variant": "#00419c",
+                    "secondary-fixed": "#d3e4fe",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "tertiary-fixed": "#ffdbcd",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "background": "#faf8ff",
+                    "on-background": "#191b22",
+                    "surface-variant": "#e1e2eb"
+                },
+                borderRadius: {
+                    "sm": "0.25rem",
+                    "DEFAULT": "0.5rem",
+                    "md": "0.75rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+                },
+                spacing: {
+                    "base": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "row-height-md": "64px"
+                },
+                fontFamily: {
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "data-tabular": ["Inter", "sans-serif"]
                 }
             }
         }
-    </script>
+    };
+</script>
 <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #f8fafc;
+        background-image:
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 60, 144, 0.08), transparent),
+            radial-gradient(ellipse 60% 40% at 100% 0%, rgba(209, 226, 255, 0.15), transparent);
+        background-attachment: fixed;
+    }
+</style>
+
+
 </head>
-<body class="bg-gradient-to-br from-surface to-secondary-container/20 text-on-surface h-screen flex overflow-hidden relative">
-<!-- Organic Background Blobs -->
-<div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[100px]"></div>
-<div class="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-tertiary/5 blur-[120px]"></div>
-<div class="absolute top-[30%] right-[20%] w-[25%] h-[25%] rounded-full bg-secondary-fixed/30 blur-[80px]"></div>
+<body class="bg-[#f8fafc] text-on-surface h-screen flex overflow-hidden relative">
+
 </div>
 
 <!-- Sidebar Navigation (EXACT same as dashboard) -->
-<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
+<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white flex-shrink-0 relative z-10 border-r border-outline-variant">
 <div class="px-6 mb-10 mt-4 flex items-center gap-4">
-<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md overflow-hidden">
-    {% if user.profile.photo_profil %}
-        <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
-    {% else %}
-        {{ user.username|make_list|first|upper }}
-    {% endif %}
+<div class="w-12 h-12 rounded-[1rem] bg-primary flex items-center justify-center text-on-primary shadow-sm font-headline-md overflow-hidden">
+ {% if user.profile.photo_profil %}
+ <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
+ {% else %}
+ {{ user.username|make_list|first|upper }}
+ {% endif %}
 </div>
 <div>
 <div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div>
@@ -123,42 +123,42 @@
 </div>
 <div class="px-4 space-y-2 flex-1">
 {% if not is_pure_comptable %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}">
 <span class="material-symbols-outlined opacity-70">dashboard</span>
-                Dashboard
-            </a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 transition-all font-label-md relative" href="{% url 'ajouter_patient' %}">
+ Dashboard
+ </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-sm border border-outline-variant/60 transition-all font-label-md relative" href="{% url 'ajouter_patient' %}">
 <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-primary rounded-r-full"></div>
 <span class="material-symbols-outlined text-primary">groups</span>
-                Patients
-            </a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}">
+ Patients
+ </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}">
 <span class="material-symbols-outlined opacity-70">psychology</span>
-                Analyses
-            </a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'statistics' %}">
+ Analyses
+ </a>
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'statistics' %}">
 <span class="material-symbols-outlined opacity-70">bar_chart</span>
-                Statistiques
-            </a>
+ Statistiques
+ </a>
 {% endif %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}">
 <span class="material-symbols-outlined opacity-70">settings</span>
-                Paramètres
-            </a>
+ Paramètres
+ </a>
 {% if is_comptable %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard_finance' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard_finance' %}">
 <span class="material-symbols-outlined opacity-70">account_balance</span>
-                Finance
-            </a>
+ Finance
+ </a>
 {% endif %}
 </div>
 <div class="px-4 pb-6">
 <form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full">
+ {% csrf_token %}
+ <button type="submit" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-all font-label-md w-full">
 <span class="material-symbols-outlined opacity-70">logout</span>
-                Déconnexion
-    </button>
+ Déconnexion
+ </button>
 </form>
 </div>
 </nav>
@@ -167,24 +167,24 @@
 <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
 <!-- Header (EXACT same as dashboard) -->
 <header class="flex justify-between items-center w-full px-margin-desktop h-[88px] flex-shrink-0">
-<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white/60 backdrop-blur-md px-5 py-2.5 rounded-[1.5rem] shadow-sm border border-white/50">
-<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">medical_services</span>
-                MedAI
-            </div>
+<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white px-5 py-2.5 rounded-xl shadow-sm border border-outline-variant">
+<img src="/static/img/logo.jpg" alt="MedAI Logo" class="w-8 h-8 rounded-full object-cover border border-primary/20">
+ MedAI
+ </div>
 <div class="flex items-center gap-4">
-<button onclick="document.getElementById('addPatientModal').classList.remove('hidden')" class="flex items-center gap-2 px-5 py-2.5 rounded-[1.25rem] bg-white/80 backdrop-blur-md text-on-surface font-label-md hover:bg-white transition-all shadow-sm border border-white/50 h-11">
+<button onclick="document.getElementById('addPatientModal').classList.remove('hidden')" class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-on-surface font-label-md hover:bg-white transition-all shadow-sm border border-outline-variant h-11">
 <span class="material-symbols-outlined text-[20px]">person_add</span>
-                    Ajouter
-                </button>
-<a href="{% url 'upload_radiographie' %}" class="flex items-center gap-2 px-6 py-2.5 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg hover:shadow-primary/20 transition-all h-11 border border-primary/20">
+ Ajouter
+ </button>
+<a href="{% url 'upload_radiographie' %}" class="flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors shadow-sm">
 <span class="material-symbols-outlined text-[20px]">analytics</span>
-                    Analyser
-                </a>
+ Analyser
+ </a>
 <form method="post" action="{% url 'logout' %}" class="inline">
-    {% csrf_token %}
-    <button type="submit" class="w-11 h-11 text-on-surface-variant bg-white/80 backdrop-blur-md hover:bg-red-50 hover:text-red-600 rounded-[1.25rem] transition-all flex items-center justify-center ml-2 border border-white/50 shadow-sm">
+ {% csrf_token %}
+ <button type="submit" class="w-11 h-11 text-on-surface-variant bg-white hover:bg-red-50 hover:text-red-600 rounded-lg transition-all flex items-center justify-center ml-2 border border-outline-variant shadow-sm">
 <span class="material-symbols-outlined">logout</span>
-    </button>
+ </button>
 </form>
 </div>
 </header>
@@ -197,35 +197,32 @@
 <div class="flex flex-1 w-full md:max-w-md gap-4">
 <div class="relative flex-1">
 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/70">search</span>
-<input id="patientSearch" class="w-full pl-12 pr-4 py-2.5 bg-white/60 backdrop-blur-md border border-white rounded-[1.25rem] font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white h-12 shadow-[0_4px_15px_rgb(0,0,0,0.02)] transition-all" placeholder="Rechercher un patient..." type="text"/>
+<input id="patientSearch" class="w-full pl-12 pr-4 py-2.5 bg-white border border-outline-variant rounded-lg font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white h-12 shadow-sm transition-all" placeholder="Rechercher un patient..." type="text"/>
 </div>
 </div>
 </div>
 
 <!-- KPI Cards -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="bg-white/70 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
-<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-3 relative overflow-hidden group hover:shadow-md transition-all">
 <div class="text-on-surface-variant font-label-md flex items-center gap-2">
-<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-primary">folder_shared</span></div>
-                                Total Patients
-                            </div>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-primary">folder_shared</span></div>
+ Total Patients
+ </div>
 <div class="text-on-surface font-headline-lg mt-1">{{ total_patients }}</div>
 </div>
-<div class="bg-white/70 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
-<div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition-colors"></div>
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-3 relative overflow-hidden group hover:shadow-md transition-all">
 <div class="text-on-surface-variant font-label-md flex items-center gap-2">
 <div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-purple-600">hourglass_empty</span></div>
-                                En Attente
-                            </div>
+ En Attente
+ </div>
 <div class="text-on-surface font-headline-lg mt-1">{{ en_attente }}</div>
 </div>
-<div class="bg-gradient-to-br from-error-container/80 to-error-container/40 backdrop-blur-xl p-6 rounded-[2rem] border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
-<div class="absolute -right-4 -top-4 w-24 h-24 bg-error/10 rounded-full blur-2xl"></div>
+<div class="bg-gradient-to-br from-error-container/80 to-error-container/40 p-6 rounded-xl border border-outline-variant/60 shadow-sm flex flex-col gap-3 relative overflow-hidden group hover:shadow-md transition-all">
 <div class="text-error font-label-md flex items-center gap-2">
-<div class="w-8 h-8 rounded-full bg-error/10 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">warning</span></div>
-                                Cas Pneumonie
-                            </div>
+<div class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">warning</span></div>
+ Cas Pneumonie
+ </div>
 <div class="text-error font-headline-lg mt-1">{{ cas_critiques }}</div>
 </div>
 </div>
@@ -238,11 +235,11 @@
 </div>
 
 {% for patient in patients %}
-<div class="patient-row bg-white/70 backdrop-blur-xl rounded-[2rem] p-5 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all flex flex-col md:flex-row items-center gap-6 group">
+<div class="patient-row bg-white rounded-xl p-5 border border-outline-variant shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row items-center gap-6 group">
 <!-- Avatar + Name -->
 <div class="flex items-center gap-4 w-full md:w-[250px]">
-<div class="w-14 h-14 rounded-full bg-gradient-to-br from-surface-variant to-surface flex items-center justify-center font-headline-md text-primary shrink-0 border border-white">
-    {{ patient.nom|make_list|first|upper }}{{ patient.prenom|make_list|first|upper }}
+<div class="w-14 h-14 rounded-full bg-surface-variant flex items-center justify-center font-headline-md text-primary shrink-0 border border-outline-variant">
+ {{ patient.nom|make_list|first|upper }}{{ patient.prenom|make_list|first|upper }}
 </div>
 <div>
 <div class="font-headline-md text-lg text-on-surface patient-name">{{ patient.nom }} {{ patient.prenom }}</div>
@@ -254,13 +251,13 @@
 <div class="flex gap-3 shrink-0">
 {% with last_radio=patient.radiographies.last %}
 {% if last_radio and last_radio.image %}
-<a href="{{ last_radio.image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-white shadow-sm group-hover:scale-105 transition-transform">
+<a href="{{ last_radio.image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-outline-variant shadow-sm group-hover:scale-105 transition-transform">
 <img class="w-14 h-14 object-cover" src="{{ last_radio.image.url }}" alt="Radio"/>
 </a>
 {% if last_radio.heatmap_image %}
-<a href="{{ last_radio.heatmap_image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-white shadow-sm group-hover:scale-105 transition-transform delay-75">
+<a href="{{ last_radio.heatmap_image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-outline-variant shadow-sm group-hover:scale-105 transition-transform delay-75">
 <img class="w-14 h-14 object-cover" src="{{ last_radio.heatmap_image.url }}" alt="Heatmap"/>
-<div class="absolute top-1 right-1 w-3 h-3 bg-error rounded-full border-2 border-white shadow-sm"></div>
+<div class="absolute top-1 right-1 w-3 h-3 bg-error rounded-full border-2 border-outline-variant shadow-sm"></div>
 </a>
 {% endif %}
 {% endif %}
@@ -271,34 +268,34 @@
 <div class="flex-1 flex justify-center md:justify-start">
 {% with last_radio=patient.radiographies.last %}
 {% if last_radio %}
-    {% if last_radio.classe_predite == 'Pneumonie' %}
-    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-error-container/50 text-error border border-error-container">
-        <span class="w-2 h-2 rounded-full bg-error mr-2"></span>
-        Pneumonie
-        <span class="ml-2 opacity-60 font-normal">| {{ last_radio.pourcentage_confiance|floatformat:1 }}%</span>
-    </span>
-    {% else %}
-    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-surface-container-high/50 text-on-surface border border-surface-container-highest">
-        <span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>
-        Normal
-        <span class="ml-2 opacity-60 font-normal">| {{ last_radio.pourcentage_confiance|floatformat:1 }}%</span>
-    </span>
-    {% endif %}
+ {% if last_radio.classe_predite == 'Pneumonie' %}
+ <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-error-container/50 text-error border border-error-container">
+ <span class="w-2 h-2 rounded-full bg-error mr-2"></span>
+ Pneumonie
+ <span class="ml-2 opacity-60 font-normal">| {{ last_radio.pourcentage_confiance|floatformat:1 }}%</span>
+ </span>
+ {% else %}
+ <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-surface-container-high/50 text-on-surface border border-surface-container-highest">
+ <span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>
+ Normal
+ <span class="ml-2 opacity-60 font-normal">| {{ last_radio.pourcentage_confiance|floatformat:1 }}%</span>
+ </span>
+ {% endif %}
 {% else %}
-    <span class="text-on-surface-variant text-sm italic">Aucune analyse</span>
+ <span class="text-on-surface-variant text-sm italic">Aucune analyse</span>
 {% endif %}
 {% endwith %}
 </div>
 
 <!-- Action -->
 <div class="shrink-0">
-<a href="{% url 'patient_detail' patient.id %}" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-on-surface-variant hover:text-primary hover:shadow-md transition-all border border-white/50">
+<a href="{% url 'patient_detail' patient.id %}" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-on-surface-variant hover:text-primary hover:shadow-md transition-all border border-outline-variant">
 <span class="material-symbols-outlined">arrow_forward_ios</span>
 </a>
 </div>
 </div>
 {% empty %}
-<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-12 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] text-center">
+<div class="bg-white rounded-xl p-12 border border-outline-variant shadow-sm text-center">
 <span class="material-symbols-outlined text-[48px] text-on-surface-variant/40 mb-4 block">groups</span>
 <p class="text-on-surface-variant font-body-lg">Aucun patient enregistré.</p>
 <p class="text-on-surface-variant text-sm mt-1">Cliquez sur "Ajouter" pour commencer.</p>
@@ -311,7 +308,7 @@
 
 <!-- Add Patient Modal -->
 <div id="addPatientModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-<div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl border border-white overflow-hidden max-h-[90vh] flex flex-col">
+<div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl border border-outline-variant overflow-hidden max-h-[90vh] flex flex-col">
 <div class="flex justify-between items-center p-6 border-b border-outline-variant/30 flex-shrink-0">
 <div>
 <h3 class="font-headline-md text-on-surface">Nouveau Patient</h3>
@@ -322,150 +319,150 @@
 </button>
 </div>
 <form method="post" class="p-6 space-y-6 overflow-y-auto">
-    {% csrf_token %}
+ {% csrf_token %}
 
-    <!-- Section: Identité -->
-    <div>
-        <h4 class="font-label-md text-primary text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
-            <span class="material-symbols-outlined text-[16px]">badge</span> Identité
-        </h4>
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <label for="{{ form.nom.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Nom *</label>
-                <input type="text" name="nom" id="{{ form.nom.id_for_label }}" placeholder="Nom" required
-                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
-            </div>
-            <div>
-                <label for="{{ form.prenom.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Prénom *</label>
-                <input type="text" name="prenom" id="{{ form.prenom.id_for_label }}" placeholder="Prénom" required
-                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
-            </div>
-        </div>
-        <div class="grid grid-cols-2 gap-4 mt-4">
-            <div>
-                <label for="{{ form.date_naissance.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Date de Naissance *</label>
-                <input type="date" name="date_naissance" id="{{ form.date_naissance.id_for_label }}" required
-                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
-            </div>
-            <div>
-                <label for="{{ form.sexe.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Sexe</label>
-                <select name="sexe" id="{{ form.sexe.id_for_label }}"
-                        class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all">
-                    <option value="">---------</option>
-                    <option value="Homme">Homme</option>
-                    <option value="Femme">Femme</option>
-                </select>
-            </div>
-        </div>
-    </div>
+ <!-- Section: Identité -->
+ <div>
+ <h4 class="font-label-md text-primary text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
+ <span class="material-symbols-outlined text-[16px]">badge</span> Identité
+ </h4>
+ <div class="grid grid-cols-2 gap-4">
+ <div>
+ <label for="{{ form.nom.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Nom *</label>
+ <input type="text" name="nom" id="{{ form.nom.id_for_label }}" placeholder="Nom" required
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+ </div>
+ <div>
+ <label for="{{ form.prenom.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Prénom *</label>
+ <input type="text" name="prenom" id="{{ form.prenom.id_for_label }}" placeholder="Prénom" required
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+ </div>
+ </div>
+ <div class="grid grid-cols-2 gap-4 mt-4">
+ <div>
+ <label for="{{ form.date_naissance.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Date de Naissance *</label>
+ <input type="date" name="date_naissance" id="{{ form.date_naissance.id_for_label }}" required
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+ </div>
+ <div>
+ <label for="{{ form.sexe.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Sexe</label>
+ <select name="sexe" id="{{ form.sexe.id_for_label }}"
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all">
+ <option value="">---------</option>
+ <option value="Homme">Homme</option>
+ <option value="Femme">Femme</option>
+ </select>
+ </div>
+ </div>
+ </div>
 
-    <hr class="border-outline-variant/30"/>
+ <hr class="border-outline-variant/30"/>
 
-    <!-- Section: Contact -->
-    <div>
-        <h4 class="font-label-md text-primary text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
-            <span class="material-symbols-outlined text-[16px]">call</span> Contact
-        </h4>
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <label for="{{ form.telephone.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Téléphone</label>
-                <input type="text" name="telephone" id="{{ form.telephone.id_for_label }}" placeholder="06 12 34 56 78"
-                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
-            </div>
-            <div>
-                <label for="{{ form.adresse.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Adresse</label>
-                <input type="text" name="adresse" id="{{ form.adresse.id_for_label }}" placeholder="Adresse du patient"
-                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
-            </div>
-        </div>
-    </div>
+ <!-- Section: Contact -->
+ <div>
+ <h4 class="font-label-md text-primary text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
+ <span class="material-symbols-outlined text-[16px]">call</span> Contact
+ </h4>
+ <div class="grid grid-cols-2 gap-4">
+ <div>
+ <label for="{{ form.telephone.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Téléphone</label>
+ <input type="text" name="telephone" id="{{ form.telephone.id_for_label }}" placeholder="06 12 34 56 78"
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+ </div>
+ <div>
+ <label for="{{ form.adresse.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Adresse</label>
+ <input type="text" name="adresse" id="{{ form.adresse.id_for_label }}" placeholder="Adresse du patient"
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+ </div>
+ </div>
+ </div>
 
-    <hr class="border-outline-variant/30"/>
+ <hr class="border-outline-variant/30"/>
 
-    <!-- Section: Médical -->
-    <div>
-        <h4 class="font-label-md text-primary text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
-            <span class="material-symbols-outlined text-[16px]">medical_information</span> Informations Médicales
-        </h4>
-        <div class="grid grid-cols-3 gap-4">
-            <div>
-                <label for="{{ form.groupe_sanguin.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Groupe sanguin</label>
-                <select name="groupe_sanguin" id="{{ form.groupe_sanguin.id_for_label }}"
-                        class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all">
-                    <option value="">---------</option>
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB-">AB-</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                </select>
-            </div>
-            <div>
-                <label for="{{ form.poids.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Poids (kg)</label>
-                <input type="number" name="poids" id="{{ form.poids.id_for_label }}" placeholder="kg" step="0.1"
-                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
-            </div>
-            <div>
-                <label for="{{ form.taille.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Taille (cm)</label>
-                <input type="number" name="taille" id="{{ form.taille.id_for_label }}" placeholder="cm" step="0.1"
-                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
-            </div>
-        </div>
-        <div class="grid grid-cols-2 gap-4 mt-4">
-            <div>
-                <label for="{{ form.fumeur.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Statut tabagique</label>
-                <select name="fumeur" id="{{ form.fumeur.id_for_label }}"
-                        class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all">
-                    <option value="">---------</option>
-                    <option value="Non-fumeur">Non-fumeur</option>
-                    <option value="Fumeur">Fumeur</option>
-                    <option value="Ancien fumeur">Ancien fumeur</option>
-                </select>
-            </div>
-            <div>
-                <label for="{{ form.allergies.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Allergies</label>
-                <input type="text" name="allergies" id="{{ form.allergies.id_for_label }}" placeholder="Allergies connues..."
-                       class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
-            </div>
-        </div>
-        <div class="mt-4">
-            <label for="{{ form.antecedents_medicaux.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Antécédents médicaux</label>
-            <textarea name="antecedents_medicaux" id="{{ form.antecedents_medicaux.id_for_label }}" rows="2" placeholder="Antécédents éventuels..."
-                      class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all resize-none"></textarea>
-        </div>
-        <div class="mt-4">
-            <label for="{{ form.notes_medecin.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Notes du médecin</label>
-            <textarea name="notes_medecin" id="{{ form.notes_medecin.id_for_label }}" rows="2" placeholder="Notes libres..."
-                      class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all resize-none"></textarea>
-        </div>
-    </div>
+ <!-- Section: Médical -->
+ <div>
+ <h4 class="font-label-md text-primary text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
+ <span class="material-symbols-outlined text-[16px]">medical_information</span> Informations Médicales
+ </h4>
+ <div class="grid grid-cols-3 gap-4">
+ <div>
+ <label for="{{ form.groupe_sanguin.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Groupe sanguin</label>
+ <select name="groupe_sanguin" id="{{ form.groupe_sanguin.id_for_label }}"
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all">
+ <option value="">---------</option>
+ <option value="A+">A+</option>
+ <option value="A-">A-</option>
+ <option value="B+">B+</option>
+ <option value="B-">B-</option>
+ <option value="AB+">AB+</option>
+ <option value="AB-">AB-</option>
+ <option value="O+">O+</option>
+ <option value="O-">O-</option>
+ </select>
+ </div>
+ <div>
+ <label for="{{ form.poids.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Poids (kg)</label>
+ <input type="number" name="poids" id="{{ form.poids.id_for_label }}" placeholder="kg" step="0.1"
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+ </div>
+ <div>
+ <label for="{{ form.taille.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Taille (cm)</label>
+ <input type="number" name="taille" id="{{ form.taille.id_for_label }}" placeholder="cm" step="0.1"
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+ </div>
+ </div>
+ <div class="grid grid-cols-2 gap-4 mt-4">
+ <div>
+ <label for="{{ form.fumeur.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Statut tabagique</label>
+ <select name="fumeur" id="{{ form.fumeur.id_for_label }}"
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all">
+ <option value="">---------</option>
+ <option value="Non-fumeur">Non-fumeur</option>
+ <option value="Fumeur">Fumeur</option>
+ <option value="Ancien fumeur">Ancien fumeur</option>
+ </select>
+ </div>
+ <div>
+ <label for="{{ form.allergies.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Allergies</label>
+ <input type="text" name="allergies" id="{{ form.allergies.id_for_label }}" placeholder="Allergies connues..."
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all"/>
+ </div>
+ </div>
+ <div class="mt-4">
+ <label for="{{ form.antecedents_medicaux.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Antécédents médicaux</label>
+ <textarea name="antecedents_medicaux" id="{{ form.antecedents_medicaux.id_for_label }}" rows="2" placeholder="Antécédents éventuels..."
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all resize-none"></textarea>
+ </div>
+ <div class="mt-4">
+ <label for="{{ form.notes_medecin.id_for_label }}" class="block font-label-md text-on-surface mb-1.5">Notes du médecin</label>
+ <textarea name="notes_medecin" id="{{ form.notes_medecin.id_for_label }}" rows="2" placeholder="Notes libres..."
+ class="w-full px-3 py-2.5 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:ring-2 focus:ring-primary/50 focus:border-primary font-body-md transition-all resize-none"></textarea>
+ </div>
+ </div>
 
-    <div class="flex justify-end gap-3 pt-2">
-        <button type="button" onclick="document.getElementById('addPatientModal').classList.add('hidden')" class="px-5 py-2.5 rounded-xl border border-outline-variant text-on-surface font-label-md hover:bg-surface-container-low transition-colors">Annuler</button>
-        <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg transition-all flex items-center gap-2">
-            <span class="material-symbols-outlined text-[18px]">save</span>
-            Enregistrer
-        </button>
-    </div>
+ <div class="flex justify-end gap-3 pt-2">
+ <button type="button" onclick="document.getElementById('addPatientModal').classList.add('hidden')" class="px-5 py-2.5 rounded-xl border border-outline-variant text-on-surface font-label-md hover:bg-surface-container-low transition-colors">Annuler</button>
+ <button type="submit" class="px-5 py-2.5 rounded-xl bg-primary text-on-primary hover:bg-primary-container rounded-lg text-sm font-semibold transition-colors shadow-sm flex items-center gap-2">
+ <span class="material-symbols-outlined text-[18px]">save</span>
+ Enregistrer
+ </button>
+ </div>
 </form>
 </div>
 </div>
 
 <!-- Search JS -->
 <script>
-    document.getElementById('patientSearch').addEventListener('keyup', function() {
-        const query = this.value.toLowerCase();
-        document.querySelectorAll('.patient-row').forEach(row => {
-            const name = row.querySelector('.patient-name').textContent.toLowerCase();
-            row.style.display = name.includes(query) ? '' : 'none';
-        });
-    });
+ document.getElementById('patientSearch').addEventListener('keyup', function() {
+ const query = this.value.toLowerCase();
+ document.querySelectorAll('.patient-row').forEach(row => {
+ const name = row.querySelector('.patient-name').textContent.toLowerCase();
+ row.style.display = name.includes(query) ? '' : 'none';
+ });
+ });
 
-    {% if form.errors %}
-    document.getElementById('addPatientModal').classList.remove('hidden');
-    {% endif %}
+ {% if form.errors %}
+ document.getElementById('addPatientModal').classList.remove('hidden');
+ {% endif %}
 </script>
 </body></html>

@@ -3,31 +3,116 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Finance — MedAI</title>
+<link rel="icon" type="image/jpeg" href="/static/img/logo.jpg">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#434653","secondary-container":"#d0e1fb","inverse-on-surface":"#f0f0f9","surface-bright":"#faf8ff","on-primary-fixed-variant":"#00419c","surface":"#faf8ff","primary-fixed":"#d9e2ff","tertiary-fixed":"#ffdbcd","on-tertiary-container":"#ffc0a7","background":"#faf8ff","tertiary-container":"#993900","outline":"#737784","on-secondary-container":"#54647a","on-secondary":"#ffffff","on-primary":"#ffffff","surface-container-highest":"#e1e2eb","on-secondary-fixed-variant":"#38485d","surface-tint":"#1d59c1","primary":"#003c90","secondary-fixed-dim":"#b7c8e1","surface-container":"#ededf6","on-tertiary-fixed":"#360f00","outline-variant":"#c3c6d5","on-primary-container":"#bcceff","error-container":"#ffdad6","error":"#ba1a1a","on-tertiary-fixed-variant":"#7d2d00","surface-variant":"#e1e2eb","primary-fixed-dim":"#b0c6ff","surface-container-high":"#e7e7f1","primary-container":"#0f52ba","on-tertiary":"#ffffff","on-primary-fixed":"#001945","tertiary-fixed-dim":"#ffb596","surface-container-low":"#f3f3fc","on-error":"#ffffff","inverse-surface":"#2e3037","tertiary":"#732900","secondary-fixed":"#d3e4fe","on-error-container":"#93000a","on-background":"#191b22","inverse-primary":"#b0c6ff","surface-container-lowest":"#ffffff","on-secondary-fixed":"#0b1c30","surface-dim":"#d9d9e2","secondary":"#505f76","on-surface":"#191b22"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"base":"4px","gutter":"24px","row-height-md":"64px","margin-mobile":"16px","margin-desktop":"40px"},fontFamily:{"label-md":["Inter"],"headline-lg":["Inter"],"body-lg":["Inter"],"headline-md":["Inter"],"data-tabular":["Inter"],"body-md":["Inter"]}}}}
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "surface": "#faf8ff",
+                    "surface-dim": "#d9d9e2",
+                    "surface-bright": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f3fc",
+                    "surface-container": "#ededf6",
+                    "surface-container-high": "#e7e7f1",
+                    "surface-container-highest": "#e1e2eb",
+                    "on-surface": "#191b22",
+                    "on-surface-variant": "#434653",
+                    "inverse-surface": "#2e3037",
+                    "inverse-on-surface": "#f0f0f9",
+                    "outline": "#737784",
+                    "outline-variant": "#c3c6d5",
+                    "surface-tint": "#1d59c1",
+                    "primary": "#003c90",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0f52ba",
+                    "on-primary-container": "#bcceff",
+                    "inverse-primary": "#b0c6ff",
+                    "secondary": "#505f76",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#d0e1fb",
+                    "on-secondary-container": "#54647a",
+                    "tertiary": "#732900",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#993900",
+                    "on-tertiary-container": "#ffc0a7",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#d9e2ff",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "on-primary-fixed": "#001945",
+                    "on-primary-fixed-variant": "#00419c",
+                    "secondary-fixed": "#d3e4fe",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "tertiary-fixed": "#ffdbcd",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "background": "#faf8ff",
+                    "on-background": "#191b22",
+                    "surface-variant": "#e1e2eb"
+                },
+                borderRadius: {
+                    "sm": "0.25rem",
+                    "DEFAULT": "0.5rem",
+                    "md": "0.75rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+                },
+                spacing: {
+                    "base": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "row-height-md": "64px"
+                },
+                fontFamily: {
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "data-tabular": ["Inter", "sans-serif"]
+                }
+            }
+        }
+    };
 </script>
-<style>body{font-family:'Inter',sans-serif;}</style>
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #f8fafc;
+        background-image:
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 60, 144, 0.08), transparent),
+            radial-gradient(ellipse 60% 40% at 100% 0%, rgba(209, 226, 255, 0.15), transparent);
+        background-attachment: fixed;
+    }
+</style>
+
+
 </head>
-<body class="bg-gradient-to-br from-surface to-secondary-container/20 text-on-surface h-screen flex overflow-hidden relative">
-<div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[100px]"></div>
-<div class="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-tertiary/5 blur-[120px]"></div>
-<div class="absolute top-[30%] right-[20%] w-[25%] h-[25%] rounded-full bg-secondary-fixed/30 blur-[80px]"></div>
-</div>
+<body class="bg-[#f8fafc] text-on-surface h-screen flex overflow-hidden relative">
 
 <!-- Sidebar -->
-<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white/40 backdrop-blur-xl flex-shrink-0 relative z-10 border-r border-white/50">
+<nav class="hidden md:flex flex-col gap-base py-gutter w-[280px] h-screen bg-white flex-shrink-0 relative z-10 border-r border-outline-variant">
 <div class="px-6 mb-10 mt-4 flex items-center gap-4">
-<div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 font-headline-md overflow-hidden">
-    {% if user.profile.photo_profil %}
-        <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
-    {% else %}
-        {{ user.username|make_list|first|upper }}
-    {% endif %}
+<div class="w-12 h-12 rounded-[1rem] bg-primary flex items-center justify-center text-on-primary shadow-sm font-headline-md overflow-hidden">
+ {% if user.profile.photo_profil %}
+ <img src="{{ user.profile.photo_profil.url }}" alt="Avatar" class="w-full h-full object-cover">
+ {% else %}
+ {{ user.username|make_list|first|upper }}
+ {% endif %}
 </div>
 <div>
 <div class="font-label-md text-on-surface text-[15px]">Dr. {{ user.username|title }}</div>
@@ -36,20 +121,20 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </div>
 <div class="px-4 space-y-2 flex-1">
 {% if not is_pure_comptable %}
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'dashboard' %}">
 <span class="material-symbols-outlined opacity-70">dashboard</span>Dashboard</a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'ajouter_patient' %}">
 <span class="material-symbols-outlined opacity-70">groups</span>Patients</a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'upload_radiographie' %}">
 <span class="material-symbols-outlined opacity-70">psychology</span>Analyses</a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'statistics' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'statistics' %}">
 <span class="material-symbols-outlined opacity-70">bar_chart</span>Statistiques</a>
 {% endif %}
 <!-- Active: Finance -->
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 transition-all font-label-md relative" href="{% url 'dashboard_finance' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white text-primary font-semibold shadow-sm border border-outline-variant/60 transition-all font-label-md relative" href="{% url 'dashboard_finance' %}">
 <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-primary rounded-r-full"></div>
 <span class="material-symbols-outlined text-primary">account_balance</span>Finance</a>
-<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white/60 transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}">
+<a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-white transition-all font-label-md hover:shadow-sm" href="{% url 'settings' %}">
 <span class="material-symbols-outlined opacity-70">settings</span>Paramètres</a>
 </div>
 <div class="px-4 pb-6">
@@ -62,13 +147,13 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 <!-- Main -->
 <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
 <header class="flex justify-between items-center w-full px-margin-desktop h-[88px] flex-shrink-0">
-<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white/60 backdrop-blur-md px-5 py-2.5 rounded-[1.5rem] shadow-sm border border-white/50">
-<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings:'FILL' 1;">medical_services</span>MedAI</div>
+<div class="font-headline-md text-primary font-bold flex items-center gap-3 bg-white px-5 py-2.5 rounded-xl shadow-sm border border-outline-variant">
+<img src="/static/img/logo.jpg" alt="MedAI Logo" class="w-8 h-8 rounded-full object-cover border border-primary/20">MedAI</div>
 <div class="flex items-center gap-4">
-<a href="{% url 'creer_facture' %}" class="flex items-center gap-2 px-6 py-2.5 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md hover:shadow-lg hover:shadow-primary/20 transition-all h-11 border border-primary/20">
+<a href="{% url 'creer_facture' %}" class="flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors shadow-sm">
 <span class="material-symbols-outlined text-[20px]">add</span>Nouvelle Facture</a>
 <form method="post" action="{% url 'logout' %}" class="inline">{% csrf_token %}
-<button type="submit" class="w-11 h-11 text-on-surface-variant bg-white/80 backdrop-blur-md hover:bg-red-50 hover:text-red-600 rounded-[1.25rem] transition-all flex items-center justify-center ml-2 border border-white/50 shadow-sm">
+<button type="submit" class="w-11 h-11 text-on-surface-variant bg-white hover:bg-red-50 hover:text-red-600 rounded-lg transition-all flex items-center justify-center ml-2 border border-outline-variant shadow-sm">
 <span class="material-symbols-outlined">logout</span></button></form>
 </div>
 </header>
@@ -88,7 +173,7 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 
 <!-- Page Title -->
 <div class="flex items-center gap-4">
-<div class="w-14 h-14 rounded-[1.25rem] bg-white/60 backdrop-blur-md flex items-center justify-center border border-white/50 shadow-sm">
+<div class="w-14 h-14 rounded-lg bg-white flex items-center justify-center border border-outline-variant shadow-sm">
 <span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings:'FILL' 1;">account_balance</span>
 </div>
 <div class="flex-1">
@@ -96,22 +181,21 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 <p class="font-body-md text-on-surface-variant">Vue d'ensemble de la facturation et des paiements</p>
 </div>
 <form method="get" action="" class="flex items-center gap-2">
-    <label class="font-label-md text-sm text-on-surface-variant">Période :</label>
-    <select name="months" onchange="this.form.submit()" class="bg-white/80 border border-outline-variant/40 rounded-xl px-3 py-2 font-body-md text-sm focus:ring-primary focus:border-primary">
-        <option value="1" {% if current_months == 1 %}selected{% endif %}>1 mois</option>
-        <option value="3" {% if current_months == 3 %}selected{% endif %}>3 mois</option>
-        <option value="6" {% if current_months == 6 %}selected{% endif %}>6 mois</option>
-        <option value="12" {% if current_months == 12 %}selected{% endif %}>12 mois</option>
-        <option value="999" {% if current_months == 999 %}selected{% endif %}>Tout le temps</option>
-    </select>
+ <label class="font-label-md text-sm text-on-surface-variant">Période :</label>
+ <select name="months" onchange="this.form.submit()" class="bg-white border border-outline-variant/40 rounded-xl px-3 py-2 font-body-md text-sm focus:ring-primary focus:border-primary">
+ <option value="1" {% if current_months == 1 %}selected{% endif %}>1 mois</option>
+ <option value="3" {% if current_months == 3 %}selected{% endif %}>3 mois</option>
+ <option value="6" {% if current_months == 6 %}selected{% endif %}>6 mois</option>
+ <option value="12" {% if current_months == 12 %}selected{% endif %}>12 mois</option>
+ <option value="999" {% if current_months == 999 %}selected{% endif %}>Tout le temps</option>
+ </select>
 </form>
 </div>
 
 <!-- KPI Row -->
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
 <!-- CA Total -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-green-500/5 rounded-full blur-xl group-hover:bg-green-500/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
 <div class="w-7 h-7 rounded-full bg-green-500/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-green-600">payments</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">CA TOTAL</span>
@@ -120,38 +204,34 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </div>
 
 <!-- Total Payé -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
-<div class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-primary">account_balance_wallet</span></div>
+<div class="w-7 h-7 rounded-full bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-primary">account_balance_wallet</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">ENCAISSÉ</span>
 </div>
 <div class="font-headline-lg text-primary text-xl">{{ total_paye }} MAD</div>
 </div>
 
 <!-- Taux Recouvrement -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-secondary/5 rounded-full blur-xl group-hover:bg-secondary/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
-<div class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-secondary">percent</span></div>
+<div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-secondary">percent</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">RECOUVREMENT</span>
 </div>
 <div class="font-headline-lg text-secondary text-xl">{{ taux_recouvrement }}%</div>
 </div>
 
 <!-- Impayées -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-error/5 rounded-full blur-xl group-hover:bg-error/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
-<div class="w-7 h-7 rounded-full bg-error/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-error">warning</span></div>
+<div class="w-7 h-7 rounded-full bg-error-container flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-error">warning</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">IMPAYÉES</span>
 </div>
 <div class="font-headline-lg text-error text-xl">{{ nb_impayees }}</div>
 </div>
 
 <!-- Montant Impayé -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-tertiary/5 rounded-full blur-xl group-hover:bg-tertiary/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
 <div class="w-7 h-7 rounded-full bg-tertiary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-tertiary">money_off</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">À RECOUVRER</span>
@@ -160,10 +240,9 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </div>
 
 <!-- Factures ce mois -->
-<div class="bg-white/70 backdrop-blur-xl p-5 rounded-[1.5rem] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-all">
-<div class="absolute -right-3 -top-3 w-16 h-16 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="bg-white p-5 rounded-xl border border-outline-variant shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
 <div class="flex items-center gap-2 mb-2">
-<div class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-primary">receipt_long</span></div>
+<div class="w-7 h-7 rounded-full bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-[16px] text-primary">receipt_long</span></div>
 <span class="font-label-md text-on-surface-variant text-[11px]">CE MOIS</span>
 </div>
 <div class="font-headline-lg text-primary text-xl">{{ nb_factures_mois }}</div>
@@ -173,7 +252,7 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 <!-- Charts Row -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 <!-- Évolution CA -->
-<div class="lg:col-span-8 bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="lg:col-span-8 bg-white rounded-xl p-8 border border-outline-variant shadow-sm">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings:'FILL' 1;">trending_up</span>
 <h2 class="font-headline-md text-on-surface text-lg">Évolution du Chiffre d'Affaires</h2>
@@ -182,7 +261,7 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </div>
 
 <!-- Méthodes de paiement -->
-<div class="lg:col-span-4 bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="lg:col-span-4 bg-white rounded-xl p-8 border border-outline-variant shadow-sm">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings:'FILL' 1;">credit_card</span>
 <h2 class="font-headline-md text-on-surface text-lg">Méthodes de Paiement</h2>
@@ -192,7 +271,7 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </div>
 
 <!-- Dernières Factures -->
-<div class="bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+<div class="bg-white rounded-xl p-8 border border-outline-variant shadow-sm">
 <div class="flex items-center justify-between mb-6">
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings:'FILL' 1;">receipt_long</span>
@@ -213,7 +292,7 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#
 </thead>
 <tbody>
 {% for f in dernieres_factures %}
-<tr class="border-b border-outline-variant/10 hover:bg-white/50 transition-colors cursor-pointer" onclick="window.location='{% url 'detail_facture' f.pk %}'">
+<tr class="border-b border-outline-variant/10 hover:bg-white transition-colors cursor-pointer" onclick="window.location='{% url 'detail_facture' f.pk %}'">
 <td class="py-3 px-4 font-data-tabular text-primary font-semibold">{{ f.numero }}</td>
 <td class="py-3 px-4 font-body-md">{{ f.patient.nom }} {{ f.patient.prenom }}</td>
 <td class="py-3 px-4 font-body-md text-on-surface-variant">{{ f.date_emission|date:"d/m/Y" }}</td>
