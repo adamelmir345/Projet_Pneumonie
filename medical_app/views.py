@@ -4,6 +4,9 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.http import FileResponse, Http404, JsonResponse
 from django.conf import settings as django_settings
+from django.db.models import Avg, Count
+from django.utils import timezone
+from django.core.cache import cache
 from functools import wraps
 import os
 import threading
@@ -110,26 +113,35 @@ def ajouter_patient(request):
 @login_required
 @medecin_required
 def dashboard(request):
-    from django.utils import timezone
-    from django.db.models import Avg
-    # Récupère toutes les radiographies, de la plus récente à la plus ancienne
+    # Récupère toutes les radiographies pour la liste (non mis en cache car temps réel souhaité)
     radiographies = Radiographie.objects.all().order_by('-date_upload')
     
-    # KPI Statistics
-    total_analyses = radiographies.count()
-    cas_pneumonie = radiographies.filter(classe_predite='Pneumonie').count()
-    today = timezone.now().date()
-    cas_critiques_today = radiographies.filter(classe_predite='Pneumonie', date_upload__date=today).count()
-    avg_confiance = radiographies.aggregate(avg=Avg('pourcentage_confiance'))['avg'] or 0
-    total_patients = Patient.objects.count()
+    # KPI Statistics (Mise en cache pour 5 minutes)
+    kpis = cache.get('medical_dashboard_kpis')
+    if not kpis:
+        total_analyses = radiographies.count()
+        cas_pneumonie = radiographies.filter(classe_predite='Pneumonie').count()
+        today = timezone.now().date()
+        cas_critiques_today = radiographies.filter(classe_predite='Pneumonie', date_upload__date=today).count()
+        avg_confiance = radiographies.aggregate(avg=Avg('pourcentage_confiance'))['avg'] or 0
+        total_patients = Patient.objects.count()
+        
+        kpis = {
+            'total_analyses': total_analyses,
+            'cas_pneumonie': cas_pneumonie,
+            'cas_critiques_today': cas_critiques_today,
+            'avg_confiance': avg_confiance,
+            'total_patients': total_patients,
+        }
+        cache.set('medical_dashboard_kpis', kpis, 300)
     
     context = {
         'radiographies': radiographies,
-        'total_analyses': total_analyses,
-        'cas_pneumonie': cas_pneumonie,
-        'cas_critiques_today': cas_critiques_today,
-        'avg_confiance': avg_confiance,
-        'total_patients': total_patients,
+        'total_analyses': kpis['total_analyses'],
+        'cas_pneumonie': kpis['cas_pneumonie'],
+        'cas_critiques_today': kpis['cas_critiques_today'],
+        'avg_confiance': kpis['avg_confiance'],
+        'total_patients': kpis['total_patients'],
     }
     return render(request, 'medical_app/dashboard.html', context)
 
@@ -291,125 +303,129 @@ def statistics_view(request):
     from django.utils import timezone
     import json
 
-    # --- KPIs Globaux ---
-    total_analyses = Radiographie.objects.count()
-    cas_pneumonie = Radiographie.objects.filter(classe_predite='Pneumonie').count()
-    cas_normal = Radiographie.objects.filter(classe_predite='Normal').count()
-    taux_pneumonie = round((cas_pneumonie / total_analyses * 100), 1) if total_analyses > 0 else 0
-    avg_confiance = Radiographie.objects.aggregate(avg=Avg('pourcentage_confiance'))['avg'] or 0
-    total_patients = Patient.objects.count()
-
-    # --- Analyses par mois (6 derniers mois) ---
-    six_months_ago = timezone.now() - timezone.timedelta(days=180)
+    # On met en cache tout le contexte des statistiques pour 5 minutes
+    context = cache.get('medical_statistics_context')
     
-    # Recalcul propre pour 6 mois
-    mois_labels = []
-    mois_pneumonies = []
-    mois_normaux = []
+    if not context:
+        # --- KPIs Globaux ---
+        total_analyses = Radiographie.objects.count()
+        cas_pneumonie = Radiographie.objects.filter(classe_predite='Pneumonie').count()
+        cas_normal = Radiographie.objects.filter(classe_predite='Normal').count()
+        taux_pneumonie = round((cas_pneumonie / total_analyses * 100), 1) if total_analyses > 0 else 0
+        avg_confiance = Radiographie.objects.aggregate(avg=Avg('pourcentage_confiance'))['avg'] or 0
+        total_patients = Patient.objects.count()
     
-    mois_qs = (
-        Radiographie.objects
-        .filter(date_upload__gte=six_months_ago)
-        .annotate(mois=TruncMonth('date_upload'))
-        .values('mois')
-        .annotate(total=Count('id'))
-        .order_by('mois')
-    )
-    for entry in mois_qs:
-        mois = entry['mois']
-        total = entry['total']
-        pneumo = Radiographie.objects.filter(
-            date_upload__year=mois.year,
-            date_upload__month=mois.month,
-            classe_predite='Pneumonie'
-        ).count()
-        mois_labels.append(mois.strftime('%b %Y'))
-        mois_pneumonies.append(pneumo)
-        mois_normaux.append(total - pneumo)
-
-    # --- Analyses 30 derniers jours ---
-    thirty_days_ago = timezone.now() - timezone.timedelta(days=30)
-    jours30_labels = []
-    jours30_pneumonies = []
-    jours30_normaux = []
+        # --- Analyses par mois (6 derniers mois) ---
+        six_months_ago = timezone.now() - timezone.timedelta(days=180)
+        
+        mois_labels = []
+        mois_pneumonies = []
+        mois_normaux = []
+        
+        mois_qs = (
+            Radiographie.objects
+            .filter(date_upload__gte=six_months_ago)
+            .annotate(mois=TruncMonth('date_upload'))
+            .values('mois')
+            .annotate(total=Count('id'))
+            .order_by('mois')
+        )
+        for entry in mois_qs:
+            mois = entry['mois']
+            total = entry['total']
+            pneumo = Radiographie.objects.filter(
+                date_upload__year=mois.year,
+                date_upload__month=mois.month,
+                classe_predite='Pneumonie'
+            ).count()
+            mois_labels.append(mois.strftime('%b %Y'))
+            mois_pneumonies.append(pneumo)
+            mois_normaux.append(total - pneumo)
     
-    jours30_qs = (
-        Radiographie.objects
-        .filter(date_upload__gte=thirty_days_ago)
-        .annotate(jour=TruncDay('date_upload'))
-        .values('jour')
-        .annotate(total=Count('id'))
-        .order_by('jour')
-    )
-    for entry in jours30_qs:
-        jour = entry['jour']
-        total = entry['total']
-        pneumo = Radiographie.objects.filter(
-            date_upload__year=jour.year,
-            date_upload__month=jour.month,
-            date_upload__day=jour.day,
-            classe_predite='Pneumonie'
-        ).count()
-        jours30_labels.append(jour.strftime('%d %b'))
-        jours30_pneumonies.append(pneumo)
-        jours30_normaux.append(total - pneumo)
-
-    # --- Analyses 7 derniers jours ---
-    seven_days_ago = timezone.now() - timezone.timedelta(days=7)
-    jours7_labels = []
-    jours7_pneumonies = []
-    jours7_normaux = []
+        # --- Analyses 30 derniers jours ---
+        thirty_days_ago = timezone.now() - timezone.timedelta(days=30)
+        jours30_labels = []
+        jours30_pneumonies = []
+        jours30_normaux = []
+        
+        jours30_qs = (
+            Radiographie.objects
+            .filter(date_upload__gte=thirty_days_ago)
+            .annotate(jour=TruncDay('date_upload'))
+            .values('jour')
+            .annotate(total=Count('id'))
+            .order_by('jour')
+        )
+        for entry in jours30_qs:
+            jour = entry['jour']
+            total = entry['total']
+            pneumo = Radiographie.objects.filter(
+                date_upload__year=jour.year,
+                date_upload__month=jour.month,
+                date_upload__day=jour.day,
+                classe_predite='Pneumonie'
+            ).count()
+            jours30_labels.append(jour.strftime('%d %b'))
+            jours30_pneumonies.append(pneumo)
+            jours30_normaux.append(total - pneumo)
     
-    jours7_qs = (
-        Radiographie.objects
-        .filter(date_upload__gte=seven_days_ago)
-        .annotate(jour=TruncDay('date_upload'))
-        .values('jour')
-        .annotate(total=Count('id'))
-        .order_by('jour')
-    )
-    for entry in jours7_qs:
-        jour = entry['jour']
-        total = entry['total']
-        pneumo = Radiographie.objects.filter(
-            date_upload__year=jour.year,
-            date_upload__month=jour.month,
-            date_upload__day=jour.day,
-            classe_predite='Pneumonie'
-        ).count()
-        jours7_labels.append(jour.strftime('%d %b'))
-        jours7_pneumonies.append(pneumo)
-        jours7_normaux.append(total - pneumo)
-
-    # --- Validation médecin ---
-    validations = Radiographie.objects.values('validation_medecin').annotate(count=Count('id'))
-    validation_data = {v['validation_medecin']: v['count'] for v in validations}
-
-    # --- Démographie patients ---
-    sexe_data = Patient.objects.exclude(sexe__isnull=True).exclude(sexe='').values('sexe').annotate(count=Count('id'))
-    fumeur_data = Patient.objects.exclude(fumeur__isnull=True).exclude(fumeur='').values('fumeur').annotate(count=Count('id'))
-    groupe_data = Patient.objects.exclude(groupe_sanguin__isnull=True).exclude(groupe_sanguin='').values('groupe_sanguin').annotate(count=Count('id'))
-
-    context = {
-        'total_analyses': total_analyses,
-        'cas_pneumonie': cas_pneumonie,
-        'cas_normal': cas_normal,
-        'taux_pneumonie': taux_pneumonie,
-        'avg_confiance': round(avg_confiance, 1),
-        'total_patients': total_patients,
-        # Charts data (JSON for JS)
-        'mois_labels': json.dumps(mois_labels),
-        'mois_pneumonies': json.dumps(mois_pneumonies),
-        'mois_normaux': json.dumps(mois_normaux),
-        'jours30_labels': json.dumps(jours30_labels),
-        'jours30_pneumonies': json.dumps(jours30_pneumonies),
-        'jours30_normaux': json.dumps(jours30_normaux),
-        'jours7_labels': json.dumps(jours7_labels),
-        'jours7_pneumonies': json.dumps(jours7_pneumonies),
-        'jours7_normaux': json.dumps(jours7_normaux),
-        'validation_data': json.dumps(validation_data),
-        'sexe_data': json.dumps({s['sexe']: s['count'] for s in sexe_data}),
-        'fumeur_data': json.dumps({f['fumeur']: f['count'] for f in fumeur_data}),
-        'groupe_data': json.dumps({g['groupe_sanguin']: g['count'] for g in groupe_data}),
-    }
+        # --- Analyses 7 derniers jours ---
+        seven_days_ago = timezone.now() - timezone.timedelta(days=7)
+        jours7_labels = []
+        jours7_pneumonies = []
+        jours7_normaux = []
+        
+        jours7_qs = (
+            Radiographie.objects
+            .filter(date_upload__gte=seven_days_ago)
+            .annotate(jour=TruncDay('date_upload'))
+            .values('jour')
+            .annotate(total=Count('id'))
+            .order_by('jour')
+        )
+        for entry in jours7_qs:
+            jour = entry['jour']
+            total = entry['total']
+            pneumo = Radiographie.objects.filter(
+                date_upload__year=jour.year,
+                date_upload__month=jour.month,
+                date_upload__day=jour.day,
+                classe_predite='Pneumonie'
+            ).count()
+            jours7_labels.append(jour.strftime('%d %b'))
+            jours7_pneumonies.append(pneumo)
+            jours7_normaux.append(total - pneumo)
+    
+        # --- Validation médecin ---
+        validations = Radiographie.objects.values('validation_medecin').annotate(count=Count('id'))
+        validation_data = {v['validation_medecin']: v['count'] for v in validations}
+    
+        # --- Démographie patients ---
+        sexe_data = Patient.objects.exclude(sexe__isnull=True).exclude(sexe='').values('sexe').annotate(count=Count('id'))
+        fumeur_data = Patient.objects.exclude(fumeur__isnull=True).exclude(fumeur='').values('fumeur').annotate(count=Count('id'))
+        groupe_data = Patient.objects.exclude(groupe_sanguin__isnull=True).exclude(groupe_sanguin='').values('groupe_sanguin').annotate(count=Count('id'))
+    
+        context = {
+            'total_analyses': total_analyses,
+            'cas_pneumonie': cas_pneumonie,
+            'cas_normal': cas_normal,
+            'taux_pneumonie': taux_pneumonie,
+            'avg_confiance': round(avg_confiance, 1),
+            'total_patients': total_patients,
+            # Charts data (JSON for JS)
+            'mois_labels': json.dumps(mois_labels),
+            'mois_pneumonies': json.dumps(mois_pneumonies),
+            'mois_normaux': json.dumps(mois_normaux),
+            'jours30_labels': json.dumps(jours30_labels),
+            'jours30_pneumonies': json.dumps(jours30_pneumonies),
+            'jours30_normaux': json.dumps(jours30_normaux),
+            'jours7_labels': json.dumps(jours7_labels),
+            'jours7_pneumonies': json.dumps(jours7_pneumonies),
+            'jours7_normaux': json.dumps(jours7_normaux),
+            'validation_data': json.dumps(validation_data),
+            'sexe_data': json.dumps({s['sexe']: s['count'] for s in sexe_data}),
+            'fumeur_data': json.dumps({f['fumeur']: f['count'] for f in fumeur_data}),
+            'groupe_data': json.dumps({g['groupe_sanguin']: g['count'] for g in groupe_data}),
+        }
+        cache.set('medical_statistics_context', context, 300)
     return render(request, 'medical_app/statistics.html', context)

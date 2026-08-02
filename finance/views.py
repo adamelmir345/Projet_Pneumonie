@@ -13,6 +13,7 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.conf import settings as django_settings
+from django.core.cache import cache
 
 from .models import Tarif, Facture, LigneFacture, Paiement
 from .decorators import role_required
@@ -41,64 +42,83 @@ def dashboard_finance(request):
     else:
         time_threshold = now - timezone.timedelta(days=30 * months_filter)
 
-    # --- KPIs globaux ---
-    factures_all = Facture.objects.exclude(statut='ANNULEE').filter(date_emission__gte=time_threshold)
-    ca_total = factures_all.aggregate(total=Sum('montant_total'))['total'] or Decimal('0.00')
+    # --- KPIs globaux (Mis en cache) ---
+    cache_key = f'finance_dashboard_kpis_{months_filter}'
+    kpis = cache.get(cache_key)
 
-    paiements_all = Paiement.objects.filter(facture__statut__in=['EN_ATTENTE', 'PARTIELLE', 'PAYEE'], facture__date_emission__gte=time_threshold)
-    total_paye = paiements_all.aggregate(total=Sum('montant'))['total'] or Decimal('0.00')
+    if not kpis:
+        factures_all = Facture.objects.exclude(statut='ANNULEE').filter(date_emission__gte=time_threshold)
+        ca_total = factures_all.aggregate(total=Sum('montant_total'))['total'] or Decimal('0.00')
+    
+        paiements_all = Paiement.objects.filter(facture__statut__in=['EN_ATTENTE', 'PARTIELLE', 'PAYEE'], facture__date_emission__gte=time_threshold)
+        total_paye = paiements_all.aggregate(total=Sum('montant'))['total'] or Decimal('0.00')
+    
+        taux_recouvrement = round(float(total_paye) / float(ca_total) * 100, 1) if ca_total > 0 else 0
+    
+        factures_impayees = factures_all.filter(statut__in=['EN_ATTENTE', 'PARTIELLE'])
+        nb_impayees = factures_impayees.count()
+        montant_impaye = ca_total - total_paye
+    
+        nb_factures_mois = factures_all.filter(
+            date_emission__year=now.year, date_emission__month=now.month
+        ).count()
+    
+        # --- Évolution CA par mois ---
+        ca_mois_labels = []
+        ca_mois_values = []
+    
+        ca_mois_qs = (
+            factures_all
+            .annotate(mois=TruncMonth('date_emission'))
+            .values('mois')
+            .annotate(total=Sum('montant_total'))
+            .order_by('mois')
+        )
+        for entry in ca_mois_qs:
+            ca_mois_labels.append(entry['mois'].strftime('%b %Y'))
+            ca_mois_values.append(float(entry['total']))
+    
+        # --- Répartition par méthode de paiement ---
+        methodes_qs = (
+            paiements_all
+            .values('methode')
+            .annotate(total=Sum('montant'))
+            .order_by('-total')
+        )
+        methode_labels = [dict(Paiement.METHODE_CHOICES).get(m['methode'], m['methode']) for m in methodes_qs]
+        methode_values = [float(m['total']) for m in methodes_qs]
 
-    taux_recouvrement = round(float(total_paye) / float(ca_total) * 100, 1) if ca_total > 0 else 0
+        kpis = {
+            'ca_total': ca_total,
+            'total_paye': total_paye,
+            'taux_recouvrement': taux_recouvrement,
+            'nb_impayees': nb_impayees,
+            'montant_impaye': montant_impaye,
+            'nb_factures_mois': nb_factures_mois,
+            'ca_mois_labels': ca_mois_labels,
+            'ca_mois_values': ca_mois_values,
+            'methode_labels': methode_labels,
+            'methode_values': methode_values,
+        }
+        cache.set(cache_key, kpis, 300) # 5 minutes de cache
 
-    factures_impayees = factures_all.filter(statut__in=['EN_ATTENTE', 'PARTIELLE'])
-    nb_impayees = factures_impayees.count()
-    montant_impaye = ca_total - total_paye
-
-    nb_factures_mois = factures_all.filter(
-        date_emission__year=now.year, date_emission__month=now.month
-    ).count()
-
-    # --- Évolution CA par mois ---
-    ca_mois_labels = []
-    ca_mois_values = []
-
-    ca_mois_qs = (
-        factures_all
-        .annotate(mois=TruncMonth('date_emission'))
-        .values('mois')
-        .annotate(total=Sum('montant_total'))
-        .order_by('mois')
-    )
-    for entry in ca_mois_qs:
-        ca_mois_labels.append(entry['mois'].strftime('%b %Y'))
-        ca_mois_values.append(float(entry['total']))
-
-    # --- Répartition par méthode de paiement ---
-    methodes_qs = (
-        paiements_all
-        .values('methode')
-        .annotate(total=Sum('montant'))
-        .order_by('-total')
-    )
-    methode_labels = [dict(Paiement.METHODE_CHOICES).get(m['methode'], m['methode']) for m in methodes_qs]
-    methode_values = [float(m['total']) for m in methodes_qs]
-
-    # --- Dernières factures ---
-    dernieres_factures = factures_all.order_by('-date_emission')[:5]
+    # --- Dernières factures (temps réel, hors cache) ---
+    factures_all_rt = Facture.objects.exclude(statut='ANNULEE').filter(date_emission__gte=time_threshold)
+    dernieres_factures = factures_all_rt.order_by('-date_emission')[:5]
 
     context = {
-        'ca_total': ca_total,
-        'total_paye': total_paye,
-        'taux_recouvrement': taux_recouvrement,
-        'nb_impayees': nb_impayees,
-        'montant_impaye': montant_impaye,
-        'nb_factures_mois': nb_factures_mois,
+        'ca_total': kpis['ca_total'],
+        'total_paye': kpis['total_paye'],
+        'taux_recouvrement': kpis['taux_recouvrement'],
+        'nb_impayees': kpis['nb_impayees'],
+        'montant_impaye': kpis['montant_impaye'],
+        'nb_factures_mois': kpis['nb_factures_mois'],
         'dernieres_factures': dernieres_factures,
         # Charts
-        'ca_mois_labels': json.dumps(ca_mois_labels),
-        'ca_mois_values': json.dumps(ca_mois_values),
-        'methode_labels': json.dumps(methode_labels),
-        'methode_values': json.dumps(methode_values),
+        'ca_mois_labels': json.dumps(kpis['ca_mois_labels']),
+        'ca_mois_values': json.dumps(kpis['ca_mois_values']),
+        'methode_labels': json.dumps(kpis['methode_labels']),
+        'methode_values': json.dumps(kpis['methode_values']),
         'current_months': months_filter,
     }
     return render(request, 'finance/finance_dashboard.html', context)
