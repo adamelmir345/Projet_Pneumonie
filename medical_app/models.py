@@ -1,5 +1,10 @@
 from django.db import models
 from .utils import predict_pneumonia, generate_gradcam
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from io import BytesIO
+from PIL import Image
+import sys
+import os
 
 class Patient(models.Model):
     SEXE_CHOICES = [
@@ -56,6 +61,7 @@ class Radiographie(models.Model):
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='radiographies')
     image = models.ImageField(upload_to='radiographies/')
+    image_thumbnail = models.ImageField(upload_to='radiographies/thumbnails/', null=True, blank=True)
     heatmap_image = models.ImageField(upload_to='heatmaps/', null=True, blank=True)
     date_upload = models.DateTimeField(auto_now_add=True)
     
@@ -72,6 +78,39 @@ class Radiographie(models.Model):
         ('Corrigé (Pneumonie)', 'Corrigé (C\'est une Pneumonie)'),
     ]
     validation_medecin = models.CharField(max_length=30, choices=VALIDATION_CHOICES, default='En attente')
+
+    def save(self, *args, **kwargs):
+        # Créer la miniature si l'image principale existe et que la miniature n'existe pas
+        if self.image and not self.image_thumbnail:
+            try:
+                # Ouvrir l'image
+                img = Image.open(self.image)
+                # Convertir en RGB si nécessaire (pour éviter des soucis avec les PNG)
+                if img.mode != 'RGB':
+                    img = img.convert('RGB')
+                
+                # Redimensionner l'image (200x200 max)
+                img.thumbnail((200, 200), Image.Resampling.LANCZOS)
+                
+                # Sauvegarder dans un buffer en mémoire
+                output = BytesIO()
+                img.save(output, format='JPEG', quality=85)
+                output.seek(0)
+                
+                # Générer le nom de fichier
+                filename = os.path.basename(self.image.name)
+                name, _ = os.path.splitext(filename)
+                thumb_filename = f"{name}_thumb.jpg"
+                
+                # Assigner le fichier généré au champ
+                self.image_thumbnail = InMemoryUploadedFile(
+                    output, 'ImageField', thumb_filename,
+                    'image/jpeg', sys.getsizeof(output), None
+                )
+            except Exception as e:
+                print(f"Erreur lors de la génération de la miniature : {e}")
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Radio de {self.patient.nom} - {self.classe_predite} ({self.pourcentage_confiance}%)"

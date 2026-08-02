@@ -189,7 +189,11 @@
 <div class="flex gap-3 shrink-0">
 {% if radio.image %}
 <a href="{{ radio.image.url }}" target="_blank" class="relative rounded-2xl overflow-hidden border-2 border-outline-variant shadow-sm group-hover:scale-105 transition-transform">
+{% if radio.image_thumbnail %}
+<img class="w-14 h-14 object-cover" src="{{ radio.image_thumbnail.url }}" alt="Radiographie Thumbnail"/>
+{% else %}
 <img class="w-14 h-14 object-cover" src="{{ radio.image.url }}" alt="Radiographie"/>
+{% endif %}
 </a>
 {% endif %}
 {% if radio.heatmap_image %}

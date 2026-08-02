@@ -348,7 +348,11 @@
  <div class="flex gap-2">
  {% if radio.image %}
  <a href="{{ radio.image.url }}" target="_blank" class="w-10 h-10 rounded-lg overflow-hidden border border-outline-variant shadow-sm hover:scale-110 transition-transform">
+ {% if radio.image_thumbnail %}
+ <img src="{{ radio.image_thumbnail.url }}" class="w-full h-full object-cover"/>
+ {% else %}
  <img src="{{ radio.image.url }}" class="w-full h-full object-cover"/>
+ {% endif %}
  </a>
  {% endif %}
  {% if radio.heatmap_image %}
