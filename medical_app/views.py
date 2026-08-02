@@ -213,7 +213,10 @@ from xhtml2pdf import pisa
 def generer_rapport_pdf(request, radio_id):
     radio = get_object_or_404(Radiographie, id=radio_id)
     template_path = 'medical_app/rapport_pdf.html'
-    context = {'radio': radio, 'patient': radio.patient}
+    context = {
+        'radio': radio, 
+        'patient': radio.patient,
+    }
     
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="Rapport_Pneumonie_{radio.patient.nom}.pdf"'

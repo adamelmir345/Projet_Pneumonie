@@ -42,12 +42,12 @@ def predict_pneumonia(img_path):
     score = float(prediction[0][0])  # Valeur entre 0 et 1 (sigmoïde)
 
     # 5. Interprétation du résultat
-    # Le modèle a été entraîné avec : 0 = Pneumonie, 1 = Normal
+    # Le modèle a été entraîné avec : 0 = Normal, 1 = Pneumonie
     if score > 0.5:
-        classe = "Normal"
+        classe = "Pneumonie"
         confiance = score * 100
     else:
-        classe = "Pneumonie"
+        classe = "Normal"
         confiance = (1 - score) * 100
 
     return classe, round(confiance, 2)
