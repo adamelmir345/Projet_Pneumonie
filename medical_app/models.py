@@ -1,4 +1,5 @@
 from django.db import models
+from .fields import EncryptedCharField, EncryptedTextField
 from .utils import predict_pneumonia, generate_gradcam
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from io import BytesIO
@@ -28,17 +29,17 @@ class Patient(models.Model):
     prenom = models.CharField(max_length=100)
     date_naissance = models.DateField()
     sexe = models.CharField(max_length=10, choices=SEXE_CHOICES, blank=True, null=True)
-    telephone = models.CharField(max_length=20, blank=True, null=True)
-    adresse = models.TextField(blank=True, null=True)
+    telephone = EncryptedCharField(max_length=20, blank=True, null=True)
+    adresse = EncryptedTextField(blank=True, null=True)
 
     # Médical
     groupe_sanguin = models.CharField(max_length=5, choices=GROUPE_SANGUIN_CHOICES, blank=True, null=True)
     poids = models.FloatField(blank=True, null=True, help_text="Poids en kg")
     taille = models.FloatField(blank=True, null=True, help_text="Taille en cm")
-    allergies = models.TextField(blank=True, null=True)
+    allergies = EncryptedTextField(blank=True, null=True)
     fumeur = models.CharField(max_length=20, choices=FUMEUR_CHOICES, blank=True, null=True)
-    antecedents_medicaux = models.TextField(blank=True, null=True)
-    notes_medecin = models.TextField(blank=True, null=True)
+    antecedents_medicaux = EncryptedTextField(blank=True, null=True)
+    notes_medecin = EncryptedTextField(blank=True, null=True)
 
     date_creation = models.DateTimeField(auto_now_add=True)
 
